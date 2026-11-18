@@ -1,0 +1,34 @@
+{
+  "run_id": "S1-SYM67976-20261113-01",
+  "date": "2026-11-13",
+  "source": {
+    "repo": "symfony/symfony",
+    "pr": 67976,
+    "pr_url": "https://github.com/symfony/symfony/pull/67976",
+    "merge_commit": "b82dd4e6f9eef23fe12f5a5512bdb0a70462d1c0",
+    "branch": "6.4",
+    "license": "MIT",
+    "upstream_fix": "Track the glob resource of import() so new files are detected"
+  },
+  "command": "bash samples/upstream/symfony-routing-glob-67976/run.sh",
+  "environment": {
+    "php": "8.5.4",
+    "composer": "2.9.5",
+    "symfony_yaml": "8.1.11"
+  },
+  "result": {
+    "checks": 8,
+    "status": "OK",
+    "log_sha256": "8dacf15683ad12a72436f1941206b04a35bba82de687e09ae0cfa8e97ab477e0",
+    "tarball_sha256": "1bdc0d216a8f119ed9b27dabee4ae2a476fd05239f58ab44a66353bc6123f9e5"
+  },
+  "evidence": {
+    "route": "E1",
+    "scope": "SCOPED_CHECKED",
+    "source": "EXTERNAL_REAL_CASE",
+    "independence": "SELF_CHECKED",
+    "holdout": "UNMAPPED",
+    "leakage": "AUTHOR_KNOWS_EXPECTED"
+  },
+  "caveat": "This is a minimal harness over the frozen upstream production classes, not the upstream PHPUnit test suite. It is not an independent oracle and not G1/G2 evidence."
+}

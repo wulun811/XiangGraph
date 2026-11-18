@@ -1,0 +1,3 @@
+services:
+    App\Mailer:
+        class: App\Mailer

@@ -1,0 +1,5 @@
+{
+  "id": "g1-docs-only",
+  "description": "Only an unrelated documentation node changes; routing evidence must stay valid.",
+  "overlay_dir": "files"
+}

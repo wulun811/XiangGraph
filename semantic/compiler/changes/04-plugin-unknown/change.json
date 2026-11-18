@@ -1,0 +1,5 @@
+{
+  "id": "g1-plugin-unknown",
+  "description": "A change falls in an open directory with no extracted or contracted pattern.",
+  "overlay_dir": "files"
+}

@@ -1,0 +1,11 @@
+source_commit=b82dd4e6f9eef23fe12f5a5512bdb0a70462d1c0
+sha256 symfony.tar.gz=1bdc0d216a8f119ed9b27dabee4ae2a476fd05239f58ab44a66353bc6123f9e5
+PASS DI glob with zero matches is tracked
+PASS DI glob resource keeps pattern
+PASS Routing zero-match import is tracked
+PASS Routing zero-match pattern is kept
+PASS First load sees bar route
+PASS First load does not see baz route
+PASS New glob-matched file is discovered
+PASS Glob resource is recorded after new match
+OK: 8 upstream-code behavior checks passed

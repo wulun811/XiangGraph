@@ -1,0 +1,3 @@
+admin_users:
+    path: /admin/users
+    controller: App\Controller\Admin\UserController::index

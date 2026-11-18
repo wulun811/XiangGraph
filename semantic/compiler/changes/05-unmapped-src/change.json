@@ -1,0 +1,5 @@
+{
+  "id": "g1-unmapped-src",
+  "description": "An existing source file changes under an open prefix, but no extracted pattern covers controller source.",
+  "overlay_dir": "files"
+}

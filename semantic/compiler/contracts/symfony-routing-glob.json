@@ -1,0 +1,155 @@
+{
+  "contract_id": "symfony-routing-glob.v1",
+  "world": {
+    "revision": 100,
+    "contract_revision": 7
+  },
+  "source": {
+    "pr": 67976,
+    "pr_url": "https://github.com/symfony/symfony/pull/67976",
+    "commit": "b82dd4e6f9eef23fe12f5a5512bdb0a70462d1c0",
+    "license": "MIT",
+    "note": "The workspace is a controlled Symfony-style snapshot modeled on the syntax exercised by this PR. It is not the full Symfony application.",
+    "upstream_evidence": {
+      "harness": "samples/upstream/symfony-routing-glob-67976",
+      "harness_log_sha256": "8dacf15683ad12a72436f1941206b04a35bba82de687e09ae0cfa8e97ab477e0",
+      "file_sha256": {
+        "src/Symfony/Component/DependencyInjection/Loader/FileLoader.php": "a27f5e7b430643f526b39fa8b6fa33473c219c7c8290d75f198085366c61cb98",
+        "src/Symfony/Component/Routing/Loader/Configurator/RoutingConfigurator.php": "9c0fef108efe61a6f38ebfcfa7378137f2bdabd2237d044660e5a9a7b1e1935e",
+        "src/Symfony/Component/Routing/Loader/Configurator/Traits/GlobResourceTrait.php": "9145ea8c6729182f5648563c14bf80485de4aeb3d36dd357c3bc9d2dd4912849"
+      }
+    }
+  },
+  "import_kinds": [
+    { "source_glob": "config/routes.php", "kind": "routing_import" },
+    { "source_glob": "config/services.yaml", "kind": "di_import" }
+  ],
+  "kinds": {
+    "routing_import": {
+      "depends_on": ["routing.routes.index", "routing.cache"],
+      "coverage": "open_world_tracked"
+    },
+    "di_import": {
+      "depends_on": ["di.services.index", "di.cache"],
+      "coverage": "open_world_tracked"
+    }
+  },
+  "open_prefixes": ["file:config/plugins/", "file:src/"],
+  "analyzed_prefixes": ["docs/"],
+  "invariants": [
+    {
+      "id": "inv.routing-index",
+      "kind": "equals",
+      "inputs": ["routing.routes.index", "routing.routes.expected"],
+      "scope_ref": "routing",
+      "source": "routing_consumer_test",
+      "hard": true
+    },
+    {
+      "id": "inv.routing-cache",
+      "kind": "equals",
+      "inputs": ["routing.cache", "routing.cache.expected"],
+      "scope_ref": "routing",
+      "source": "routing_cache_plan",
+      "hard": true
+    },
+    {
+      "id": "inv.di-index",
+      "kind": "equals",
+      "inputs": ["di.services.index", "di.services.expected"],
+      "scope_ref": "di",
+      "source": "container_consumer_test",
+      "hard": true
+    },
+    {
+      "id": "inv.docs",
+      "kind": "equals",
+      "inputs": ["docs.content", "docs.published"],
+      "scope_ref": "docs",
+      "source": "docs_build",
+      "hard": true
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev.routing-index.base",
+      "claims": ["inv.routing-index"],
+      "result": "pass",
+      "source": "routing_consumer_test"
+    },
+    {
+      "id": "ev.routing-cache.base",
+      "claims": ["inv.routing-cache"],
+      "result": "pass",
+      "source": "routing_cache_plan"
+    },
+    {
+      "id": "ev.di-index.base",
+      "claims": ["inv.di-index"],
+      "result": "pass",
+      "source": "container_consumer_test"
+    },
+    {
+      "id": "ev.docs.base",
+      "claims": ["inv.docs"],
+      "result": "pass",
+      "source": "docs_build"
+    }
+  ],
+  "work_graph": {
+    "nodes": [
+      {
+        "id": "T01",
+        "reads": ["$routing_pattern_facts"],
+        "writes": ["routing.plan"],
+        "depends_on": []
+      },
+      {
+        "id": "T02",
+        "reads": ["routing.plan"],
+        "writes": ["routing.routes.index"],
+        "depends_on": ["T01"]
+      },
+      {
+        "id": "T03",
+        "reads": ["routing.routes.index"],
+        "writes": ["routing.cache"],
+        "depends_on": ["T02"]
+      },
+      {
+        "id": "T04",
+        "reads": ["docs.content"],
+        "writes": ["docs.site"],
+        "depends_on": []
+      },
+      {
+        "id": "T05",
+        "reads": ["$di_pattern_facts"],
+        "writes": ["di.plan"],
+        "depends_on": []
+      },
+      {
+        "id": "T06",
+        "reads": ["di.plan"],
+        "writes": ["di.services.index"],
+        "depends_on": ["T05"]
+      },
+      {
+        "id": "T07",
+        "reads": ["di.services.index"],
+        "writes": ["di.cache"],
+        "depends_on": ["T06"]
+      },
+      {
+        "id": "T08",
+        "reads": ["docs.site"],
+        "writes": ["docs.publish"],
+        "depends_on": ["T04"]
+      }
+    ]
+  },
+  "grant": {
+    "actor": "g1-compiler",
+    "epoch": 1
+  }
+}

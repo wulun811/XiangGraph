@@ -1,0 +1,5 @@
+{
+  "id": "g1-glob-rule-zero-match",
+  "description": "The import rule changes but currently matches zero files; zero matches must not mean zero dependency.",
+  "overlay_dir": "files"
+}

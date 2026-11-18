@@ -1,0 +1,6 @@
+{
+  "id": "g1-add-route-file",
+  "description": "A route file that did not exist in the base snapshot matches the extracted routing glob.",
+  "overlay_dir": "files",
+  "expected_routes": ["api_home", "admin_users"]
+}
