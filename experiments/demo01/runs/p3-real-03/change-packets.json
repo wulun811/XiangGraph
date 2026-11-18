@@ -1,0 +1,61 @@
+{
+    "a_change": {
+        "resource": "config/refund-policy.php",
+        "base_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+        "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+        "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];",
+        "epoch": 1
+    },
+    "b_change": {
+        "resource": "src/RefundService.php",
+        "base_hash": "4693f7279acf8a93bd3dc6bcf65ee7a2812879a9363b0b0d4b017efb35d5c45f",
+        "current_hash": "62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b",
+        "epoch": 1,
+        "diff_ref": "sha256:7f80e76d2f461b71ae0cdf620e658b06b2f85a33d26ec916afe1b31b10ae204b",
+        "diff": "--- src/RefundService.php:base\n+++ src/RefundService.php:current\n@@ -4,7 +4,7 @@\n\n final class RefundService\n {\n-    public const VERSION = 'v1';\n+    public const VERSION = 'v2';\n\n     /**\n      * @return array<string, mixed>\n@@ -25,15 +25,75 @@\n         if ($requestedPercent < 1 || $requestedPercent > 100) {\n             throw new \\InvalidArgumentException('requested percent must be between 1 and 100');\n         }\n-        if ($requestedPercent !== 100) {\n+\n+        if ($requestedPercent === 100) {\n+            return [\n+                'amount_cents' => $amountCents,\n+                'refund_percent' => 100,\n+                'refund_cents' => $amountCents,\n+                'mode' => 'full',\n+            ];\n+        }\n+\n+        $policy = self::policy();\n+\n+        if (($policy['partial_refund_enabled'] ?? false) !== true) {\n             throw new \\InvalidArgumentException('partial refunds are not enabled');\n         }\n\n+        $partialPolicy = $policy['partial_refund'] ?? null;\n+        if (!is_array($partialPolicy)) {\n+            throw new \\InvalidArgumentException('partial refund policy is missing');\n+        }\n+\n+        $minAmountCents = (int) ($partialPolicy['min_amount_cents'] ?? 0);\n+        $partialMaxPercent = (int) ($partialPolicy['max_percent'] ?? 0);\n+\n+        if ($amountCents < $minAmountCents) {\n+            throw new \\InvalidArgumentException('amount is below the partial refund minimum');\n+        }\n+        if ($requestedPercent > $partialMaxPercent) {\n+            throw new \\InvalidArgumentException('requested percent exceeds the partial refund maximum');\n+        }\n+\n+        $tierMaxPercent = self::tierMaxPercent($policy['tiers'] ?? [], $amountCents);\n+        if ($tierMaxPercent === null) {\n+            throw new \\InvalidArgumentException('no refund tier covers this amount');\n+        }\n+        if ($requestedPercent > $tierMaxPercent) {\n+            throw new \\InvalidArgumentException('requested percent exceeds the tier maximum');\n+        }\n+\n         return [\n             'amount_cents' => $amountCents,\n-            'refund_percent' => 100,\n-            'refund_cents' => $amountCents,\n-            'mode' => 'full',\n+            'refund_percent' => $requestedPercent,\n+            'refund_cents' => (int) round($amountCents * $requestedPercent / 100),\n+            'mode' => 'partial',\n         ];\n     }\n+\n+    /**\n+     * @param array<int, array<string, mixed>> $tiers\n+     */\n+    private static function tierMaxPercent(array $tiers, int $amountCents): ?int\n+    {\n+        $selected = null;\n+        $selectedMin = null;\n+\n+        foreach ($tiers as $tier) {\n+            if (!is_array($tier)) {\n+                continue;\n+            }\n+            $tierMin = (int) ($tier['min_amount_cents'] ?? 0);\n+            if ($tierMin > $amountCents) {\n+                continue;\n+            }\n+            if ($selectedMin === null || $tierMin >= $selectedMin) {\n+                $selectedMin = $tierMin;\n+                $selected = (int) ($tier['max_refund_percent'] ?? 0);\n+            }\n+        }\n+\n+        return $selected;\n+    }\n }"
+    },
+    "dispatcher_history": [
+        {
+            "action": "DELIVERED",
+            "packet_id": "cp-a42e1e0742873bb7",
+            "principal": "feature-agent",
+            "kind": "RESUME_CANDIDATE",
+            "at": "2026-11-14T23:12:17+00:00"
+        },
+        {
+            "action": "DELIVERED",
+            "packet_id": "cp-f60e38f497f76c40",
+            "principal": "verify-agent",
+            "kind": "REVALIDATION_REQUIRED",
+            "at": "2026-11-14T23:12:17+00:00"
+        },
+        {
+            "action": "ACKED",
+            "packet_id": "cp-f60e38f497f76c40",
+            "principal": "verify-agent",
+            "status": "ACKED",
+            "at": "2026-11-14T23:12:20+00:00"
+        },
+        {
+            "action": "ACKED",
+            "packet_id": "cp-a42e1e0742873bb7",
+            "principal": "feature-agent",
+            "status": "ACKED",
+            "at": "2026-11-14T23:12:40+00:00"
+        },
+        {
+            "action": "DELIVERED",
+            "packet_id": "cp-5d1992e0fdfa42a4",
+            "principal": "verify-agent",
+            "kind": "REVALIDATION_REQUIRED",
+            "at": "2026-11-14T23:13:31+00:00"
+        },
+        {
+            "action": "ACKED",
+            "packet_id": "cp-5d1992e0fdfa42a4",
+            "principal": "verify-agent",
+            "status": "ACKED",
+            "at": "2026-11-14T23:13:35+00:00"
+        }
+    ]
+}

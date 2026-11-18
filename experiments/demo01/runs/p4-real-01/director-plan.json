@@ -1,0 +1,155 @@
+{
+    "run_id": "p4-real-01",
+    "status": "VALID",
+    "plan_hash": "sha256:e23684029d8da9f6abc2ade4eb6ad7700a72aad7c09da8090b72c2a587bdafca",
+    "plan": {
+        "schema_version": "xg-coordination-plan/v0.1",
+        "plan_id": "demo01-orders-api-v2-plan",
+        "policy_revision": 1,
+        "goal": "Implement a contract-driven order query module and apply signed API contract change CR-002 without a shared file lock.",
+        "works": [
+            {
+                "id": "W1",
+                "title": "Apply signed CR-002 to the orders API contract",
+                "owners": [
+                    "contract-agent"
+                ],
+                "depends_on": [],
+                "resources": [
+                    "change-requests/CR-002.json",
+                    "contract/orders-api.json"
+                ],
+                "outputs": [
+                    "contract/orders-api.json"
+                ]
+            },
+            {
+                "id": "W2",
+                "title": "Implement the contract-driven OrderQuery client",
+                "owners": [
+                    "client-agent"
+                ],
+                "depends_on": [
+                    "W1"
+                ],
+                "resources": [
+                    "contract/orders-api.json",
+                    "data/orders.json",
+                    "src/OrderQuery.php"
+                ],
+                "outputs": [
+                    "src/OrderQuery.php"
+                ]
+            },
+            {
+                "id": "W3",
+                "title": "Verify contract, client, and tests, then submit evidence",
+                "owners": [
+                    "verify-agent"
+                ],
+                "depends_on": [
+                    "W1",
+                    "W2"
+                ],
+                "resources": [
+                    "contract/orders-api.json",
+                    "src/OrderQuery.php",
+                    "tests/orders_query.php",
+                    "data/orders.json",
+                    "evidence/"
+                ],
+                "outputs": [
+                    "ev:orders-api-v2"
+                ]
+            }
+        ],
+        "protocol_composition": [
+            {
+                "protocol": "P-DEP",
+                "version": "v0.1",
+                "scope": [
+                    "W1",
+                    "W2",
+                    "W3"
+                ]
+            },
+            {
+                "protocol": "P-REVIEW",
+                "version": "v0.1",
+                "scope": [
+                    "W3"
+                ]
+            },
+            {
+                "protocol": "P-ESCALATE",
+                "version": "v0.1",
+                "scope": [
+                    "W1",
+                    "W2",
+                    "W3"
+                ]
+            }
+        ],
+        "authority": {
+            "director": "director",
+            "human_authorizer": "human:owner",
+            "trusted_signers": [
+                "human:owner"
+            ]
+        },
+        "decision_rights": {
+            "signed_contracts": [
+                {
+                    "contract_id": "orders-api-v2",
+                    "signer": "human:owner",
+                    "version": "v2",
+                    "status": "ACTIVE",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ]
+                }
+            ],
+            "delegations": []
+        },
+        "risk_boundary": {
+            "external_money_transfer": "PROHIBITED",
+            "production_write": "PROHIBITED",
+            "unknown_effect_retry": "PROHIBITED",
+            "max_negotiation_rounds": 2,
+            "director_unavailable_default": "HOLD_AFFECTED_SCOPE",
+            "human_only_options": [
+                "production_write",
+                "real_payment",
+                "deployment"
+            ]
+        },
+        "escalation_policy": {
+            "director_only_when": [
+                "UNSIGNED_CONTRACT_CHANGE",
+                "CONTRADICTORY_CONTRACT",
+                "PROTOCOL_GAP",
+                "DEADLOCK_DETECTED",
+                "BUDGET_EXCEEDED"
+            ],
+            "do_not_escalate_for": [
+                "RESOURCE_CONTENTION",
+                "WAIT_AND_RESUME",
+                "REVALIDATION",
+                "ORDINARY_PROGRESS"
+            ],
+            "deduplicate_by": [
+                "root_cause",
+                "scope"
+            ],
+            "response_requires": [
+                "evidence_refs",
+                "scope"
+            ],
+            "response_must_pass": [
+                "ProtocolContract"
+            ]
+        }
+    }
+}

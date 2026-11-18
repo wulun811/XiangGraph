@@ -1,0 +1,15 @@
+{
+    "attempt": 1,
+    "response": {
+        "request_id": "dirreq-ff88290f218c",
+        "actor": "director",
+        "policy_revision": 1,
+        "scope": [
+            "W1",
+            "W2"
+        ],
+        "chosen_option": "VERSIONED_API",
+        "reason": "Resolve the refund API design conflict by selecting the recommended VERSIONED_API path: continue both scopes, rebase W2 for compatibility review, and stop separate-resource implementation."
+    },
+    "raw": "{\"request_id\":\"dirreq-ff88290f218c\",\"actor\":\"director\",\"policy_revision\":1,\"scope\":[\"W1\",\"W2\"],\"chosen_option\":\"VERSIONED_API\",\"reason\":\"Resolve the refund API design conflict by selecting the recommended VERSIONED_API path: continue both scopes, rebase W2 for compatibility review, and stop separate-resource implementation.\"}"
+}

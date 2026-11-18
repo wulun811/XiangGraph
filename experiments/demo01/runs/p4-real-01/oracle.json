@@ -1,0 +1,126 @@
+{
+    "work_completed": true,
+    "failures": [],
+    "checks": {
+        "contract_exists": {
+            "pass": true,
+            "detail": null
+        },
+        "client_exists": {
+            "pass": true,
+            "detail": null
+        },
+        "test_exists": {
+            "pass": true,
+            "detail": null
+        },
+        "data_exists": {
+            "pass": true,
+            "detail": null
+        },
+        "contract_loads": {
+            "pass": true,
+            "detail": null
+        },
+        "contract_schema_version": {
+            "pass": true,
+            "detail": null
+        },
+        "contract_id": {
+            "pass": true,
+            "detail": null
+        },
+        "contract_revision_2": {
+            "pass": true,
+            "detail": null
+        },
+        "contract_max_limit_200": {
+            "pass": true,
+            "detail": null
+        },
+        "contract_default_limit_20": {
+            "pass": true,
+            "detail": null
+        },
+        "contract_fields_exact": {
+            "pass": true,
+            "detail": null
+        },
+        "contract_statuses": {
+            "pass": true,
+            "detail": null
+        },
+        "test_untouched": {
+            "pass": true,
+            "detail": null
+        },
+        "repo_test_passes": {
+            "pass": true,
+            "detail": null
+        },
+        "probe_basic": {
+            "pass": true,
+            "detail": null
+        },
+        "rows_10": {
+            "pass": true,
+            "detail": null
+        },
+        "row_keys_follow_contract": {
+            "pass": true,
+            "detail": null
+        },
+        "limit_3_rows": {
+            "pass": true,
+            "detail": null
+        },
+        "limit_201_rejected": {
+            "pass": true,
+            "detail": null
+        },
+        "status_filter_refunded": {
+            "pass": true,
+            "detail": null
+        },
+        "summary_orders": {
+            "pass": true,
+            "detail": null
+        },
+        "summary_amount": {
+            "pass": true,
+            "detail": null
+        },
+        "summary_refunded": {
+            "pass": true,
+            "detail": null
+        },
+        "runtime_limit_dependency": {
+            "pass": true,
+            "detail": null
+        },
+        "runtime_field_dependency": {
+            "pass": true,
+            "detail": null
+        }
+    },
+    "runtime_limit": {
+        "pass": true,
+        "detail": {
+            "ok": true,
+            "rejected": "InvalidArgumentException",
+            "limit3": 3
+        }
+    },
+    "runtime_fields": {
+        "pass": true,
+        "detail": {
+            "ok": true,
+            "row_keys": [
+                "order_id",
+                "amount_cents"
+            ]
+        }
+    },
+    "oracle": "DEMO01-ORDERS-ORACLE-V1",
+    "exit": 0
+}

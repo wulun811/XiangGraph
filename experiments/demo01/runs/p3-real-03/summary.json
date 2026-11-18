@@ -1,0 +1,403 @@
+{
+    "slice": "DEMO01-P3-3AGENT-CONTENTION",
+    "run_id": "p3-real-03",
+    "mode": "real",
+    "plan_source": "LIVE_DIRECTOR_P2:director-real-02",
+    "status": "DEMO01_COORDINATION_SMOKE_PASS",
+    "flags": {
+        "director_plan_valid": true,
+        "a_acquired": true,
+        "a_finished": true,
+        "b_finished": true,
+        "c_finished_first": true,
+        "c_finished_service": true,
+        "contention_observed": true,
+        "a_applied": true,
+        "a_released": true,
+        "b_acked_change": true,
+        "b_read_after_change": true,
+        "b_acquired_after_change": true,
+        "b_applied_after_change": true,
+        "b_service_written_after_change": false,
+        "b_released_after_change": true,
+        "c_acked_first_change": true,
+        "c_ran_affected_boundary": true,
+        "c_avoided_unaffected_service_before_b": true,
+        "c_acked_service_change": true,
+        "c_ran_affected_service": true,
+        "c_avoided_unaffected_boundary_second": true,
+        "service_change_observed": true,
+        "tests_untouched": true,
+        "tests_pass": true,
+        "oracle_pass": true,
+        "director_idle_during_execution": true,
+        "event_chain_valid": true
+    },
+    "coordination_closure": true,
+    "scenario_smoke_pass": true,
+    "agents": {
+        "policy-agent": {
+            "turns": 6,
+            "done": true,
+            "errors": 0
+        },
+        "feature-agent": {
+            "turns": 16,
+            "done": true,
+            "errors": 0
+        },
+        "verify-agent": {
+            "turns": 9,
+            "done": true,
+            "errors": 0
+        }
+    },
+    "baseline_evidence": {
+        "ev:refund-boundary-v1": {
+            "test": "tests/refund_boundary.php",
+            "exit_code": 1,
+            "status": "FAIL",
+            "output_tail": "FAIL refund boundary: max_refund_percent, manual_review_above, partial_refund_enabled, high_tier",
+            "recorded_at": "2026-11-14T23:11:22+00:00"
+        },
+        "ev:refund-service-v1": {
+            "test": "tests/refund_service.php",
+            "exit_code": 0,
+            "status": "PASS",
+            "output_tail": "PASS refund service",
+            "recorded_at": "2026-11-14T23:11:22+00:00"
+        }
+    },
+    "a_change": {
+        "resource": "config/refund-policy.php",
+        "base_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+        "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+        "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];",
+        "epoch": 1
+    },
+    "b_change": {
+        "resource": "src/RefundService.php",
+        "base_hash": "4693f7279acf8a93bd3dc6bcf65ee7a2812879a9363b0b0d4b017efb35d5c45f",
+        "current_hash": "62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b",
+        "epoch": 1,
+        "diff_ref": "sha256:7f80e76d2f461b71ae0cdf620e658b06b2f85a33d26ec916afe1b31b10ae204b",
+        "diff": "--- src/RefundService.php:base\n+++ src/RefundService.php:current\n@@ -4,7 +4,7 @@\n\n final class RefundService\n {\n-    public const VERSION = 'v1';\n+    public const VERSION = 'v2';\n\n     /**\n      * @return array<string, mixed>\n@@ -25,15 +25,75 @@\n         if ($requestedPercent < 1 || $requestedPercent > 100) {\n             throw new \\InvalidArgumentException('requested percent must be between 1 and 100');\n         }\n-        if ($requestedPercent !== 100) {\n+\n+        if ($requestedPercent === 100) {\n+            return [\n+                'amount_cents' => $amountCents,\n+                'refund_percent' => 100,\n+                'refund_cents' => $amountCents,\n+                'mode' => 'full',\n+            ];\n+        }\n+\n+        $policy = self::policy();\n+\n+        if (($policy['partial_refund_enabled'] ?? false) !== true) {\n             throw new \\InvalidArgumentException('partial refunds are not enabled');\n         }\n\n+        $partialPolicy = $policy['partial_refund'] ?? null;\n+        if (!is_array($partialPolicy)) {\n+            throw new \\InvalidArgumentException('partial refund policy is missing');\n+        }\n+\n+        $minAmountCents = (int) ($partialPolicy['min_amount_cents'] ?? 0);\n+        $partialMaxPercent = (int) ($partialPolicy['max_percent'] ?? 0);\n+\n+        if ($amountCents < $minAmountCents) {\n+            throw new \\InvalidArgumentException('amount is below the partial refund minimum');\n+        }\n+        if ($requestedPercent > $partialMaxPercent) {\n+            throw new \\InvalidArgumentException('requested percent exceeds the partial refund maximum');\n+        }\n+\n+        $tierMaxPercent = self::tierMaxPercent($policy['tiers'] ?? [], $amountCents);\n+        if ($tierMaxPercent === null) {\n+            throw new \\InvalidArgumentException('no refund tier covers this amount');\n+        }\n+        if ($requestedPercent > $tierMaxPercent) {\n+            throw new \\InvalidArgumentException('requested percent exceeds the tier maximum');\n+        }\n+\n         return [\n             'amount_cents' => $amountCents,\n-            'refund_percent' => 100,\n-            'refund_cents' => $amountCents,\n-            'mode' => 'full',\n+            'refund_percent' => $requestedPercent,\n+            'refund_cents' => (int) round($amountCents * $requestedPercent / 100),\n+            'mode' => 'partial',\n         ];\n     }\n+\n+    /**\n+     * @param array<int, array<string, mixed>> $tiers\n+     */\n+    private static function tierMaxPercent(array $tiers, int $amountCents): ?int\n+    {\n+        $selected = null;\n+        $selectedMin = null;\n+\n+        foreach ($tiers as $tier) {\n+            if (!is_array($tier)) {\n+                continue;\n+            }\n+            $tierMin = (int) ($tier['min_amount_cents'] ?? 0);\n+            if ($tierMin > $amountCents) {\n+                continue;\n+            }\n+            if ($selectedMin === null || $tierMin >= $selectedMin) {\n+                $selectedMin = $tierMin;\n+                $selected = (int) ($tier['max_refund_percent'] ?? 0);\n+            }\n+        }\n+\n+        return $selected;\n+    }\n }"
+    },
+    "test_runs": {
+        "verify-agent": [
+            {
+                "path": "tests/refund_boundary.php",
+                "exit_code": 0,
+                "at": "2026-11-14T23:12:27+00:00"
+            },
+            {
+                "path": "tests/refund_service.php",
+                "exit_code": 0,
+                "at": "2026-11-14T23:13:49+00:00"
+            }
+        ],
+        "feature-agent": [
+            {
+                "path": "tests/refund_boundary.php",
+                "exit_code": 0,
+                "at": "2026-11-14T23:13:10+00:00"
+            },
+            {
+                "path": "tests/refund_service.php",
+                "exit_code": 0,
+                "at": "2026-11-14T23:13:14+00:00"
+            }
+        ]
+    },
+    "final_tests": {
+        "pass": true,
+        "results": {
+            "tests/refund_boundary.php": {
+                "exit_code": 0,
+                "output": "PASS refund boundary",
+                "command": "php tests/refund_boundary.php",
+                "timestamp": "2026-11-14T23:13:59+00:00"
+            },
+            "tests/refund_service.php": {
+                "exit_code": 0,
+                "output": "PASS refund service",
+                "command": "php tests/refund_service.php",
+                "timestamp": "2026-11-14T23:13:59+00:00"
+            }
+        },
+        "hashes": {
+            "tests/refund_boundary.php": "b1efd3a0a80f969c341d7ef59e83fa319b7e3cdcb432ba4fe852ff2881b6489c",
+            "tests/refund_service.php": "ea368366e8f89b9b9819f0bc273d504d44299e974046fdd3230163683492cffc"
+        }
+    },
+    "oracle": {
+        "work_completed": true,
+        "failures": [],
+        "checks": {
+            "config_exists": {
+                "pass": true,
+                "detail": null
+            },
+            "service_exists": {
+                "pass": true,
+                "detail": null
+            },
+            "config_loads": {
+                "pass": true,
+                "detail": null
+            },
+            "schema_version": {
+                "pass": true,
+                "detail": null
+            },
+            "max_refund_percent": {
+                "pass": true,
+                "detail": null
+            },
+            "manual_review_above": {
+                "pass": true,
+                "detail": null
+            },
+            "partial_refund_enabled": {
+                "pass": true,
+                "detail": null
+            },
+            "partial_refund_block": {
+                "pass": true,
+                "detail": null
+            },
+            "three_tiers": {
+                "pass": true,
+                "detail": null
+            },
+            "tier_bounds": {
+                "pass": true,
+                "detail": null
+            },
+            "service_loads": {
+                "pass": true,
+                "detail": null
+            },
+            "full_refund": {
+                "pass": true,
+                "detail": null
+            },
+            "partial_low_tier_10": {
+                "pass": true,
+                "detail": null
+            },
+            "partial_mid_tier_15": {
+                "pass": true,
+                "detail": null
+            },
+            "partial_high_tier_20": {
+                "pass": true,
+                "detail": null
+            },
+            "reject_partial_above_20": {
+                "pass": true,
+                "detail": null
+            },
+            "reject_mid_tier_cap": {
+                "pass": true,
+                "detail": null
+            },
+            "reject_low_tier_cap": {
+                "pass": true,
+                "detail": null
+            },
+            "reject_below_min_amount": {
+                "pass": true,
+                "detail": null
+            },
+            "reject_negative_amount": {
+                "pass": true,
+                "detail": null
+            },
+            "reject_zero_percent": {
+                "pass": true,
+                "detail": null
+            },
+            "reject_above_100_percent": {
+                "pass": true,
+                "detail": null
+            },
+            "runtime_policy_dependency": {
+                "pass": true,
+                "detail": null
+            }
+        },
+        "runtime_dependency": {
+            "pass": true,
+            "detail": {
+                "rejected": true,
+                "class": "InvalidArgumentException",
+                "message": "requested percent exceeds the tier maximum"
+            }
+        },
+        "oracle": "DEMO01-REFUND-ORACLE-V1"
+    },
+    "event_chain": {
+        "valid": true,
+        "errors": [],
+        "head_hash": "467b86edd99658e1123ca35683a981c6bb751b12ef07b02abddcb5e0c06f363b"
+    },
+    "resource_receipts": [
+        {
+            "receipt_id": "rcpt-1",
+            "action": "RESOURCE_ACQUIRED",
+            "resource": "config/refund-policy.php",
+            "principal": "policy-agent",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "epoch": 1,
+            "at": "2026-11-14T23:11:30+00:00",
+            "ok": true,
+            "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+            "path": "[redacted-host]/xianggraph/experiments/demo01/runs/p3-real-03/workspace/config/refund-policy.php"
+        },
+        {
+            "receipt_id": "rcpt-2",
+            "action": "RESOURCE_BUSY",
+            "ok": false,
+            "resource": "config/refund-policy.php",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "reason": "another principal holds the resource",
+            "at": "2026-11-14T23:11:54+00:00",
+            "holder": "policy-agent",
+            "epoch": 1,
+            "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de"
+        },
+        {
+            "receipt_id": "rcpt-3",
+            "action": "RESOURCE_BUSY",
+            "ok": false,
+            "resource": "config/refund-policy.php",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "reason": "another principal holds the resource",
+            "at": "2026-11-14T23:12:01+00:00",
+            "holder": "policy-agent",
+            "epoch": 1,
+            "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de"
+        },
+        {
+            "receipt_id": "rcpt-4",
+            "action": "RESOURCE_APPLIED",
+            "resource": "config/refund-policy.php",
+            "principal": "policy-agent",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "epoch": 1,
+            "at": "2026-11-14T23:12:07+00:00",
+            "ok": true,
+            "old_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+            "new_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+            "bytes": 418,
+            "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];"
+        },
+        {
+            "receipt_id": "rcpt-5",
+            "action": "RESOURCE_RELEASED",
+            "resource": "config/refund-policy.php",
+            "principal": "policy-agent",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "epoch": 1,
+            "at": "2026-11-14T23:12:12+00:00",
+            "ok": true,
+            "resulting_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa"
+        },
+        {
+            "receipt_id": "rcpt-6",
+            "action": "RESOURCE_ACQUIRED",
+            "resource": "config/refund-policy.php",
+            "principal": "feature-agent",
+            "lease_id": "lease-28449cbec7686149",
+            "epoch": 2,
+            "at": "2026-11-14T23:12:48+00:00",
+            "ok": true,
+            "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+            "path": "[redacted-host]/xianggraph/experiments/demo01/runs/p3-real-03/workspace/config/refund-policy.php"
+        },
+        {
+            "receipt_id": "rcpt-7",
+            "action": "RESOURCE_APPLIED",
+            "resource": "config/refund-policy.php",
+            "principal": "feature-agent",
+            "lease_id": "lease-28449cbec7686149",
+            "epoch": 2,
+            "at": "2026-11-14T23:12:54+00:00",
+            "ok": true,
+            "old_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+            "new_hash": "1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c",
+            "bytes": 516,
+            "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -12,4 +12,8 @@\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n         ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n+    'partial_refund' => [\n+        'min_amount_cents' => 5000,\n+        'max_percent' => 20,\n+    ],\n ];"
+        },
+        {
+            "receipt_id": "rcpt-8",
+            "action": "RESOURCE_RELEASED",
+            "resource": "config/refund-policy.php",
+            "principal": "feature-agent",
+            "lease_id": "lease-28449cbec7686149",
+            "epoch": 2,
+            "at": "2026-11-14T23:12:59+00:00",
+            "ok": true,
+            "resulting_hash": "1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c"
+        }
+    ],
+    "packet_delivery": [
+        {
+            "action": "DELIVERED",
+            "packet_id": "cp-a42e1e0742873bb7",
+            "principal": "feature-agent",
+            "kind": "RESUME_CANDIDATE",
+            "at": "2026-11-14T23:12:17+00:00"
+        },
+        {
+            "action": "DELIVERED",
+            "packet_id": "cp-f60e38f497f76c40",
+            "principal": "verify-agent",
+            "kind": "REVALIDATION_REQUIRED",
+            "at": "2026-11-14T23:12:17+00:00"
+        },
+        {
+            "action": "ACKED",
+            "packet_id": "cp-f60e38f497f76c40",
+            "principal": "verify-agent",
+            "status": "ACKED",
+            "at": "2026-11-14T23:12:20+00:00"
+        },
+        {
+            "action": "ACKED",
+            "packet_id": "cp-a42e1e0742873bb7",
+            "principal": "feature-agent",
+            "status": "ACKED",
+            "at": "2026-11-14T23:12:40+00:00"
+        },
+        {
+            "action": "DELIVERED",
+            "packet_id": "cp-5d1992e0fdfa42a4",
+            "principal": "verify-agent",
+            "kind": "REVALIDATION_REQUIRED",
+            "at": "2026-11-14T23:13:31+00:00"
+        },
+        {
+            "action": "ACKED",
+            "packet_id": "cp-5d1992e0fdfa42a4",
+            "principal": "verify-agent",
+            "status": "ACKED",
+            "at": "2026-11-14T23:13:35+00:00"
+        }
+    ],
+    "director_requests": 0,
+    "director_calls": 0,
+    "started_at": "2026-11-14T23:11:22+00:00",
+    "finished_at": "2026-11-14T23:13:59+00:00",
+    "test_hashes": {
+        "tests/refund_boundary.php": "b1efd3a0a80f969c341d7ef59e83fa319b7e3cdcb432ba4fe852ff2881b6489c",
+        "tests/refund_service.php": "ea368366e8f89b9b9819f0bc273d504d44299e974046fdd3230163683492cffc"
+    },
+    "notes": [
+        "REAL_MODEL_AGENTS",
+        "HOST_GATE_ONLY",
+        "PHP_LEVEL_SANDBOX",
+        "DIRECTOR_PLAN_SOURCE=LIVE_DIRECTOR_P2:director-real-02"
+    ]
+}

@@ -1,0 +1,206 @@
+{
+    "slice": "DEMO01-P4-CONTRACT-CHANGE",
+    "run_id": "p4-real-01",
+    "status": "DEMO01_P4_CONTRACT_CHANGE_PASS",
+    "task": "orders-api-v2",
+    "director": {
+        "status": "DIRECTOR_PLAN_VALID",
+        "plan_hash": "sha256:e23684029d8da9f6abc2ade4eb6ad7700a72aad7c09da8090b72c2a587bdafca",
+        "attempt_count": 1,
+        "protocols": [
+            "P-DEP",
+            "P-REVIEW",
+            "P-ESCALATE"
+        ]
+    },
+    "contract_change": {
+        "request_id": "CR-002",
+        "request_sha256": "sha256:a99ed874871d84380a97b764e511692be68aa8e99f8998154bae237020ccaad6",
+        "signer": "human:owner",
+        "writes": 1,
+        "base_hash": "dc4e58482eca454ca84948f5df6802eba2bf740beb81b012575e0a5119a99ecf",
+        "current_hash": "7258c83cef3812966e5c8b61792c287d0c0be7a1d35c08c2e60d6825b4ecf9ae",
+        "change_id": "chg-31768bb8314f5ef5",
+        "packet_id": "cp-784001a7a13573f5"
+    },
+    "agents": {
+        "contract-agent": {
+            "turns": 3,
+            "done": true,
+            "errors": 0
+        },
+        "client-agent": {
+            "turns": 6,
+            "done": true,
+            "errors": 0
+        }
+    },
+    "flags": {
+        "director_plan_valid": true,
+        "no_shared_resource": true,
+        "contract_change_source_valid": true,
+        "one_contract_change": true,
+        "contract_change_applied": true,
+        "contract_write_count_one": true,
+        "contract_agent_read_before_write": true,
+        "packet_count_one": true,
+        "packet_delivered_once": true,
+        "consumer_acked": true,
+        "consumer_reread_after_change": true,
+        "consumer_updated_under_contract_v2": true,
+        "affected_test_passed": true,
+        "tests_untouched": true,
+        "oracle_pass": true,
+        "event_chain_valid": true,
+        "kernel_diff_zero": true,
+        "director_idle_during_execution": true
+    },
+    "failed_flags": [],
+    "oracle": {
+        "work_completed": true,
+        "failures": [],
+        "checks": {
+            "contract_exists": {
+                "pass": true,
+                "detail": null
+            },
+            "client_exists": {
+                "pass": true,
+                "detail": null
+            },
+            "test_exists": {
+                "pass": true,
+                "detail": null
+            },
+            "data_exists": {
+                "pass": true,
+                "detail": null
+            },
+            "contract_loads": {
+                "pass": true,
+                "detail": null
+            },
+            "contract_schema_version": {
+                "pass": true,
+                "detail": null
+            },
+            "contract_id": {
+                "pass": true,
+                "detail": null
+            },
+            "contract_revision_2": {
+                "pass": true,
+                "detail": null
+            },
+            "contract_max_limit_200": {
+                "pass": true,
+                "detail": null
+            },
+            "contract_default_limit_20": {
+                "pass": true,
+                "detail": null
+            },
+            "contract_fields_exact": {
+                "pass": true,
+                "detail": null
+            },
+            "contract_statuses": {
+                "pass": true,
+                "detail": null
+            },
+            "test_untouched": {
+                "pass": true,
+                "detail": null
+            },
+            "repo_test_passes": {
+                "pass": true,
+                "detail": null
+            },
+            "probe_basic": {
+                "pass": true,
+                "detail": null
+            },
+            "rows_10": {
+                "pass": true,
+                "detail": null
+            },
+            "row_keys_follow_contract": {
+                "pass": true,
+                "detail": null
+            },
+            "limit_3_rows": {
+                "pass": true,
+                "detail": null
+            },
+            "limit_201_rejected": {
+                "pass": true,
+                "detail": null
+            },
+            "status_filter_refunded": {
+                "pass": true,
+                "detail": null
+            },
+            "summary_orders": {
+                "pass": true,
+                "detail": null
+            },
+            "summary_amount": {
+                "pass": true,
+                "detail": null
+            },
+            "summary_refunded": {
+                "pass": true,
+                "detail": null
+            },
+            "runtime_limit_dependency": {
+                "pass": true,
+                "detail": null
+            },
+            "runtime_field_dependency": {
+                "pass": true,
+                "detail": null
+            }
+        },
+        "runtime_limit": {
+            "pass": true,
+            "detail": {
+                "ok": true,
+                "rejected": "InvalidArgumentException",
+                "limit3": 3
+            }
+        },
+        "runtime_fields": {
+            "pass": true,
+            "detail": {
+                "ok": true,
+                "row_keys": [
+                    "order_id",
+                    "amount_cents"
+                ]
+            }
+        },
+        "oracle": "DEMO01-ORDERS-ORACLE-V1",
+        "exit": 0
+    },
+    "tests_untouched": true,
+    "kernel_touched_files": [],
+    "usage": {
+        "calls": 10,
+        "prompt_tokens": 24680,
+        "completion_tokens": 6465,
+        "total_tokens": 31145,
+        "cost_usd_estimate": 0.015162,
+        "usage_estimated": false,
+        "max_usd": 0.25,
+        "max_calls": 16,
+        "max_total_tokens": 500000
+    },
+    "authorization": "DEMO01_SCOPE_ACK=YES",
+    "notes": [
+        "SHORT_EVENT_ONLY",
+        "NO_SHARED_FILE_LOCK",
+        "ONE_REPLAYED_CONTRACT_CHANGE",
+        "REAL_MODEL_OUTPUT",
+        "GENERIC_KERNEL_UNTOUCHED"
+    ]
+}

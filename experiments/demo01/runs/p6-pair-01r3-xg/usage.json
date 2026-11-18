@@ -1,0 +1,11 @@
+{
+    "calls": 20,
+    "prompt_tokens": 74197,
+    "completion_tokens": 12901,
+    "total_tokens": 87098,
+    "cost_usd_estimate": 0.03774,
+    "usage_estimated": false,
+    "max_usd": 0.3,
+    "max_calls": 80,
+    "max_total_tokens": 900000
+}

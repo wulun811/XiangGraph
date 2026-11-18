@@ -1,0 +1,37 @@
+{
+    "patch_id": "patch-6e9e45bba8d5",
+    "request_id": "dirreq-ff88290f218c",
+    "option": "VERSIONED_API",
+    "base_policy_revision": 1,
+    "new_policy_revision": 2,
+    "affected_scope": [
+        "W1",
+        "W2"
+    ],
+    "scope_revisions_before": {
+        "W1": 1,
+        "W2": 1
+    },
+    "slice_updates": {
+        "W1": 2,
+        "W2": 2
+    },
+    "changes": [
+        {
+            "op": "CONTINUE_SCOPE",
+            "scope": [
+                "W1",
+                "W2"
+            ]
+        },
+        {
+            "op": "REBASE_SCOPE",
+            "scope": [
+                "W2"
+            ]
+        }
+    ],
+    "source": "director_response",
+    "validated_by": "ProtocolPatchValidator",
+    "publication_committed": false
+}

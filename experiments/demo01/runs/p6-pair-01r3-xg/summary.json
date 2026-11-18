@@ -1,0 +1,339 @@
+{
+    "slice": "DEMO01-P6-STRATEGIC-CONFLICT",
+    "run_id": "p6-pair-01r3-xg",
+    "status": "P6_XG_STRATEGIC_PASS",
+    "mode": "real",
+    "coordination_mode": "xg",
+    "started_at": "2026-11-15T05:59:44+00:00",
+    "plan_hash": "sha256:6db70df714ce4e801b7f2a648b0ca5f199bc41c8cc4b35ad9a43b8a23262d263",
+    "chosen_option": "VERSIONED_API",
+    "negotiation_rounds": 2,
+    "director_calls": 1,
+    "messages": 0,
+    "agents": {
+        "api-agent": {
+            "turns": 12,
+            "done": false,
+            "errors": 0
+        },
+        "compatibility-agent": {
+            "turns": 7,
+            "done": false,
+            "errors": 0
+        },
+        "independent-agent": {
+            "turns": 2,
+            "done": true,
+            "errors": 0
+        }
+    },
+    "flags": {
+        "plan_valid": true,
+        "proposal_a": true,
+        "proposal_b": true,
+        "negotiation_completed": true,
+        "negotiation_resolved_locally": false,
+        "escalation_requested": true,
+        "escalation_deduplicated": false,
+        "director_decision_valid": true,
+        "patch_valid": true,
+        "patch_scope_w1_w2": true,
+        "patch_ack_a": true,
+        "patch_ack_b": true,
+        "evidence_w1_w2_invalidated": true,
+        "evidence_w3_current": true,
+        "c_done_before_decision": true,
+        "c_doc_present": true,
+        "implementation_present": true,
+        "review_present": true,
+        "tests_pass": true,
+        "tests_untouched": true,
+        "oracle_pass": true,
+        "director_idle_after_decision": true,
+        "event_chain_valid": true
+    },
+    "failed_flags": [],
+    "request": {
+        "request_id": "dirreq-ff88290f218c",
+        "reason": "NEGOTIATION_EXHAUSTED",
+        "plan_id": "strategic-conflict-v1-plan",
+        "policy_revision": 1,
+        "scope_revision": 1,
+        "scope_revisions": {
+            "W1": 1,
+            "W2": 1
+        },
+        "scope": [
+            "W1",
+            "W2"
+        ],
+        "root_cause": "refund-api-design-conflict",
+        "facts": [
+            "api-proposal",
+            "compatibility-proposal",
+            "negotiation-round-1",
+            "negotiation-round-2"
+        ],
+        "fact_epoch": 0,
+        "reanswer_required": false,
+        "attempted_local_resolutions": [],
+        "conflict": "VERSIONED_API vs SEPARATE_RESOURCE",
+        "options": [
+            {
+                "id": "VERSIONED_API",
+                "effect": "Select VERSIONED_API: api-agent implements the v2 API with refunded_cents, compatibility-agent stops implementation of SEPARATE_RESOURCE and writes the compatibility review, and independent-agent continues documentation work.",
+                "patch": [
+                    {
+                        "op": "CONTINUE_SCOPE",
+                        "scope": [
+                            "W1",
+                            "W2"
+                        ]
+                    },
+                    {
+                        "op": "REBASE_SCOPE",
+                        "scope": [
+                            "W2"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "SEPARATE_RESOURCE",
+                "effect": "Select SEPARATE_RESOURCE: compatibility-agent implements the independent RefundSummary resource, api-agent stops implementation of VERSIONED_API and writes the API review, and independent-agent continues documentation work.",
+                "patch": [
+                    {
+                        "op": "CONTINUE_SCOPE",
+                        "scope": [
+                            "W1",
+                            "W2"
+                        ]
+                    },
+                    {
+                        "op": "REBASE_SCOPE",
+                        "scope": [
+                            "W1"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "recommended": "VERSIONED_API",
+        "blocked_scope": [
+            "W1",
+            "W2"
+        ],
+        "unblocked_scope": [
+            "W3"
+        ],
+        "response_contract": [
+            "CHOOSE_OPTION",
+            "REQUEST_EVIDENCE",
+            "PATCH_PROTOCOL",
+            "PAUSE_SCOPE",
+            "ABORT_SCOPE"
+        ],
+        "timeout_action": "HOLD_AFFECTED_SCOPE",
+        "status": "OPEN",
+        "created_at_revision": 1,
+        "created_at_seq": 1,
+        "trigger_event_id": "p6-esc-1",
+        "previous_request_id": null,
+        "reopened_after_timeout": false,
+        "dedupe_key": "3eef86b3d8a9709eab00f01433000816a6d9ea58c609771fa8f9e35cd7d299af"
+    },
+    "patch": {
+        "patch_id": "patch-6e9e45bba8d5",
+        "request_id": "dirreq-ff88290f218c",
+        "option": "VERSIONED_API",
+        "base_policy_revision": 1,
+        "new_policy_revision": 2,
+        "affected_scope": [
+            "W1",
+            "W2"
+        ],
+        "scope_revisions_before": {
+            "W1": 1,
+            "W2": 1
+        },
+        "slice_updates": {
+            "W1": 2,
+            "W2": 2
+        },
+        "changes": [
+            {
+                "op": "CONTINUE_SCOPE",
+                "scope": [
+                    "W1",
+                    "W2"
+                ]
+            },
+            {
+                "op": "REBASE_SCOPE",
+                "scope": [
+                    "W2"
+                ]
+            }
+        ],
+        "source": "director_response",
+        "validated_by": "ProtocolPatchValidator",
+        "publication_committed": false
+    },
+    "tests": {
+        "pass": true,
+        "results": {
+            "tests/orders_v1.php": {
+                "exit_code": 0,
+                "output": "PASS orders v1",
+                "command": "php tests/orders_v1.php",
+                "timestamp": "2026-11-15T06:03:13+00:00"
+            },
+            "tests/refund_summary.php": {
+                "exit_code": 0,
+                "output": "PASS refund summary",
+                "command": "php tests/refund_summary.php",
+                "timestamp": "2026-11-15T06:03:13+00:00"
+            }
+        },
+        "hashes": {
+            "tests/orders_v1.php": "2156602aba5553e7d764b214fdc5e31569e66011c648eebb4cf3ec0756bc8a61",
+            "tests/refund_summary.php": "a18a4511c9eb684ace379832238fa69f373f5027ce1c1690164743cc6a2f9195"
+        }
+    },
+    "oracle": {
+        "work_completed": true,
+        "failures": [],
+        "checks": {
+            "exists:src/OrderApi.php": {
+                "pass": true,
+                "detail": null
+            },
+            "exists:src/RefundApi.php": {
+                "pass": true,
+                "detail": null
+            },
+            "exists:data/orders.json": {
+                "pass": true,
+                "detail": null
+            },
+            "exists:tests/orders_v1.php": {
+                "pass": true,
+                "detail": null
+            },
+            "exists:tests/refund_summary.php": {
+                "pass": true,
+                "detail": null
+            },
+            "test_untouched:tests/orders_v1.php": {
+                "pass": true,
+                "detail": null
+            },
+            "test_untouched:tests/refund_summary.php": {
+                "pass": true,
+                "detail": null
+            },
+            "exactly_one_design": {
+                "pass": true,
+                "detail": null
+            },
+            "test_passes:tests/orders_v1.php": {
+                "pass": true,
+                "detail": null
+            },
+            "test_passes:tests/refund_summary.php": {
+                "pass": true,
+                "detail": null
+            },
+            "probe_runs": {
+                "pass": true,
+                "detail": null
+            },
+            "v1_rows_10": {
+                "pass": true,
+                "detail": null
+            },
+            "v1_row_keys": {
+                "pass": true,
+                "detail": null
+            },
+            "v1_limit_3": {
+                "pass": true,
+                "detail": null
+            },
+            "v1_limit_101_rejected": {
+                "pass": true,
+                "detail": null
+            },
+            "summary_orders": {
+                "pass": true,
+                "detail": null
+            },
+            "summary_amount": {
+                "pass": true,
+                "detail": null
+            },
+            "summary_refunded": {
+                "pass": true,
+                "detail": null
+            },
+            "refund_rows_10": {
+                "pass": true,
+                "detail": null
+            },
+            "refund_row_keys": {
+                "pass": true,
+                "detail": null
+            },
+            "refund_total": {
+                "pass": true,
+                "detail": null
+            },
+            "refunded_filter_rows": {
+                "pass": true,
+                "detail": null
+            },
+            "refunded_filter_total": {
+                "pass": true,
+                "detail": null
+            },
+            "proposal_a_exists": {
+                "pass": true,
+                "detail": null
+            },
+            "proposal_b_exists": {
+                "pass": true,
+                "detail": null
+            },
+            "chosen_option_review": {
+                "pass": true,
+                "detail": null
+            },
+            "independent_doc_exists": {
+                "pass": true,
+                "detail": null
+            },
+            "independent_doc_section:## Compatibility": {
+                "pass": true,
+                "detail": null
+            },
+            "independent_doc_section:## Migration": {
+                "pass": true,
+                "detail": null
+            },
+            "independent_doc_section:## Verification": {
+                "pass": true,
+                "detail": null
+            }
+        },
+        "option": "VERSIONED_API",
+        "oracle": "DEMO01-P6-STRATEGIC-ORACLE-V1"
+    },
+    "event_chain": {
+        "valid": true,
+        "errors": [],
+        "head_hash": "8bba1715aad47ae0614149c1222db84acb3e353bf60a7e841cac703d1df03c26"
+    },
+    "notes": [
+        "REAL_MODEL_OUTPUT"
+    ]
+}

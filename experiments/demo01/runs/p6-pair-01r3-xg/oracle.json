@@ -1,0 +1,128 @@
+{
+    "work_completed": true,
+    "failures": [],
+    "checks": {
+        "exists:src/OrderApi.php": {
+            "pass": true,
+            "detail": null
+        },
+        "exists:src/RefundApi.php": {
+            "pass": true,
+            "detail": null
+        },
+        "exists:data/orders.json": {
+            "pass": true,
+            "detail": null
+        },
+        "exists:tests/orders_v1.php": {
+            "pass": true,
+            "detail": null
+        },
+        "exists:tests/refund_summary.php": {
+            "pass": true,
+            "detail": null
+        },
+        "test_untouched:tests/orders_v1.php": {
+            "pass": true,
+            "detail": null
+        },
+        "test_untouched:tests/refund_summary.php": {
+            "pass": true,
+            "detail": null
+        },
+        "exactly_one_design": {
+            "pass": true,
+            "detail": null
+        },
+        "test_passes:tests/orders_v1.php": {
+            "pass": true,
+            "detail": null
+        },
+        "test_passes:tests/refund_summary.php": {
+            "pass": true,
+            "detail": null
+        },
+        "probe_runs": {
+            "pass": true,
+            "detail": null
+        },
+        "v1_rows_10": {
+            "pass": true,
+            "detail": null
+        },
+        "v1_row_keys": {
+            "pass": true,
+            "detail": null
+        },
+        "v1_limit_3": {
+            "pass": true,
+            "detail": null
+        },
+        "v1_limit_101_rejected": {
+            "pass": true,
+            "detail": null
+        },
+        "summary_orders": {
+            "pass": true,
+            "detail": null
+        },
+        "summary_amount": {
+            "pass": true,
+            "detail": null
+        },
+        "summary_refunded": {
+            "pass": true,
+            "detail": null
+        },
+        "refund_rows_10": {
+            "pass": true,
+            "detail": null
+        },
+        "refund_row_keys": {
+            "pass": true,
+            "detail": null
+        },
+        "refund_total": {
+            "pass": true,
+            "detail": null
+        },
+        "refunded_filter_rows": {
+            "pass": true,
+            "detail": null
+        },
+        "refunded_filter_total": {
+            "pass": true,
+            "detail": null
+        },
+        "proposal_a_exists": {
+            "pass": true,
+            "detail": null
+        },
+        "proposal_b_exists": {
+            "pass": true,
+            "detail": null
+        },
+        "chosen_option_review": {
+            "pass": true,
+            "detail": null
+        },
+        "independent_doc_exists": {
+            "pass": true,
+            "detail": null
+        },
+        "independent_doc_section:## Compatibility": {
+            "pass": true,
+            "detail": null
+        },
+        "independent_doc_section:## Migration": {
+            "pass": true,
+            "detail": null
+        },
+        "independent_doc_section:## Verification": {
+            "pass": true,
+            "detail": null
+        }
+    },
+    "option": "VERSIONED_API",
+    "oracle": "DEMO01-P6-STRATEGIC-ORACLE-V1"
+}

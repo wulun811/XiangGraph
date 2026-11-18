@@ -1,0 +1,157 @@
+{
+    "schema_version": "xg-coordination-plan/v0.1",
+    "plan_id": "demo01-refund-policy-v1-plan",
+    "policy_revision": 1,
+    "goal": "Enable tiered partial refunds in a small PHP refund module and keep the refund policy contract and its tests consistent.",
+    "works": [
+        {
+            "id": "W1",
+            "title": "Update refund policy globals, tiers, and partial_refund_enabled",
+            "owners": [
+                "policy-agent"
+            ],
+            "depends_on": [],
+            "resources": [
+                "config/refund-policy.php"
+            ],
+            "outputs": [
+                "config/refund-policy.php"
+            ]
+        },
+        {
+            "id": "W2",
+            "title": "Implement tiered partial refund quote and append partial_refund config segment",
+            "owners": [
+                "feature-agent"
+            ],
+            "depends_on": [
+                "W1"
+            ],
+            "resources": [
+                "config/refund-policy.php",
+                "src/RefundService.php"
+            ],
+            "outputs": [
+                "src/RefundService.php",
+                "config/refund-policy.php"
+            ]
+        },
+        {
+            "id": "W3",
+            "title": "Run boundary and service tests and submit verification evidence",
+            "owners": [
+                "verify-agent"
+            ],
+            "depends_on": [
+                "W1",
+                "W2"
+            ],
+            "resources": [
+                "config/refund-policy.php",
+                "src/RefundService.php",
+                "tests/refund_boundary.php",
+                "tests/refund_service.php",
+                "evidence/refund-verification.json"
+            ],
+            "outputs": [
+                "evidence/refund-verification.json",
+                "ev:refund-boundary-v1"
+            ]
+        }
+    ],
+    "protocol_composition": [
+        {
+            "protocol": "P-DEP",
+            "version": "v0.1",
+            "scope": [
+                "W2",
+                "W3"
+            ]
+        },
+        {
+            "protocol": "P-CONFLICT",
+            "version": "v0.1",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "max_rounds": 2
+        },
+        {
+            "protocol": "P-REVIEW",
+            "version": "v0.1",
+            "scope": [
+                "W3"
+            ]
+        },
+        {
+            "protocol": "P-ESCALATE",
+            "version": "v0.1",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ]
+        }
+    ],
+    "authority": {
+        "director": "director",
+        "human_authorizer": "human:owner",
+        "trusted_signers": [
+            "human:owner"
+        ]
+    },
+    "decision_rights": {
+        "signed_contracts": [
+            {
+                "contract_id": "refund-policy-v2",
+                "signer": "human:owner",
+                "version": "v2",
+                "status": "ACTIVE",
+                "scope": [
+                    "W1",
+                    "W2"
+                ]
+            }
+        ],
+        "delegations": []
+    },
+    "risk_boundary": {
+        "external_money_transfer": "PROHIBITED",
+        "production_write": "PROHIBITED",
+        "unknown_effect_retry": "PROHIBITED",
+        "max_negotiation_rounds": 2,
+        "director_unavailable_default": "HOLD_AFFECTED_SCOPE",
+        "human_only_options": [
+            "production_write",
+            "real_payment"
+        ]
+    },
+    "escalation_policy": {
+        "director_only_when": [
+            "UNSIGNED_CONTRACT_CHANGE",
+            "CONTRACT_CHANGED",
+            "DEADLOCK_DETECTED",
+            "NEGOTIATION_EXHAUSTED",
+            "PROTOCOL_GAP"
+        ],
+        "do_not_escalate_for": [
+            "RESOURCE_CONTENTION",
+            "WAIT_AND_RESUME",
+            "REVALIDATION",
+            "ORDINARY_PROGRESS"
+        ],
+        "deduplicate_by": [
+            "root_cause",
+            "scope"
+        ],
+        "response_requires": [
+            "evidence_refs",
+            "scope"
+        ],
+        "response_must_pass": [
+            "ProtocolContract"
+        ]
+    }
+}

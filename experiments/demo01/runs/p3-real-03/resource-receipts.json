@@ -1,0 +1,102 @@
+{
+    "receipts": [
+        {
+            "receipt_id": "rcpt-1",
+            "action": "RESOURCE_ACQUIRED",
+            "resource": "config/refund-policy.php",
+            "principal": "policy-agent",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "epoch": 1,
+            "at": "2026-11-14T23:11:30+00:00",
+            "ok": true,
+            "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+            "path": "[redacted-host]/xianggraph/experiments/demo01/runs/p3-real-03/workspace/config/refund-policy.php"
+        },
+        {
+            "receipt_id": "rcpt-2",
+            "action": "RESOURCE_BUSY",
+            "ok": false,
+            "resource": "config/refund-policy.php",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "reason": "another principal holds the resource",
+            "at": "2026-11-14T23:11:54+00:00",
+            "holder": "policy-agent",
+            "epoch": 1,
+            "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de"
+        },
+        {
+            "receipt_id": "rcpt-3",
+            "action": "RESOURCE_BUSY",
+            "ok": false,
+            "resource": "config/refund-policy.php",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "reason": "another principal holds the resource",
+            "at": "2026-11-14T23:12:01+00:00",
+            "holder": "policy-agent",
+            "epoch": 1,
+            "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de"
+        },
+        {
+            "receipt_id": "rcpt-4",
+            "action": "RESOURCE_APPLIED",
+            "resource": "config/refund-policy.php",
+            "principal": "policy-agent",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "epoch": 1,
+            "at": "2026-11-14T23:12:07+00:00",
+            "ok": true,
+            "old_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+            "new_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+            "bytes": 418,
+            "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];"
+        },
+        {
+            "receipt_id": "rcpt-5",
+            "action": "RESOURCE_RELEASED",
+            "resource": "config/refund-policy.php",
+            "principal": "policy-agent",
+            "lease_id": "lease-0f7ca44c1a14de3a",
+            "epoch": 1,
+            "at": "2026-11-14T23:12:12+00:00",
+            "ok": true,
+            "resulting_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa"
+        },
+        {
+            "receipt_id": "rcpt-6",
+            "action": "RESOURCE_ACQUIRED",
+            "resource": "config/refund-policy.php",
+            "principal": "feature-agent",
+            "lease_id": "lease-28449cbec7686149",
+            "epoch": 2,
+            "at": "2026-11-14T23:12:48+00:00",
+            "ok": true,
+            "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+            "path": "[redacted-host]/xianggraph/experiments/demo01/runs/p3-real-03/workspace/config/refund-policy.php"
+        },
+        {
+            "receipt_id": "rcpt-7",
+            "action": "RESOURCE_APPLIED",
+            "resource": "config/refund-policy.php",
+            "principal": "feature-agent",
+            "lease_id": "lease-28449cbec7686149",
+            "epoch": 2,
+            "at": "2026-11-14T23:12:54+00:00",
+            "ok": true,
+            "old_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+            "new_hash": "1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c",
+            "bytes": 516,
+            "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -12,4 +12,8 @@\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n         ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n+    'partial_refund' => [\n+        'min_amount_cents' => 5000,\n+        'max_percent' => 20,\n+    ],\n ];"
+        },
+        {
+            "receipt_id": "rcpt-8",
+            "action": "RESOURCE_RELEASED",
+            "resource": "config/refund-policy.php",
+            "principal": "feature-agent",
+            "lease_id": "lease-28449cbec7686149",
+            "epoch": 2,
+            "at": "2026-11-14T23:12:59+00:00",
+            "ok": true,
+            "resulting_hash": "1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c"
+        }
+    ]
+}

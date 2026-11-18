@@ -1,0 +1,3046 @@
+{
+    "schema": "xg-observatory-projection/v0.1",
+    "generated_at_utc": "2026-11-18T02:00:32Z",
+    "source_commit": null,
+    "runs_root": "experiments/demo01/runs",
+    "public_redaction": {
+        "absolute_host_paths": "display payloads only; sealed run files are unchanged"
+    },
+    "scenarios": [
+        {
+            "id": "p3",
+            "run_id": "p3-real-03",
+            "mode": "RECORDED_REAL_RUN",
+            "claim_level": "SELF_CHECKED",
+            "kind": "contention",
+            "title": "P3 · 资源争用与恢复",
+            "summary": "三个执行 Agent 并行；共享资源租约申请被拒绝时只阻塞冲突操作，其他路径的工作继续；变化经 ChangePacket + ACK 定向传播后恢复。",
+            "chain": {
+                "status": "MATCH",
+                "head_hash": "467b86edd99658e1123ca35683a981c6bb751b12ef07b02abddcb5e0c06f363b",
+                "event_count": 94
+            },
+            "lanes": [
+                {
+                    "id": "director",
+                    "label": "DIRECTOR",
+                    "sub": "plan composition / decision"
+                },
+                {
+                    "id": "agent:policy-agent",
+                    "label": "POLICY-AGENT",
+                    "sub": "W1 · 6 turns"
+                },
+                {
+                    "id": "agent:feature-agent",
+                    "label": "FEATURE-AGENT",
+                    "sub": "W2 · 16 turns"
+                },
+                {
+                    "id": "agent:verify-agent",
+                    "label": "VERIFY-AGENT",
+                    "sub": "W3 · 9 turns"
+                },
+                {
+                    "id": "host",
+                    "label": "HOST / ORACLE",
+                    "sub": "authority + receipts"
+                },
+                {
+                    "id": "res:config/refund-policy.php",
+                    "label": "RESOURCE",
+                    "sub": "config/refund-policy.php"
+                },
+                {
+                    "id": "res:src/RefundService.php",
+                    "label": "RESOURCE",
+                    "sub": "src/RefundService.php"
+                }
+            ],
+            "stages": [
+                {
+                    "id": 0,
+                    "label": "PLAN"
+                },
+                {
+                    "id": 1,
+                    "label": "PARALLEL WORK"
+                },
+                {
+                    "id": 2,
+                    "label": "CONTENTION"
+                },
+                {
+                    "id": 3,
+                    "label": "CHANGE"
+                },
+                {
+                    "id": 4,
+                    "label": "ACK"
+                },
+                {
+                    "id": 5,
+                    "label": "RESUME"
+                },
+                {
+                    "id": 6,
+                    "label": "VERIFY"
+                }
+            ],
+            "nodes": [
+                {
+                    "node_id": "p3-real-03:e1",
+                    "run_id": "p3-real-03",
+                    "lane": "host",
+                    "stage": 0,
+                    "event_ref": "demo01-p3-real-03-0001",
+                    "event_seq": 1,
+                    "action": "RUN_STARTED",
+                    "event_type": "RUN_STARTED",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Run started",
+                    "sub": "p3-real-03",
+                    "state": "plan",
+                    "recorded_at_utc": "2026-11-14T23:11:22+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "mode": "real",
+                        "run_id": "p3-real-03",
+                        "plan_source": "LIVE_DIRECTOR_P2:director-real-02",
+                        "model": "deepseek-v4.1-flash",
+                        "plan_hash": "sha256:3e3a26188dfc4bab8d8c24cc1ce00df0f91713e1d9e4504739312f5a6a0843a4"
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e6",
+                    "run_id": "p3-real-03",
+                    "lane": "director",
+                    "stage": 0,
+                    "event_ref": "demo01-p3-real-03-0006",
+                    "event_seq": 6,
+                    "action": "DIRECTOR_PLAN_LOADED",
+                    "event_type": "DIRECTOR_PLAN_LOADED",
+                    "actor": "director",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Director plan",
+                    "sub": "demo01-refund-policy-v1-plan",
+                    "state": "plan",
+                    "recorded_at_utc": "2026-11-14T23:11:22+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "source": "LIVE_DIRECTOR_P2:director-real-02",
+                        "plan_id": "demo01-refund-policy-v1-plan",
+                        "works": [
+                            {
+                                "id": "W1",
+                                "title": "Update refund policy globals, tiers, and partial_refund_enabled",
+                                "owners": [
+                                    "policy-agent"
+                                ],
+                                "depends_on": [],
+                                "resources": [
+                                    "config/refund-policy.php"
+                                ],
+                                "outputs": [
+                                    "config/refund-policy.php"
+                                ]
+                            },
+                            {
+                                "id": "W2",
+                                "title": "Implement tiered partial refund quote and append partial_refund config segment",
+                                "owners": [
+                                    "feature-agent"
+                                ],
+                                "depends_on": [
+                                    "W1"
+                                ],
+                                "resources": [
+                                    "config/refund-policy.php",
+                                    "src/RefundService.php"
+                                ],
+                                "outputs": [
+                                    "src/RefundService.php",
+                                    "config/refund-policy.php"
+                                ]
+                            },
+                            {
+                                "id": "W3",
+                                "title": "Run boundary and service tests and submit verification evidence",
+                                "owners": [
+                                    "verify-agent"
+                                ],
+                                "depends_on": [
+                                    "W1",
+                                    "W2"
+                                ],
+                                "resources": [
+                                    "config/refund-policy.php",
+                                    "src/RefundService.php",
+                                    "tests/refund_boundary.php",
+                                    "tests/refund_service.php",
+                                    "evidence/refund-verification.json"
+                                ],
+                                "outputs": [
+                                    "evidence/refund-verification.json",
+                                    "ev:refund-boundary-v1"
+                                ]
+                            }
+                        ],
+                        "protocols": [
+                            {
+                                "protocol": "P-DEP",
+                                "version": "v0.1",
+                                "scope": [
+                                    "W2",
+                                    "W3"
+                                ]
+                            },
+                            {
+                                "protocol": "P-CONFLICT",
+                                "version": "v0.1",
+                                "scope": [
+                                    "W1",
+                                    "W2",
+                                    "W3"
+                                ],
+                                "max_rounds": 2
+                            },
+                            {
+                                "protocol": "P-REVIEW",
+                                "version": "v0.1",
+                                "scope": [
+                                    "W3"
+                                ]
+                            },
+                            {
+                                "protocol": "P-ESCALATE",
+                                "version": "v0.1",
+                                "scope": [
+                                    "W1",
+                                    "W2",
+                                    "W3"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e8",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:policy-agent",
+                    "stage": 0,
+                    "event_ref": "demo01-p3-real-03-0008",
+                    "event_seq": 8,
+                    "action": "AGENT_ACTION",
+                    "event_type": "AGENT_ACTION",
+                    "actor": "policy-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "file_status",
+                    "sub": "config/refund-policy.php",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:11:25+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "policy-agent",
+                        "action": "file_status",
+                        "path": null,
+                        "resource": "config/refund-policy.php",
+                        "to": null
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e13",
+                    "run_id": "p3-real-03",
+                    "lane": "res:config/refund-policy.php",
+                    "stage": 1,
+                    "event_ref": "demo01-p3-real-03-0013",
+                    "event_seq": 13,
+                    "action": "RESOURCE_ACQUIRED",
+                    "event_type": "RESOURCE_RECEIPT",
+                    "actor": "policy-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "Acquire resource",
+                    "sub": "lease lease-0f7ca44c",
+                    "state": "wait",
+                    "recorded_at_utc": "2026-11-14T23:11:30+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "policy-agent",
+                        "receipt": {
+                            "receipt_id": "rcpt-1",
+                            "action": "RESOURCE_ACQUIRED",
+                            "resource": "config/refund-policy.php",
+                            "principal": "policy-agent",
+                            "lease_id": "lease-0f7ca44c1a14de3a",
+                            "epoch": 1,
+                            "at": "2026-11-14T23:11:30+00:00",
+                            "ok": true,
+                            "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                            "path": "[redacted-host]/xianggraph/experiments/demo01/runs/p3-real-03/workspace/config/refund-policy.php"
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e15",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:feature-agent",
+                    "stage": 1,
+                    "event_ref": "demo01-p3-real-03-0015",
+                    "event_seq": 15,
+                    "action": "AGENT_ACTION",
+                    "event_type": "AGENT_ACTION",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "read_file",
+                    "sub": "config/refund-policy.php",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:11:34+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "feature-agent",
+                        "action": "read_file",
+                        "path": "config/refund-policy.php",
+                        "resource": null,
+                        "to": null
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e20",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:feature-agent",
+                    "stage": 1,
+                    "event_ref": "demo01-p3-real-03-0020",
+                    "event_seq": 20,
+                    "action": "FILE_WRITTEN",
+                    "event_type": "FILE_WRITTEN",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Write RefundService.php",
+                    "sub": "sha 62fd550c8c68",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:11:49+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "feature-agent",
+                        "path": "src/RefundService.php",
+                        "bytes": 3224,
+                        "sha256": "62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b"
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e23-g",
+                    "run_id": "p3-real-03",
+                    "lane": "res:config/refund-policy.php",
+                    "stage": 2,
+                    "event_ref": "demo01-p3-real-03-0023",
+                    "event_refs": [
+                        "demo01-p3-real-03-0023",
+                        "demo01-p3-real-03-0026"
+                    ],
+                    "event_seq": 23,
+                    "event_seqs": [
+                        23,
+                        26
+                    ],
+                    "action": "RESOURCE_BUSY",
+                    "event_type": "RESOURCE_RECEIPT",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "RESOURCE_BUSY ×2",
+                    "sub": "lease acquisition denied ×2",
+                    "state": "block",
+                    "recorded_at_utc": "2026-11-14T23:11:54+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "events": [
+                            {
+                                "agent": "feature-agent",
+                                "receipt": {
+                                    "receipt_id": "rcpt-2",
+                                    "action": "RESOURCE_BUSY",
+                                    "ok": false,
+                                    "resource": "config/refund-policy.php",
+                                    "lease_id": "lease-0f7ca44c1a14de3a",
+                                    "reason": "another principal holds the resource",
+                                    "at": "2026-11-14T23:11:54+00:00",
+                                    "holder": "policy-agent",
+                                    "epoch": 1,
+                                    "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de"
+                                }
+                            },
+                            {
+                                "agent": "feature-agent",
+                                "receipt": {
+                                    "receipt_id": "rcpt-3",
+                                    "action": "RESOURCE_BUSY",
+                                    "ok": false,
+                                    "resource": "config/refund-policy.php",
+                                    "lease_id": "lease-0f7ca44c1a14de3a",
+                                    "reason": "another principal holds the resource",
+                                    "at": "2026-11-14T23:12:01+00:00",
+                                    "holder": "policy-agent",
+                                    "epoch": 1,
+                                    "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de"
+                                }
+                            }
+                        ]
+                    },
+                    "group_size": 2
+                },
+                {
+                    "node_id": "p3-real-03:e29",
+                    "run_id": "p3-real-03",
+                    "lane": "res:config/refund-policy.php",
+                    "stage": 2,
+                    "event_ref": "demo01-p3-real-03-0029",
+                    "event_seq": 29,
+                    "action": "RESOURCE_APPLIED",
+                    "event_type": "RESOURCE_RECEIPT",
+                    "actor": "policy-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "Apply patch",
+                    "sub": "config/refund-policy.php",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:12:07+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "policy-agent",
+                        "receipt": {
+                            "receipt_id": "rcpt-4",
+                            "action": "RESOURCE_APPLIED",
+                            "resource": "config/refund-policy.php",
+                            "principal": "policy-agent",
+                            "lease_id": "lease-0f7ca44c1a14de3a",
+                            "epoch": 1,
+                            "at": "2026-11-14T23:12:07+00:00",
+                            "ok": true,
+                            "old_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                            "new_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                            "bytes": 418,
+                            "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];"
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e32",
+                    "run_id": "p3-real-03",
+                    "lane": "res:config/refund-policy.php",
+                    "stage": 3,
+                    "event_ref": "demo01-p3-real-03-0032",
+                    "event_seq": 32,
+                    "action": "RESOURCE_RELEASED",
+                    "event_type": "RESOURCE_RECEIPT",
+                    "actor": "policy-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "Release lease",
+                    "sub": "config/refund-policy.php",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-14T23:12:12+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "policy-agent",
+                        "receipt": {
+                            "receipt_id": "rcpt-5",
+                            "action": "RESOURCE_RELEASED",
+                            "resource": "config/refund-policy.php",
+                            "principal": "policy-agent",
+                            "lease_id": "lease-0f7ca44c1a14de3a",
+                            "epoch": 1,
+                            "at": "2026-11-14T23:12:12+00:00",
+                            "ok": true,
+                            "resulting_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa"
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e35",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:policy-agent",
+                    "stage": 3,
+                    "event_ref": "demo01-p3-real-03-0035",
+                    "event_seq": 35,
+                    "action": "AGENT_FINISHED",
+                    "event_type": "AGENT_FINISHED",
+                    "actor": "policy-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "policy-agent finished",
+                    "sub": "scope ",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:12:17+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "policy-agent",
+                        "summary": "policy-agent: updated config/refund-policy.php globals/tiers (max_refund_percent=20, manual_review_above=20, partial_refund_enabled=true, top tier max_refund_percent=20; schema_version and three-tier structure preserved in ascending min_amount_cents). Did not add the partial_refund segment (feature-agent's W2) and did not touch src/RefundService.php. Lease acquired, patch applied, lease released; file hash now 8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa. W1 complete; W2 can proceed."
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e36",
+                    "run_id": "p3-real-03",
+                    "lane": "res:config/refund-policy.php",
+                    "stage": 3,
+                    "event_ref": "demo01-p3-real-03-0036",
+                    "event_seq": 36,
+                    "action": "CHANGE_DISPATCHED",
+                    "event_type": "CHANGE_DISPATCHED",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "ChangePacket",
+                    "sub": "2 packet(s)",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:12:17+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "change": {
+                            "resource": "config/refund-policy.php",
+                            "base_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                            "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                            "epoch": 1,
+                            "diff_ref": "sha256:9745ffa0fc3a25ceab6e73eab26af48d6043f29cc7df0dff3a8dd8deeb0482dc",
+                            "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];"
+                        },
+                        "packets": [
+                            {
+                                "packet_id": "cp-a42e1e0742873bb7",
+                                "kind": "RESUME_CANDIDATE",
+                                "change_id": "chg-34e707dce8b43f12",
+                                "principal": "feature-agent",
+                                "resource": "config/refund-policy.php",
+                                "scope": [
+                                    "W2"
+                                ],
+                                "base_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                                "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                                "epoch": 1,
+                                "diff_ref": "sha256:9745ffa0fc3a25ceab6e73eab26af48d6043f29cc7df0dff3a8dd8deeb0482dc",
+                                "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];",
+                                "must_reread": true,
+                                "write_authority": "NONE_UNTIL_NEW_LEASE",
+                                "allowed_actions": [
+                                    "read_file",
+                                    "acquire_resource",
+                                    "apply_patch",
+                                    "release_resource"
+                                ],
+                                "forbidden_actions": [
+                                    "write_file_without_lease",
+                                    "reuse_previous_lease"
+                                ],
+                                "hint": "Re-read the current policy, then add the partial_refund block and adapt the service to the new values.",
+                                "hint_authority": "UNVERIFIED_HINT"
+                            },
+                            {
+                                "packet_id": "cp-f60e38f497f76c40",
+                                "kind": "REVALIDATION_REQUIRED",
+                                "change_id": "chg-34e707dce8b43f12",
+                                "principal": "verify-agent",
+                                "resource": "config/refund-policy.php",
+                                "scope": [
+                                    "W3"
+                                ],
+                                "base_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                                "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                                "epoch": 1,
+                                "diff_ref": "sha256:9745ffa0fc3a25ceab6e73eab26af48d6043f29cc7df0dff3a8dd8deeb0482dc",
+                                "evidence_id": "ev:refund-boundary-v1",
+                                "affected_tests": [
+                                    "tests/refund_boundary.php"
+                                ],
+                                "unaffected_tests": [
+                                    "tests/refund_service.php"
+                                ],
+                                "must_reread": true,
+                                "write_authority": "NOT_APPLICABLE",
+                                "revalidation_only": true,
+                                "allowed_actions": [
+                                    "read_file",
+                                    "run_affected_tests"
+                                ],
+                                "forbidden_actions": [
+                                    "invalidate_unaffected_tests"
+                                ]
+                            }
+                        ],
+                        "delivery": {
+                            "delivered": [
+                                {
+                                    "packet_id": "cp-a42e1e0742873bb7",
+                                    "principal": "feature-agent",
+                                    "kind": "RESUME_CANDIDATE"
+                                },
+                                {
+                                    "packet_id": "cp-f60e38f497f76c40",
+                                    "principal": "verify-agent",
+                                    "kind": "REVALIDATION_REQUIRED"
+                                }
+                            ],
+                            "duplicates": [],
+                            "queues": {
+                                "policy-agent": 0,
+                                "feature-agent": 1,
+                                "verify-agent": 1
+                            }
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e39",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:verify-agent",
+                    "stage": 4,
+                    "event_ref": "demo01-p3-real-03-0039",
+                    "event_seq": 39,
+                    "action": "PACKET_ACKED",
+                    "event_type": "PACKET_ACKED",
+                    "actor": "verify-agent",
+                    "scope": [
+                        "W3"
+                    ],
+                    "title": "ACK change",
+                    "sub": "cp-f60e38f497f76c40",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-14T23:12:20+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "verify-agent",
+                        "packet_id": "cp-f60e38f497f76c40",
+                        "ack": {
+                            "ok": true,
+                            "duplicate": false,
+                            "ack": {
+                                "packet_id": "cp-f60e38f497f76c40",
+                                "principal": "verify-agent",
+                                "status": "ACKED",
+                                "at": "2026-11-14T23:12:20+00:00"
+                            }
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e41",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:verify-agent",
+                    "stage": 4,
+                    "event_ref": "demo01-p3-real-03-0041",
+                    "event_seq": 41,
+                    "action": "AGENT_ACTION",
+                    "event_type": "AGENT_ACTION",
+                    "actor": "verify-agent",
+                    "scope": [
+                        "W3"
+                    ],
+                    "title": "read_file",
+                    "sub": "config/refund-policy.php",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:12:24+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "verify-agent",
+                        "action": "read_file",
+                        "path": "config/refund-policy.php",
+                        "resource": null,
+                        "to": null
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e44-g",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:verify-agent",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0044",
+                    "event_refs": [
+                        "demo01-p3-real-03-0044",
+                        "demo01-p3-real-03-0088"
+                    ],
+                    "event_seq": 44,
+                    "event_seqs": [
+                        44,
+                        88
+                    ],
+                    "action": "TEST_RUN",
+                    "event_type": "TEST_RUN",
+                    "actor": "verify-agent",
+                    "scope": [
+                        "W3"
+                    ],
+                    "title": "Tests ×2",
+                    "sub": "all exit 0",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:12:27+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "events": [
+                            {
+                                "agent": "verify-agent",
+                                "path": "tests/refund_boundary.php",
+                                "exit_code": 0,
+                                "output_tail": "PASS refund boundary"
+                            },
+                            {
+                                "agent": "verify-agent",
+                                "path": "tests/refund_service.php",
+                                "exit_code": 0,
+                                "output_tail": "PASS refund service"
+                            }
+                        ]
+                    },
+                    "group_size": 2
+                },
+                {
+                    "node_id": "p3-real-03:e47",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:verify-agent",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0047",
+                    "event_seq": 47,
+                    "action": "AGENT_FINISHED",
+                    "event_type": "AGENT_FINISHED",
+                    "actor": "verify-agent",
+                    "scope": [
+                        "W3"
+                    ],
+                    "title": "verify-agent finished",
+                    "sub": "scope ",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:12:36+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "verify-agent",
+                        "summary": "Verification evidence (W3, partial): read config/refund-policy.php at sha256 8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa — verified 'schema_version' => 'xg-refund-policy/v0.1' preserved, max_refund_percent=20, manual_review_above=20, partial_refund_enabled=true, and the three tiers in ascending min_amount_cents order (0/10%, 10000/15%, 20000/20%). Ran php tests/refund_boundary.php: exit code 0, output 'PASS refund boundary'. I did not write or modify any file (verify-agent is read-only). Remaining gap: php tests/refund_service.php has NOT been run yet, and the current policy snapshot does not yet contain the partial_refund segment (min_amount_cents 5000, max_percent 20) that feature-agent must append, so full 'completion definition' items 1-4 are not yet evidenced end-to-end. Awaiting a change packet for the service/partial_refund update before running tests/refund_service.php."
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e50",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:feature-agent",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0050",
+                    "event_seq": 50,
+                    "action": "PACKET_ACKED",
+                    "event_type": "PACKET_ACKED",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "ACK change",
+                    "sub": "cp-a42e1e0742873bb7",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-14T23:12:40+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "feature-agent",
+                        "packet_id": "cp-a42e1e0742873bb7",
+                        "ack": {
+                            "ok": true,
+                            "duplicate": false,
+                            "ack": {
+                                "packet_id": "cp-a42e1e0742873bb7",
+                                "principal": "feature-agent",
+                                "status": "ACKED",
+                                "at": "2026-11-14T23:12:40+00:00"
+                            }
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e55",
+                    "run_id": "p3-real-03",
+                    "lane": "res:config/refund-policy.php",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0055",
+                    "event_seq": 55,
+                    "action": "RESOURCE_ACQUIRED",
+                    "event_type": "RESOURCE_RECEIPT",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Acquire resource",
+                    "sub": "lease lease-28449cbe",
+                    "state": "wait",
+                    "recorded_at_utc": "2026-11-14T23:12:48+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "feature-agent",
+                        "receipt": {
+                            "receipt_id": "rcpt-6",
+                            "action": "RESOURCE_ACQUIRED",
+                            "resource": "config/refund-policy.php",
+                            "principal": "feature-agent",
+                            "lease_id": "lease-28449cbec7686149",
+                            "epoch": 2,
+                            "at": "2026-11-14T23:12:48+00:00",
+                            "ok": true,
+                            "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                            "path": "[redacted-host]/xianggraph/experiments/demo01/runs/p3-real-03/workspace/config/refund-policy.php"
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e58",
+                    "run_id": "p3-real-03",
+                    "lane": "res:config/refund-policy.php",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0058",
+                    "event_seq": 58,
+                    "action": "RESOURCE_APPLIED",
+                    "event_type": "RESOURCE_RECEIPT",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Apply patch",
+                    "sub": "config/refund-policy.php",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:12:54+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "feature-agent",
+                        "receipt": {
+                            "receipt_id": "rcpt-7",
+                            "action": "RESOURCE_APPLIED",
+                            "resource": "config/refund-policy.php",
+                            "principal": "feature-agent",
+                            "lease_id": "lease-28449cbec7686149",
+                            "epoch": 2,
+                            "at": "2026-11-14T23:12:54+00:00",
+                            "ok": true,
+                            "old_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                            "new_hash": "1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c",
+                            "bytes": 516,
+                            "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -12,4 +12,8 @@\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n         ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n+    'partial_refund' => [\n+        'min_amount_cents' => 5000,\n+        'max_percent' => 20,\n+    ],\n ];"
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e61",
+                    "run_id": "p3-real-03",
+                    "lane": "res:config/refund-policy.php",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0061",
+                    "event_seq": 61,
+                    "action": "RESOURCE_RELEASED",
+                    "event_type": "RESOURCE_RECEIPT",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Release lease",
+                    "sub": "config/refund-policy.php",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-14T23:12:59+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "feature-agent",
+                        "receipt": {
+                            "receipt_id": "rcpt-8",
+                            "action": "RESOURCE_RELEASED",
+                            "resource": "config/refund-policy.php",
+                            "principal": "feature-agent",
+                            "lease_id": "lease-28449cbec7686149",
+                            "epoch": 2,
+                            "at": "2026-11-14T23:12:59+00:00",
+                            "ok": true,
+                            "resulting_hash": "1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c"
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e66-g",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:feature-agent",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0066",
+                    "event_refs": [
+                        "demo01-p3-real-03-0066",
+                        "demo01-p3-real-03-0069"
+                    ],
+                    "event_seq": 66,
+                    "event_seqs": [
+                        66,
+                        69
+                    ],
+                    "action": "TEST_RUN",
+                    "event_type": "TEST_RUN",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Tests ×2",
+                    "sub": "all exit 0",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:13:10+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "events": [
+                            {
+                                "agent": "feature-agent",
+                                "path": "tests/refund_boundary.php",
+                                "exit_code": 0,
+                                "output_tail": "PASS refund boundary"
+                            },
+                            {
+                                "agent": "feature-agent",
+                                "path": "tests/refund_service.php",
+                                "exit_code": 0,
+                                "output_tail": "PASS refund service"
+                            }
+                        ]
+                    },
+                    "group_size": 2
+                },
+                {
+                    "node_id": "p3-real-03:e72",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:feature-agent",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0072",
+                    "event_seq": 72,
+                    "action": "AGENT_MESSAGE",
+                    "event_type": "AGENT_MESSAGE",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Message",
+                    "sub": "feature-agent → verify-agent",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:13:21+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "from": "feature-agent",
+                        "to": "verify-agent",
+                        "body": "W2 complete: src/RefundService.php implements tiered partial refund quote reading config at runtime; config/refund-policy.php now has partial_refund => {min_amount_cents: 5000, max_percent: 20} (hash 1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c). Both `php tests/refund_boundary.php` and `php tests/refund_service.php` exit 0 in my run. Please run W3 verification and submit evidence."
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e77",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:feature-agent",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0077",
+                    "event_seq": 77,
+                    "action": "AGENT_FINISHED",
+                    "event_type": "AGENT_FINISHED",
+                    "actor": "feature-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "feature-agent finished",
+                    "sub": "scope ",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:13:31+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "feature-agent",
+                        "summary": "W2 complete. src/RefundService.php implements quote(): reads config/refund-policy.php at runtime (no hardcoded tier caps), handles full refund at 100%, tiered partial refunds with partial_refund_enabled / min_amount_cents / max_percent / tier checks, rounding, and InvalidArgumentException for invalid input; policy() helper preserved. config/refund-policy.php: obtained lease, appended partial_refund => {min_amount_cents: 5000, max_percent: 20} without touching policy-agent's globals/tiers, released lease; current hash 1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c. tests/ untouched. Local runs: tests/refund_boundary.php exit 0, tests/refund_service.php exit 0. Notified verify-agent for W3 evidence."
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e78",
+                    "run_id": "p3-real-03",
+                    "lane": "res:src/RefundService.php",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0078",
+                    "event_seq": 78,
+                    "action": "SERVICE_CHANGE_DISPATCHED",
+                    "event_type": "SERVICE_CHANGE_DISPATCHED",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "ChangePacket",
+                    "sub": "1 packet(s)",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:13:31+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "change": {
+                            "resource": "src/RefundService.php",
+                            "base_hash": "4693f7279acf8a93bd3dc6bcf65ee7a2812879a9363b0b0d4b017efb35d5c45f",
+                            "current_hash": "62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b",
+                            "epoch": 1,
+                            "diff_ref": "sha256:7f80e76d2f461b71ae0cdf620e658b06b2f85a33d26ec916afe1b31b10ae204b",
+                            "diff": "--- src/RefundService.php:base\n+++ src/RefundService.php:current\n@@ -4,7 +4,7 @@\n\n final class RefundService\n {\n-    public const VERSION = 'v1';\n+    public const VERSION = 'v2';\n\n     /**\n      * @return array<string, mixed>\n@@ -25,15 +25,75 @@\n         if ($requestedPercent < 1 || $requestedPercent > 100) {\n             throw new \\InvalidArgumentException('requested percent must be between 1 and 100');\n         }\n-        if ($requestedPercent !== 100) {\n+\n+        if ($requestedPercent === 100) {\n+            return [\n+                'amount_cents' => $amountCents,\n+                'refund_percent' => 100,\n+                'refund_cents' => $amountCents,\n+                'mode' => 'full',\n+            ];\n+        }\n+\n+        $policy = self::policy();\n+\n+        if (($policy['partial_refund_enabled'] ?? false) !== true) {\n             throw new \\InvalidArgumentException('partial refunds are not enabled');\n         }\n\n+        $partialPolicy = $policy['partial_refund'] ?? null;\n+        if (!is_array($partialPolicy)) {\n+            throw new \\InvalidArgumentException('partial refund policy is missing');\n+        }\n+\n+        $minAmountCents = (int) ($partialPolicy['min_amount_cents'] ?? 0);\n+        $partialMaxPercent = (int) ($partialPolicy['max_percent'] ?? 0);\n+\n+        if ($amountCents < $minAmountCents) {\n+            throw new \\InvalidArgumentException('amount is below the partial refund minimum');\n+        }\n+        if ($requestedPercent > $partialMaxPercent) {\n+            throw new \\InvalidArgumentException('requested percent exceeds the partial refund maximum');\n+        }\n+\n+        $tierMaxPercent = self::tierMaxPercent($policy['tiers'] ?? [], $amountCents);\n+        if ($tierMaxPercent === null) {\n+            throw new \\InvalidArgumentException('no refund tier covers this amount');\n+        }\n+        if ($requestedPercent > $tierMaxPercent) {\n+            throw new \\InvalidArgumentException('requested percent exceeds the tier maximum');\n+        }\n+\n         return [\n             'amount_cents' => $amountCents,\n-            'refund_percent' => 100,\n-            'refund_cents' => $amountCents,\n-            'mode' => 'full',\n+            'refund_percent' => $requestedPercent,\n+            'refund_cents' => (int) round($amountCents * $requestedPercent / 100),\n+            'mode' => 'partial',\n         ];\n     }\n+\n+    /**\n+     * @param array<int, array<string, mixed>> $tiers\n+     */\n+    private static function tierMaxPercent(array $tiers, int $amountCents): ?int\n+    {\n+        $selected = null;\n+        $selectedMin = null;\n+\n+        foreach ($tiers as $tier) {\n+            if (!is_array($tier)) {\n+                continue;\n+            }\n+            $tierMin = (int) ($tier['min_amount_cents'] ?? 0);\n+            if ($tierMin > $amountCents) {\n+                continue;\n+            }\n+            if ($selectedMin === null || $tierMin >= $selectedMin) {\n+                $selectedMin = $tierMin;\n+                $selected = (int) ($tier['max_refund_percent'] ?? 0);\n+            }\n+        }\n+\n+        return $selected;\n+    }\n }"
+                        },
+                        "packets": [
+                            {
+                                "packet_id": "cp-5d1992e0fdfa42a4",
+                                "kind": "REVALIDATION_REQUIRED",
+                                "change_id": "chg-94504546020307ad",
+                                "principal": "verify-agent",
+                                "resource": "src/RefundService.php",
+                                "scope": [
+                                    "W3"
+                                ],
+                                "base_hash": "4693f7279acf8a93bd3dc6bcf65ee7a2812879a9363b0b0d4b017efb35d5c45f",
+                                "current_hash": "62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b",
+                                "epoch": 1,
+                                "diff_ref": "sha256:7f80e76d2f461b71ae0cdf620e658b06b2f85a33d26ec916afe1b31b10ae204b",
+                                "evidence_id": "ev:refund-service-v1",
+                                "affected_tests": [
+                                    "tests/refund_service.php"
+                                ],
+                                "unaffected_tests": [
+                                    "tests/refund_boundary.php"
+                                ],
+                                "must_reread": true,
+                                "write_authority": "NOT_APPLICABLE",
+                                "revalidation_only": true,
+                                "allowed_actions": [
+                                    "read_file",
+                                    "run_affected_tests"
+                                ],
+                                "forbidden_actions": [
+                                    "invalidate_unaffected_tests"
+                                ]
+                            }
+                        ],
+                        "delivery": {
+                            "delivered": [
+                                {
+                                    "packet_id": "cp-5d1992e0fdfa42a4",
+                                    "principal": "verify-agent",
+                                    "kind": "REVALIDATION_REQUIRED"
+                                }
+                            ],
+                            "duplicates": [],
+                            "queues": {
+                                "policy-agent": 0,
+                                "feature-agent": 0,
+                                "verify-agent": 1
+                            }
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e81",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:verify-agent",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0081",
+                    "event_seq": 81,
+                    "action": "PACKET_ACKED",
+                    "event_type": "PACKET_ACKED",
+                    "actor": "verify-agent",
+                    "scope": [
+                        "W3"
+                    ],
+                    "title": "ACK change",
+                    "sub": "cp-5d1992e0fdfa42a4",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-14T23:13:35+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "verify-agent",
+                        "packet_id": "cp-5d1992e0fdfa42a4",
+                        "ack": {
+                            "ok": true,
+                            "duplicate": false,
+                            "ack": {
+                                "packet_id": "cp-5d1992e0fdfa42a4",
+                                "principal": "verify-agent",
+                                "status": "ACKED",
+                                "at": "2026-11-14T23:13:35+00:00"
+                            }
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e91",
+                    "run_id": "p3-real-03",
+                    "lane": "agent:verify-agent",
+                    "stage": 5,
+                    "event_ref": "demo01-p3-real-03-0091",
+                    "event_seq": 91,
+                    "action": "AGENT_FINISHED",
+                    "event_type": "AGENT_FINISHED",
+                    "actor": "verify-agent",
+                    "scope": [
+                        "W3"
+                    ],
+                    "title": "verify-agent finished",
+                    "sub": "scope ",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "agent": "verify-agent",
+                        "summary": "Verification evidence for W3 (verify-agent, read-only; no files written or modified).\n\nCurrent resource hashes observed:\n- config/refund-policy.php sha256 1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c\n- src/RefundService.php sha256 62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b\n\nPolicy contract review (refund-policy-v2): schema_version preserved ('xg-refund-policy/v0.1'); max_refund_percent=20; manual_review_above=20; partial_refund_enabled=true; three tiers in ascending min_amount_cents order (0→10%, 10000→15%, 20000→20%); partial_refund segment present with min_amount_cents=5000 and max_percent=20. Matches the signed contract table exactly.\n\nService review (src/RefundService.php): quote() reads policy at runtime via require of config/refund-policy.php with no duplicated hardcoded tier ceilings; tierMaxPercent() selects the highest matching min_amount_cents tier from config. requestedPercent=100 → mode 'full', refund_cents=amountCents. Partial path enforces partial_refund_enabled, amount >= partial_refund.min_amount_cents, requestedPercent <= partial_refund.max_percent, and requestedPercent <= tier max, returning mode 'partial' with refund_cents=round(amount*pct/100). Negative amount, percent <1, percent >100, tier overflow and partial-cap overflow all throw InvalidArgumentException.\n\nTest results:\n- php tests/refund_boundary.php → exit code 0, 'PASS refund boundary' (run against policy sha 8ae13b36…, i.e. the validated tier/global state, which is unchanged by the later partial_refund-only append)\n- php tests/refund_service.php → exit code 0, 'PASS refund service' (run against current policy sha 1b4161e2… and current service sha 62fd550c…)\n\nTest files were never modified by me; tests/ remains host-original. Both named tests pass and the policy/service state is consistent with the completed W1+W2 work; independent oracle remains outside my workspace."
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e92",
+                    "run_id": "p3-real-03",
+                    "lane": "host",
+                    "stage": 6,
+                    "event_ref": "demo01-p3-real-03-0092",
+                    "event_seq": 92,
+                    "action": "FINAL_TEST_RUN",
+                    "event_type": "FINAL_TEST_RUN",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Final tests",
+                    "sub": "all passed",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "pass": true,
+                        "results": {
+                            "tests/refund_boundary.php": {
+                                "exit_code": 0,
+                                "output": "PASS refund boundary",
+                                "command": "php tests/refund_boundary.php",
+                                "timestamp": "2026-11-14T23:13:59+00:00"
+                            },
+                            "tests/refund_service.php": {
+                                "exit_code": 0,
+                                "output": "PASS refund service",
+                                "command": "php tests/refund_service.php",
+                                "timestamp": "2026-11-14T23:13:59+00:00"
+                            }
+                        },
+                        "test_hashes": {
+                            "tests/refund_boundary.php": "b1efd3a0a80f969c341d7ef59e83fa319b7e3cdcb432ba4fe852ff2881b6489c",
+                            "tests/refund_service.php": "ea368366e8f89b9b9819f0bc273d504d44299e974046fdd3230163683492cffc"
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e93",
+                    "run_id": "p3-real-03",
+                    "lane": "host",
+                    "stage": 6,
+                    "event_ref": "demo01-p3-real-03-0093",
+                    "event_seq": 93,
+                    "action": "ORACLE_RESULT",
+                    "event_type": "ORACLE_RESULT",
+                    "actor": "oracle",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "HOST ORACLE PASS",
+                    "sub": "failures 0",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "exit_code": 0,
+                        "work_completed": true,
+                        "failures": [],
+                        "runtime_dependency": {
+                            "pass": true,
+                            "detail": {
+                                "rejected": true,
+                                "class": "InvalidArgumentException",
+                                "message": "requested percent exceeds the tier maximum"
+                            }
+                        }
+                    }
+                },
+                {
+                    "node_id": "p3-real-03:e94",
+                    "run_id": "p3-real-03",
+                    "lane": "host",
+                    "stage": 6,
+                    "event_ref": "demo01-p3-real-03-0094",
+                    "event_seq": 94,
+                    "action": "RUN_FINISHED",
+                    "event_type": "RUN_FINISHED",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Run finished",
+                    "sub": "pass",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+                    "source_file": "experiments/demo01/runs/p3-real-03/events.json",
+                    "raw": {
+                        "oracle_pass": true,
+                        "tests_pass": true,
+                        "contention_observed": true,
+                        "director_requests": 0
+                    }
+                }
+            ],
+            "edges": [
+                {
+                    "from": "p3-real-03:e6",
+                    "to": "p3-real-03:e8",
+                    "kind": "plan",
+                    "label": "assigns policy-agent"
+                },
+                {
+                    "from": "p3-real-03:e6",
+                    "to": "p3-real-03:e15",
+                    "kind": "plan",
+                    "label": "assigns feature-agent"
+                },
+                {
+                    "from": "p3-real-03:e13",
+                    "to": "p3-real-03:e23-g",
+                    "kind": "block",
+                    "label": "held by policy-agent"
+                },
+                {
+                    "from": "p3-real-03:e13",
+                    "to": "p3-real-03:e29",
+                    "kind": "change",
+                    "label": "apply"
+                },
+                {
+                    "from": "p3-real-03:e13",
+                    "to": "p3-real-03:e32",
+                    "kind": "release",
+                    "label": "release"
+                },
+                {
+                    "from": "p3-real-03:e55",
+                    "to": "p3-real-03:e58",
+                    "kind": "change",
+                    "label": "apply"
+                },
+                {
+                    "from": "p3-real-03:e55",
+                    "to": "p3-real-03:e61",
+                    "kind": "release",
+                    "label": "release"
+                },
+                {
+                    "from": "p3-real-03:e32",
+                    "to": "p3-real-03:e36",
+                    "kind": "change",
+                    "label": "notify affected"
+                },
+                {
+                    "from": "p3-real-03:e36",
+                    "to": "p3-real-03:e39",
+                    "kind": "change",
+                    "label": "directed packet"
+                },
+                {
+                    "from": "p3-real-03:e36",
+                    "to": "p3-real-03:e50",
+                    "kind": "change",
+                    "label": "directed packet"
+                },
+                {
+                    "from": "p3-real-03:e78",
+                    "to": "p3-real-03:e81",
+                    "kind": "change",
+                    "label": "directed packet"
+                },
+                {
+                    "from": "p3-real-03:e39",
+                    "to": "p3-real-03:e44-g",
+                    "kind": "resume",
+                    "label": "resume"
+                },
+                {
+                    "from": "p3-real-03:e50",
+                    "to": "p3-real-03:e66-g",
+                    "kind": "resume",
+                    "label": "resume"
+                },
+                {
+                    "from": "p3-real-03:e81",
+                    "to": "p3-real-03:e44-g",
+                    "kind": "resume",
+                    "label": "resume"
+                },
+                {
+                    "from": "p3-real-03:e93",
+                    "to": "p3-real-03:e94",
+                    "kind": "done",
+                    "label": "close"
+                }
+            ],
+            "metrics": [
+                {
+                    "label": "MODEL CALLS",
+                    "value": "31",
+                    "note": "usage.json"
+                },
+                {
+                    "label": "TOTAL TOKENS",
+                    "value": "96,543",
+                    "note": "usage.json"
+                },
+                {
+                    "label": "EST. COST",
+                    "value": "$0.034198",
+                    "note": "recorded estimate"
+                },
+                {
+                    "label": "EXECUTION AGENTS",
+                    "value": "3",
+                    "note": "policy-agent / feature-agent / verify-agent"
+                }
+            ],
+            "director": {
+                "label": "Director 预先组合资源治理、变化传播与局部重验规则",
+                "plan_id": "demo01-refund-policy-v1-plan",
+                "chips": [
+                    "P-DEP",
+                    "P-CONFLICT",
+                    "P-REVIEW",
+                    "P-ESCALATE"
+                ],
+                "works": [
+                    "W1 Update refund policy globals, tiers, and partial_refund_enabled",
+                    "W2 Implement tiered partial refund quote and append partial_refund config segment",
+                    "W3 Run boundary and service tests and submit verification evidence"
+                ]
+            },
+            "facts": [
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "Blocked action ≠ blocked agent",
+                    "value": "2 RESOURCE_BUSY; 1 independent write before the BUSY attempts",
+                    "detail": "Independent write inside the lease window, before the BUSY attempts: seq 20 src/RefundService.php. No other independent write was recorded between the two BUSY receipts; model calls and the second lease request are recorded there.",
+                    "event_seqs": [
+                        13,
+                        23,
+                        26
+                    ]
+                },
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "Host oracle",
+                    "value": "PASS",
+                    "detail": "failures: []",
+                    "source_file": "experiments/demo01/runs/p3-real-03/oracle.json",
+                    "event_seqs": []
+                }
+            ],
+            "not_evidenced": [],
+            "boundary": [
+                "ResourceGate 是宿主工具路径租约，不是操作系统文件锁；本次共 2 次 RESOURCE_BUSY。",
+                "被拒绝的只是冲突写操作；B 在两次 RESOURCE_BUSY 期间没有其他动作。",
+                "seq 20 的独立写 src/RefundService.php 发生在 A 持锁窗口内、两次 BUSY 之前；不是 BUSY 之后的恢复动作。"
+            ],
+            "sources": [
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/events.json",
+                    "sha256": "75788eab4a85fc4e0dbdd3dad441fe8ebbfe13d1914d0028648b10bb02d9f54b"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/summary.json",
+                    "sha256": "1e9d89a1d8a0a52e6eb6cb6322f43af17680c4fc720ccb58591b00240753bca9"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/usage.json",
+                    "sha256": "b75039eaf4f632033550f5bcc901cd45455288f331d386f071bf07e6ffec883d"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/oracle.json",
+                    "sha256": "3170168cb8e641429207a5a8829ea6bbbcff1300afe1c34c840c21756fbad4cb"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/change-packets.json",
+                    "sha256": "007fc7262290fbbd3e31f6f6eb226eee553dbd6b3277d853fd5c76332aa24d17"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/resource-receipts.json",
+                    "sha256": "3f481bfc7f4c23568af2aaffe0163aba0bf2b767f99d546d77fa7c0421736c5c"
+                }
+            ]
+        },
+        {
+            "id": "p4",
+            "run_id": "p4-real-01",
+            "mode": "RECORDED_REAL_RUN",
+            "claim_level": "SELF_CHECKED",
+            "kind": "p4",
+            "title": "P4 · 合同变化传播",
+            "summary": "Director 读取任务事实后选择依赖/审查/升级协议；合同从 rev1 变为 rev2，变化只投递给真正依赖它的消费者。",
+            "chain": {
+                "status": "MATCH",
+                "head_hash": "cb3e4dc6e4433308c10bbc5c00abe51f634c84b641e020d15b1a2a3c7b124ce0",
+                "event_count": 31
+            },
+            "lanes": [
+                {
+                    "id": "director",
+                    "label": "DIRECTOR",
+                    "sub": "plan composition / decision"
+                },
+                {
+                    "id": "agent:contract-agent",
+                    "label": "CONTRACT-AGENT",
+                    "sub": "W1 · 3 turns"
+                },
+                {
+                    "id": "agent:client-agent",
+                    "label": "CLIENT-AGENT",
+                    "sub": "W2 · 6 turns"
+                },
+                {
+                    "id": "human",
+                    "label": "HUMAN OWNER",
+                    "sub": "authorization"
+                },
+                {
+                    "id": "host",
+                    "label": "HOST / ORACLE",
+                    "sub": "authority + receipts"
+                },
+                {
+                    "id": "contract",
+                    "label": "CONTRACT",
+                    "sub": "contract/orders-api.json"
+                },
+                {
+                    "id": "missing:verify-agent",
+                    "label": "VERIFY AGENT",
+                    "sub": "NOT RUN · no receipt"
+                }
+            ],
+            "stages": [
+                {
+                    "id": 0,
+                    "label": "PLAN"
+                },
+                {
+                    "id": 1,
+                    "label": "PRODUCER"
+                },
+                {
+                    "id": 2,
+                    "label": "CONTRACT REV2"
+                },
+                {
+                    "id": 3,
+                    "label": "DELIVERY"
+                },
+                {
+                    "id": 4,
+                    "label": "CONSUMER ACK"
+                },
+                {
+                    "id": 5,
+                    "label": "ADAPT"
+                },
+                {
+                    "id": 6,
+                    "label": "ORACLE"
+                }
+            ],
+            "nodes": [
+                {
+                    "node_id": "p4-real-01:e1",
+                    "run_id": "p4-real-01",
+                    "lane": "host",
+                    "stage": 0,
+                    "event_ref": "ev-0001",
+                    "event_seq": 1,
+                    "action": "P4_RUN_STARTED",
+                    "event_type": "P4_RUN_STARTED",
+                    "actor": "host",
+                    "scope": [
+                        "run"
+                    ],
+                    "title": "Run started",
+                    "sub": "p4-real-01",
+                    "state": "plan",
+                    "recorded_at_utc": "2026-11-14T23:24:13+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "run_id": "p4-real-01",
+                        "task": "orders-api-v2",
+                        "shared_resources": [],
+                        "contract_dependencies": [
+                            {
+                                "contract": "contract/orders-api.json",
+                                "producer": "contract-agent",
+                                "consumer": "client-agent",
+                                "note": "Only contract-agent writes the contract; client-agent reads it at runtime. The dependency is the API contract, not a shared write lease."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e2",
+                    "run_id": "p4-real-01",
+                    "lane": "director",
+                    "stage": 0,
+                    "event_ref": "ev-0002",
+                    "event_seq": 2,
+                    "action": "DIRECTOR_PLAN_RECORDED",
+                    "event_type": "DIRECTOR_PLAN_RECORDED",
+                    "actor": "director",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Director plan",
+                    "sub": "sha sha256:e23684029d8",
+                    "state": "plan",
+                    "recorded_at_utc": "2026-11-14T23:24:55+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "plan_hash": "sha256:e23684029d8da9f6abc2ade4eb6ad7700a72aad7c09da8090b72c2a587bdafca",
+                        "protocols": [
+                            "P-DEP",
+                            "P-REVIEW",
+                            "P-ESCALATE"
+                        ],
+                        "works": [
+                            "W1",
+                            "W2",
+                            "W3"
+                        ],
+                        "usage": {
+                            "prompt_tokens": 3449,
+                            "completion_tokens": 4134,
+                            "total_tokens": 7583,
+                            "cost_usd_estimate": 0.005995,
+                            "estimated": false
+                        }
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e3",
+                    "run_id": "p4-real-01",
+                    "lane": "human",
+                    "stage": 0,
+                    "event_ref": "ev-0003",
+                    "event_seq": 3,
+                    "action": "CONTRACT_CHANGE_REQUESTED",
+                    "event_type": "CONTRACT_CHANGE_REQUESTED",
+                    "actor": "human:owner",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "CR-002 requested",
+                    "sub": "signed change",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:24:55+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "request_id": "CR-002",
+                        "path": "change-requests/CR-002.json",
+                        "sha256": "sha256:a99ed874871d84380a97b764e511692be68aa8e99f8998154bae237020ccaad6",
+                        "signer": "human:owner",
+                        "target": "contract/orders-api.json",
+                        "expected_revision": 1,
+                        "requires": {
+                            "revision": 2,
+                            "fields_add": [
+                                "refunded_cents"
+                            ],
+                            "pagination.max_limit": 200
+                        }
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e5",
+                    "run_id": "p4-real-01",
+                    "lane": "agent:contract-agent",
+                    "stage": 1,
+                    "event_ref": "ev-0005",
+                    "event_seq": 5,
+                    "action": "AGENT_ACTION",
+                    "event_type": "AGENT_ACTION",
+                    "actor": "contract-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "read_file",
+                    "sub": "contract/orders-api.json",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:24:59+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "agent": "contract-agent",
+                        "action": "read_file",
+                        "path": "contract/orders-api.json"
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e8",
+                    "run_id": "p4-real-01",
+                    "lane": "agent:contract-agent",
+                    "stage": 1,
+                    "event_ref": "ev-0008",
+                    "event_seq": 8,
+                    "action": "FILE_WRITTEN",
+                    "event_type": "FILE_WRITTEN",
+                    "actor": "contract-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "Write orders-api.json",
+                    "sub": "sha 7258c83cef38",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:25:04+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "agent": "contract-agent",
+                        "path": "contract/orders-api.json",
+                        "before_hash": "dc4e58482eca454ca84948f5df6802eba2bf740beb81b012575e0a5119a99ecf",
+                        "after_hash": "7258c83cef3812966e5c8b61792c287d0c0be7a1d35c08c2e60d6825b4ecf9ae",
+                        "reason": "SIGNED_CHANGE_REQUEST",
+                        "request_id": "CR-002"
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e11",
+                    "run_id": "p4-real-01",
+                    "lane": "agent:contract-agent",
+                    "stage": 1,
+                    "event_ref": "ev-0011",
+                    "event_seq": 11,
+                    "action": "AGENT_FINISHED",
+                    "event_type": "AGENT_FINISHED",
+                    "actor": "contract-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "contract-agent finished",
+                    "sub": "scope ",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:25:09+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "agent": "contract-agent",
+                        "summary": "Read contract/orders-api.json (revision 1, hash dc4e5848...) and applied CR-002: revision bumped to 2, pagination.max_limit set to 200, fields extended in order to [\"order_id\",\"amount_cents\",\"status\",\"refunded_cents\"], preserving schema_version, contract_id, statuses, and pagination.default_limit unchanged. Write accepted with request_id CR-002, new hash 7258c83c.... Only contract/orders-api.json was modified."
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e12",
+                    "run_id": "p4-real-01",
+                    "lane": "contract",
+                    "stage": 2,
+                    "event_ref": "ev-0012",
+                    "event_seq": 12,
+                    "action": "CONTRACT_CHANGE_APPLIED",
+                    "event_type": "CONTRACT_CHANGE_APPLIED",
+                    "actor": "host",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "Contract rev2",
+                    "sub": "applied once",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:25:09+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "request_id": "CR-002",
+                        "resource": "contract/orders-api.json",
+                        "base_hash": "dc4e58482eca454ca84948f5df6802eba2bf740beb81b012575e0a5119a99ecf",
+                        "current_hash": "7258c83cef3812966e5c8b61792c287d0c0be7a1d35c08c2e60d6825b4ecf9ae",
+                        "diff_ref": "sha256:99bddfc46039a2260cc05146912b9345e02f3a8f84c102d71800fc7c257a44a2",
+                        "applied_by": "contract-agent",
+                        "writes": 1
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e13",
+                    "run_id": "p4-real-01",
+                    "lane": "host",
+                    "stage": 3,
+                    "event_ref": "ev-0013",
+                    "event_seq": 13,
+                    "action": "PACKET_DELIVERED",
+                    "event_type": "PACKET_DELIVERED",
+                    "actor": "host",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Deliver packet",
+                    "sub": "scope ",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:25:09+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "packet_id": "cp-784001a7a13573f5",
+                        "kind": "RESUME_CANDIDATE",
+                        "principal": "client-agent",
+                        "change_id": "chg-31768bb8314f5ef5",
+                        "diff_ref": "sha256:99bddfc46039a2260cc05146912b9345e02f3a8f84c102d71800fc7c257a44a2"
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e16",
+                    "run_id": "p4-real-01",
+                    "lane": "agent:client-agent",
+                    "stage": 4,
+                    "event_ref": "ev-0016",
+                    "event_seq": 16,
+                    "action": "PACKET_ACKED",
+                    "event_type": "PACKET_ACKED",
+                    "actor": "client-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "ACK change",
+                    "sub": "cp-784001a7a13573f5",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-14T23:25:12+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "agent": "client-agent",
+                        "packet_id": "cp-784001a7a13573f5"
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e18",
+                    "run_id": "p4-real-01",
+                    "lane": "agent:client-agent",
+                    "stage": 4,
+                    "event_ref": "ev-0018",
+                    "event_seq": 18,
+                    "action": "AGENT_ACTION",
+                    "event_type": "AGENT_ACTION",
+                    "actor": "client-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "read_file",
+                    "sub": "contract/orders-api.json",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:25:14+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "agent": "client-agent",
+                        "action": "read_file",
+                        "path": "contract/orders-api.json"
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e23",
+                    "run_id": "p4-real-01",
+                    "lane": "agent:client-agent",
+                    "stage": 5,
+                    "event_ref": "ev-0023",
+                    "event_seq": 23,
+                    "action": "FILE_WRITTEN",
+                    "event_type": "FILE_WRITTEN",
+                    "actor": "client-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Write OrderQuery.php",
+                    "sub": "sha a6e95da80d56",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-14T23:25:31+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "agent": "client-agent",
+                        "path": "src/OrderQuery.php",
+                        "before_hash": "2b3b38d552944d119d36f973ed28487cd75592e13ade493385a1eba0d1971f9d",
+                        "after_hash": "a6e95da80d5657fa17c5b08672b974b8658b3e49d8b17b0b09d9a010ed2ee11b",
+                        "after_change_packet": "cp-784001a7a13573f5"
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e26",
+                    "run_id": "p4-real-01",
+                    "lane": "agent:client-agent",
+                    "stage": 5,
+                    "event_ref": "ev-0026",
+                    "event_seq": 26,
+                    "action": "TEST_RUN",
+                    "event_type": "TEST_RUN",
+                    "actor": "client-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Test orders_query.php",
+                    "sub": "exit 0",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:25:34+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "agent": "client-agent",
+                        "path": "tests/orders_query.php",
+                        "exit_code": 0,
+                        "output_tail": "orders_query tests passed"
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e29",
+                    "run_id": "p4-real-01",
+                    "lane": "agent:client-agent",
+                    "stage": 5,
+                    "event_ref": "ev-0029",
+                    "event_seq": 29,
+                    "action": "AGENT_FINISHED",
+                    "event_type": "AGENT_FINISHED",
+                    "actor": "client-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "client-agent finished",
+                    "sub": "scope ",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:25:39+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "agent": "client-agent",
+                        "summary": "ACKed the RESUME_CANDIDATE packet (no write authority granted), then re-read contract/orders-api.json (revision 2, fields including refunded_cents, max_limit 200) and src/OrderQuery.php. Rewrote src/OrderQuery.php so contract() parses the contract at runtime, list() enforces 1 <= limit <= pagination.max_limit and builds each row by iterating contract.fields (no hardcoded field list, key order preserved), and summary() returns orders, amount_cents and refunded_cents. No changes to data/orders.json or tests/. Ran tests/orders_query.php: exit code 0, \"orders_query tests passed\"."
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e30",
+                    "run_id": "p4-real-01",
+                    "lane": "host",
+                    "stage": 6,
+                    "event_ref": "ev-0030",
+                    "event_seq": 30,
+                    "action": "ORACLE_RESULT",
+                    "event_type": "ORACLE_RESULT",
+                    "actor": "oracle",
+                    "scope": [
+                        "W3"
+                    ],
+                    "title": "HOST ORACLE PASS",
+                    "sub": "failures 0",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-14T23:25:40+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "work_completed": true,
+                        "failures": []
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:e31",
+                    "run_id": "p4-real-01",
+                    "lane": "host",
+                    "stage": 6,
+                    "event_ref": "ev-0031",
+                    "event_seq": 31,
+                    "action": "KERNEL_DIFF_CHECK",
+                    "event_type": "KERNEL_DIFF_CHECK",
+                    "actor": "host",
+                    "scope": [
+                        "run"
+                    ],
+                    "title": "Kernel diff",
+                    "sub": "no core change",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-14T23:25:40+00:00",
+                    "source_file": "experiments/demo01/runs/p4-real-01/events.json",
+                    "raw": {
+                        "touched_files": []
+                    }
+                },
+                {
+                    "node_id": "p4-real-01:missing:verify-agent",
+                    "run_id": "p4-real-01",
+                    "lane": "missing:verify-agent",
+                    "stage": 6,
+                    "event_ref": null,
+                    "event_seq": 0,
+                    "action": "NOT_RUN",
+                    "event_type": "NOT_RUN",
+                    "actor": "verify-agent",
+                    "scope": [],
+                    "title": "NOT RUN",
+                    "sub": "No verify-agent event in this run. The oracle below is a host check, not a verifier execution.",
+                    "state": "muted",
+                    "recorded_at_utc": "",
+                    "source_file": null,
+                    "synthetic": true,
+                    "raw": null
+                }
+            ],
+            "edges": [
+                {
+                    "from": "p4-real-01:e16",
+                    "to": "p4-real-01:e23",
+                    "kind": "resume",
+                    "label": "resume"
+                },
+                {
+                    "from": "p4-real-01:e12",
+                    "to": "p4-real-01:e13",
+                    "kind": "change",
+                    "label": "one packet"
+                },
+                {
+                    "from": "p4-real-01:e13",
+                    "to": "p4-real-01:e16",
+                    "kind": "change",
+                    "label": "consume"
+                }
+            ],
+            "metrics": [
+                {
+                    "label": "MODEL CALLS",
+                    "value": "10",
+                    "note": "usage.json"
+                },
+                {
+                    "label": "TOTAL TOKENS",
+                    "value": "31,145",
+                    "note": "usage.json"
+                },
+                {
+                    "label": "EST. COST",
+                    "value": "$0.015162",
+                    "note": "recorded estimate"
+                },
+                {
+                    "label": "EXECUTION AGENTS",
+                    "value": "2",
+                    "note": "contract-agent / client-agent"
+                }
+            ],
+            "director": {
+                "label": "Director 选择 P-DEP + P-REVIEW + P-ESCALATE；无共享写资源，不组合 P-CONFLICT",
+                "plan_id": "plan sha256:e23684029d8da…",
+                "chips": [
+                    "P-DEP",
+                    "P-REVIEW",
+                    "P-ESCALATE"
+                ],
+                "works": [
+                    "W1",
+                    "W2",
+                    "W3"
+                ]
+            },
+            "facts": [
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "Single directed delivery",
+                    "value": "1 delivered / 1 ACK",
+                    "detail": "The contract change is delivered to the dependent consumer only.",
+                    "event_seqs": [
+                        13,
+                        16
+                    ]
+                },
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "Verifier lane",
+                    "value": "NOT RUN",
+                    "detail": "No verify-agent event exists in this run; the oracle is a host check.",
+                    "event_seqs": []
+                },
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "Host oracle",
+                    "value": "PASS",
+                    "detail": "failures: []",
+                    "source_file": "experiments/demo01/runs/p4-real-01/oracle.json",
+                    "event_seqs": []
+                }
+            ],
+            "not_evidenced": [
+                {
+                    "id": "verify-agent",
+                    "label": "VERIFY AGENT · NOT RUN",
+                    "detail": "No verify-agent event in this run. The oracle below is a host check, not a verifier execution."
+                }
+            ],
+            "boundary": [
+                "verify-agent 本次未运行；末尾的 oracle 是宿主独立检查，不是验证 Agent 的执行。",
+                "合同变化只投递一次；消费者 ACK 后才继续写。",
+                "首屏并列显示 VERIFY AGENT: NOT RUN / HOST ORACLE: PASS；宿主 oracle 通过不等于 verifier 执行。"
+            ],
+            "sources": [
+                {
+                    "path": "experiments/demo01/runs/p4-real-01/events.json",
+                    "sha256": "8d79903f0c2fb985858a3e1230c18b192f3cf1ff4f3caeee1f3b0b96d5fe10ff"
+                },
+                {
+                    "path": "experiments/demo01/runs/p4-real-01/summary.json",
+                    "sha256": "5b79a2e95572994782f88d2df33f7b60525f0a617a1fb8ab7f10a7956316e2b8"
+                },
+                {
+                    "path": "experiments/demo01/runs/p4-real-01/usage.json",
+                    "sha256": "f1e014d9d5a9125895cb7b00bed49b6f1531d98097d7e31339abec9a56753383"
+                },
+                {
+                    "path": "experiments/demo01/runs/p4-real-01/oracle.json",
+                    "sha256": "b0590ad6ca2bc6ba914b3b4dfd16baea326e05970a4b8a34bb91e15b35c0854f"
+                }
+            ]
+        },
+        {
+            "id": "p6",
+            "run_id": "p6-pair-01r3-xg",
+            "mode": "RECORDED_REAL_RUN",
+            "claim_level": "SELF_CHECKED",
+            "kind": "p6",
+            "title": "P6 · Director 局部决策",
+            "summary": "两个方案并行协商，轮次耗尽后只生成一条结构化请求；Patch 只作用于 W1/W2，W3 的 evidence 保持 CURRENT。",
+            "chain": {
+                "status": "MATCH",
+                "head_hash": "8bba1715aad47ae0614149c1222db84acb3e353bf60a7e841cac703d1df03c26",
+                "event_count": 63
+            },
+            "lanes": [
+                {
+                    "id": "director",
+                    "label": "DIRECTOR",
+                    "sub": "plan composition / decision"
+                },
+                {
+                    "id": "agent:api-agent",
+                    "label": "API-AGENT",
+                    "sub": "W1 · 10 turns"
+                },
+                {
+                    "id": "agent:compatibility-agent",
+                    "label": "COMPATIBILITY-AGENT",
+                    "sub": "W2 · 7 turns"
+                },
+                {
+                    "id": "agent:independent-agent",
+                    "label": "INDEPENDENT-AGENT",
+                    "sub": "W3 · 2 turns"
+                },
+                {
+                    "id": "host",
+                    "label": "HOST / ORACLE",
+                    "sub": "authority + receipts"
+                },
+                {
+                    "id": "scope",
+                    "label": "PATCH SCOPE",
+                    "sub": "W1 + W2"
+                }
+            ],
+            "stages": [
+                {
+                    "id": 0,
+                    "label": "PLAN"
+                },
+                {
+                    "id": 1,
+                    "label": "PROPOSALS"
+                },
+                {
+                    "id": 2,
+                    "label": "NEGOTIATION"
+                },
+                {
+                    "id": 3,
+                    "label": "ESCALATION"
+                },
+                {
+                    "id": 4,
+                    "label": "SCOPED PATCH"
+                },
+                {
+                    "id": 5,
+                    "label": "PATCH ACK"
+                },
+                {
+                    "id": 6,
+                    "label": "IMPLEMENT"
+                },
+                {
+                    "id": 7,
+                    "label": "VERIFY"
+                }
+            ],
+            "nodes": [
+                {
+                    "node_id": "p6-pair-01r3-xg:e1",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "host",
+                    "stage": 0,
+                    "event_ref": "p6-p6-pair-01r3-xg-0001",
+                    "event_seq": 1,
+                    "action": "P6_RUN_STARTED",
+                    "event_type": "P6_RUN_STARTED",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Run started",
+                    "sub": "p6-pair-01r3-xg",
+                    "state": "plan",
+                    "recorded_at_utc": "2026-11-15T05:59:44+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "mode": "real",
+                        "coordination_mode": "xg",
+                        "run_id": "p6-pair-01r3-xg",
+                        "plan_hash": "sha256:6db70df714ce4e801b7f2a648b0ca5f199bc41c8cc4b35ad9a43b8a23262d263",
+                        "model": "deepseek-v4.1-flash"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e2",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "director",
+                    "stage": 0,
+                    "event_ref": "p6-p6-pair-01r3-xg-0002",
+                    "event_seq": 2,
+                    "action": "DIRECTOR_PLAN_LOADED",
+                    "event_type": "DIRECTOR_PLAN_LOADED",
+                    "actor": "director",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Director plan",
+                    "sub": "strategic-conflict-v1-plan",
+                    "state": "plan",
+                    "recorded_at_utc": "2026-11-15T05:59:44+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "plan_id": "strategic-conflict-v1-plan",
+                        "protocols": [
+                            {
+                                "protocol": "P-CONFLICT",
+                                "version": "v0.1",
+                                "scope": [
+                                    "W1",
+                                    "W2"
+                                ],
+                                "max_rounds": 2
+                            },
+                            {
+                                "protocol": "P-ESCALATE",
+                                "version": "v0.1",
+                                "scope": [
+                                    "W1",
+                                    "W2"
+                                ]
+                            },
+                            {
+                                "protocol": "P-REVIEW",
+                                "version": "v0.1",
+                                "scope": [
+                                    "W1",
+                                    "W2"
+                                ]
+                            }
+                        ],
+                        "source": "STRUCTURED_PLAN"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e4",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:api-agent",
+                    "stage": 0,
+                    "event_ref": "p6-p6-pair-01r3-xg-0004",
+                    "event_seq": 4,
+                    "action": "AGENT_PROTOCOL_ERROR",
+                    "event_type": "AGENT_PROTOCOL_ERROR",
+                    "actor": "api-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "PROTOCOL_ERROR",
+                    "sub": "api-agent",
+                    "state": "block",
+                    "recorded_at_utc": "2026-11-15T05:59:57+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "api-agent",
+                        "raw_hash": "fbefe167a78c717d8d0d80970316a460951e75bbc5f4ee7e2f678a4a6efa24a1"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e6",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:compatibility-agent",
+                    "stage": 0,
+                    "event_ref": "p6-p6-pair-01r3-xg-0006",
+                    "event_seq": 6,
+                    "action": "AGENT_PROTOCOL_ERROR",
+                    "event_type": "AGENT_PROTOCOL_ERROR",
+                    "actor": "compatibility-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "PROTOCOL_ERROR",
+                    "sub": "compatibility-agent",
+                    "state": "block",
+                    "recorded_at_utc": "2026-11-15T06:00:15+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "compatibility-agent",
+                        "raw_hash": "b080c3650b3333ed3bee09c7ce66680da65de0ac9f3d46c4c344c2aabd9c421f"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e9",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:independent-agent",
+                    "stage": 1,
+                    "event_ref": "p6-p6-pair-01r3-xg-0009",
+                    "event_seq": 9,
+                    "action": "FILE_WRITTEN",
+                    "event_type": "FILE_WRITTEN",
+                    "actor": "independent-agent",
+                    "scope": [
+                        "W3"
+                    ],
+                    "title": "Write refund-api-integration.md",
+                    "sub": "sha 2004d3438c4b",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-15T06:00:31+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "independent-agent",
+                        "path": "docs/refund-api-integration.md",
+                        "bytes": 4629,
+                        "sha256": "2004d3438c4b641912b071541007fe59abd774d70b4019f74b372a46e8a1f26d"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e12",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:api-agent",
+                    "stage": 1,
+                    "event_ref": "p6-p6-pair-01r3-xg-0012",
+                    "event_seq": 12,
+                    "action": "FILE_WRITTEN",
+                    "event_type": "FILE_WRITTEN",
+                    "actor": "api-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "Write api-agent.md",
+                    "sub": "sha 4fb1ec42b51b",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-15T06:00:42+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "api-agent",
+                        "path": "proposals/api-agent.md",
+                        "bytes": 2962,
+                        "sha256": "4fb1ec42b51be470438d263f1983d97b8dc2d1635f8a8542d2309dedce52d8ce"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e15",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:compatibility-agent",
+                    "stage": 1,
+                    "event_ref": "p6-p6-pair-01r3-xg-0015",
+                    "event_seq": 15,
+                    "action": "FILE_WRITTEN",
+                    "event_type": "FILE_WRITTEN",
+                    "actor": "compatibility-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Write compatibility-agent.md",
+                    "sub": "sha 72077dff145c",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-15T06:00:54+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "compatibility-agent",
+                        "path": "proposals/compatibility-agent.md",
+                        "bytes": 3786,
+                        "sha256": "72077dff145c55c79488cba20f82e566388cdf1f270737f7ddb5e63925800f90"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e18",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:independent-agent",
+                    "stage": 1,
+                    "event_ref": "p6-p6-pair-01r3-xg-0018",
+                    "event_seq": 18,
+                    "action": "AGENT_FINISHED",
+                    "event_type": "AGENT_FINISHED",
+                    "actor": "independent-agent",
+                    "scope": [
+                        "W3"
+                    ],
+                    "title": "independent-agent finished",
+                    "sub": "scope ",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-15T06:00:58+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "independent-agent",
+                        "summary": "docs/refund-api-integration.md complete with ## Compatibility, ## Migration and ## Verification; covers v1 frozen boundary, A/B migration differences, and verification via repo tests plus hidden oracle, without editing A/B or host-owned files."
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e19",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:api-agent",
+                    "stage": 1,
+                    "event_ref": "p6-p6-pair-01r3-xg-0019",
+                    "event_seq": 19,
+                    "action": "MODEL_ERROR",
+                    "event_type": "MODEL_ERROR",
+                    "actor": "api-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "MODEL_ERROR",
+                    "sub": "model request failed: HTTP 400 {\"messag…",
+                    "state": "block",
+                    "recorded_at_utc": "2026-11-15T06:00:58+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "api-agent",
+                        "message": "model request failed: HTTP 400 {\"message\":\"body must be a JSON object with a string model field\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request\"}"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e24",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "host",
+                    "stage": 2,
+                    "event_ref": "p6-p6-pair-01r3-xg-0024",
+                    "event_seq": 24,
+                    "action": "P6_NEGOTIATION_ROUND",
+                    "event_type": "P6_NEGOTIATION_ROUND",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2"
+                    ],
+                    "title": "Round 1",
+                    "sub": "A HOLD · B HOLD",
+                    "state": "wait",
+                    "recorded_at_utc": "2026-11-15T06:01:15+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "round": 1,
+                        "api_choice": "HOLD",
+                        "compatibility_choice": "HOLD"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e25",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:api-agent",
+                    "stage": 2,
+                    "event_ref": "p6-p6-pair-01r3-xg-0025",
+                    "event_seq": 25,
+                    "action": "MODEL_ERROR",
+                    "event_type": "MODEL_ERROR",
+                    "actor": "api-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "MODEL_ERROR",
+                    "sub": "model request failed: HTTP 400 {\"messag…",
+                    "state": "block",
+                    "recorded_at_utc": "2026-11-15T06:01:15+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "api-agent",
+                        "message": "model request failed: HTTP 400 {\"message\":\"body must be a JSON object with a string model field\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request\"}"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e30",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "host",
+                    "stage": 2,
+                    "event_ref": "p6-p6-pair-01r3-xg-0030",
+                    "event_seq": 30,
+                    "action": "P6_NEGOTIATION_ROUND",
+                    "event_type": "P6_NEGOTIATION_ROUND",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2"
+                    ],
+                    "title": "Round 2",
+                    "sub": "A HOLD · B HOLD",
+                    "state": "wait",
+                    "recorded_at_utc": "2026-11-15T06:01:34+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "round": 2,
+                        "api_choice": "HOLD",
+                        "compatibility_choice": "HOLD"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e31",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "host",
+                    "stage": 3,
+                    "event_ref": "p6-p6-pair-01r3-xg-0031",
+                    "event_seq": 31,
+                    "action": "P6_ESCALATION_REQUESTED",
+                    "event_type": "P6_ESCALATION_REQUESTED",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2"
+                    ],
+                    "title": "Escalation",
+                    "sub": "dirreq-ff88290f218c",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-15T06:01:34+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "status": "CREATED",
+                        "request_id": "dirreq-ff88290f218c"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e32",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "director",
+                    "stage": 3,
+                    "event_ref": "p6-p6-pair-01r3-xg-0032",
+                    "event_seq": 32,
+                    "action": "P6_DIRECTOR_DECISION",
+                    "event_type": "P6_DIRECTOR_DECISION",
+                    "actor": "director",
+                    "scope": [
+                        "W1",
+                        "W2"
+                    ],
+                    "title": "Director: VERSIONED_API",
+                    "sub": "dirreq-ff88290f218c",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-15T06:01:39+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "request_id": "dirreq-ff88290f218c",
+                        "chosen_option": "VERSIONED_API",
+                        "patch_id": "patch-6e9e45bba8d5",
+                        "scope": [
+                            "W1",
+                            "W2"
+                        ]
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e33",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "scope",
+                    "stage": 4,
+                    "event_ref": "p6-p6-pair-01r3-xg-0033",
+                    "event_seq": 33,
+                    "action": "P6_PATCH_APPLIED",
+                    "event_type": "P6_PATCH_APPLIED",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2"
+                    ],
+                    "title": "Patch W1+W2",
+                    "sub": "patch-6e9e45bba8d5",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-15T06:01:39+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "patch": {
+                            "patch_id": "patch-6e9e45bba8d5",
+                            "request_id": "dirreq-ff88290f218c",
+                            "option": "VERSIONED_API",
+                            "base_policy_revision": 1,
+                            "new_policy_revision": 2,
+                            "affected_scope": [
+                                "W1",
+                                "W2"
+                            ],
+                            "scope_revisions_before": {
+                                "W1": 1,
+                                "W2": 1
+                            },
+                            "slice_updates": {
+                                "W1": 2,
+                                "W2": 2
+                            },
+                            "changes": [
+                                {
+                                    "op": "CONTINUE_SCOPE",
+                                    "scope": [
+                                        "W1",
+                                        "W2"
+                                    ]
+                                },
+                                {
+                                    "op": "REBASE_SCOPE",
+                                    "scope": [
+                                        "W2"
+                                    ]
+                                }
+                            ],
+                            "source": "director_response",
+                            "validated_by": "ProtocolPatchValidator",
+                            "publication_committed": false
+                        },
+                        "invalidated": [
+                            "ev-proposal-a",
+                            "ev-proposal-b"
+                        ]
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e36",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:api-agent",
+                    "stage": 5,
+                    "event_ref": "p6-p6-pair-01r3-xg-0036",
+                    "event_seq": 36,
+                    "action": "P6_PATCH_ACKED",
+                    "event_type": "P6_PATCH_ACKED",
+                    "actor": "api-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "ACK patch",
+                    "sub": "patch-6e9e45bba8d5",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-15T06:01:45+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "api-agent",
+                        "patch_id": "patch-6e9e45bba8d5"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e39",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:compatibility-agent",
+                    "stage": 5,
+                    "event_ref": "p6-p6-pair-01r3-xg-0039",
+                    "event_seq": 39,
+                    "action": "P6_PATCH_ACKED",
+                    "event_type": "P6_PATCH_ACKED",
+                    "actor": "compatibility-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "ACK patch",
+                    "sub": "patch-6e9e45bba8d5",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-15T06:01:50+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "compatibility-agent",
+                        "patch_id": "patch-6e9e45bba8d5"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e42",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:api-agent",
+                    "stage": 6,
+                    "event_ref": "p6-p6-pair-01r3-xg-0042",
+                    "event_seq": 42,
+                    "action": "FILE_WRITTEN",
+                    "event_type": "FILE_WRITTEN",
+                    "actor": "api-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "Write OrderApiV2.php",
+                    "sub": "sha 17d52954cc63",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-15T06:02:10+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "api-agent",
+                        "path": "src/OrderApiV2.php",
+                        "bytes": 3636,
+                        "sha256": "17d52954cc633124e676295e866a90c628657489e81bf15c880dcbcb3d2d792a"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e44",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:compatibility-agent",
+                    "stage": 6,
+                    "event_ref": "p6-p6-pair-01r3-xg-0044",
+                    "event_seq": 44,
+                    "action": "AGENT_PROTOCOL_ERROR",
+                    "event_type": "AGENT_PROTOCOL_ERROR",
+                    "actor": "compatibility-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "PROTOCOL_ERROR",
+                    "sub": "compatibility-agent",
+                    "state": "block",
+                    "recorded_at_utc": "2026-11-15T06:02:29+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "compatibility-agent",
+                        "raw_hash": "110501948aee78680790e50b44c8bec874018653ab568a1e3deb2f1179a53a5d"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e47-g",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:api-agent",
+                    "stage": 6,
+                    "event_ref": "p6-p6-pair-01r3-xg-0047",
+                    "event_refs": [
+                        "p6-p6-pair-01r3-xg-0047",
+                        "p6-p6-pair-01r3-xg-0058"
+                    ],
+                    "event_seq": 47,
+                    "event_seqs": [
+                        47,
+                        58
+                    ],
+                    "action": "TEST_RUN",
+                    "event_type": "TEST_RUN",
+                    "actor": "api-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "Tests ×2",
+                    "sub": "1 failed / 2",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-15T06:02:37+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "events": [
+                            {
+                                "agent": "api-agent",
+                                "path": "tests/refund_summary.php",
+                                "exit_code": 255,
+                                "output_tail": "PHP Fatal error:  Uncaught Error: Non-static method OrderApiV2::summary() cannot be called statically in [redacted-host]/xianggraph/experiments/demo01/runs/p6-pair-01r3-xg/workspace/src/RefundApi.php:19\nStack trace:\n#0 [redacted-host]/xianggraph/experiments/demo01/runs/p6-pair-01r3-xg/workspace/tests/refund_summary.php(15): RefundApi::summary()\n#1 {main}\n  thrown in [redacted-host]/xianggraph/experiments/demo01/runs/p6-pair-01r3-xg/workspace/src/RefundApi.php on line 19"
+                            },
+                            {
+                                "agent": "api-agent",
+                                "path": "tests/refund_summary.php",
+                                "exit_code": 0,
+                                "output_tail": "PASS refund summary"
+                            }
+                        ]
+                    },
+                    "group_size": 2
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e50",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:compatibility-agent",
+                    "stage": 6,
+                    "event_ref": "p6-p6-pair-01r3-xg-0050",
+                    "event_seq": 50,
+                    "action": "FILE_WRITTEN",
+                    "event_type": "FILE_WRITTEN",
+                    "actor": "compatibility-agent",
+                    "scope": [
+                        "W2"
+                    ],
+                    "title": "Write compatibility-review.md",
+                    "sub": "sha c4a6976717b4",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-15T06:02:49+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "compatibility-agent",
+                        "path": "reviews/compatibility-review.md",
+                        "bytes": 4327,
+                        "sha256": "c4a6976717b44648f43c9aad80d8235ff6dac4d942bec926ac88ea853d66e247"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e52",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:api-agent",
+                    "stage": 6,
+                    "event_ref": "p6-p6-pair-01r3-xg-0052",
+                    "event_seq": 52,
+                    "action": "AGENT_ACTION",
+                    "event_type": "AGENT_ACTION",
+                    "actor": "api-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "read_file",
+                    "sub": "src/RefundApi.php",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-15T06:02:54+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "api-agent",
+                        "action": "read_file",
+                        "path": "src/RefundApi.php",
+                        "to": null
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e55",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "agent:api-agent",
+                    "stage": 6,
+                    "event_ref": "p6-p6-pair-01r3-xg-0055",
+                    "event_seq": 55,
+                    "action": "FILE_WRITTEN",
+                    "event_type": "FILE_WRITTEN",
+                    "actor": "api-agent",
+                    "scope": [
+                        "W1"
+                    ],
+                    "title": "Write OrderApiV2.php",
+                    "sub": "sha 73c1ad209422",
+                    "state": "change",
+                    "recorded_at_utc": "2026-11-15T06:03:08+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "agent": "api-agent",
+                        "path": "src/OrderApiV2.php",
+                        "bytes": 3662,
+                        "sha256": "73c1ad2094227ff5a25523278f26dde488437837960e30ef65205ebb71ef4872"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e59",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "host",
+                    "stage": 6,
+                    "event_ref": "p6-p6-pair-01r3-xg-0059",
+                    "event_seq": 59,
+                    "action": "P6_IMPLEMENTATION_REPAIR",
+                    "event_type": "P6_IMPLEMENTATION_REPAIR",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2"
+                    ],
+                    "title": "Repair phase",
+                    "sub": "after failed test",
+                    "state": "plan",
+                    "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "repair": 1,
+                        "exit_code": 0,
+                        "output_tail": "PASS refund summary"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e60",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "host",
+                    "stage": 7,
+                    "event_ref": "p6-p6-pair-01r3-xg-0060",
+                    "event_seq": 60,
+                    "action": "P6_IMPLEMENTATION_PHASE_DONE",
+                    "event_type": "P6_IMPLEMENTATION_PHASE_DONE",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Implementation done",
+                    "sub": "W1 + W2",
+                    "state": "plan",
+                    "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "chosen_option": "VERSIONED_API",
+                        "implementation": true,
+                        "review": true,
+                        "c_doc": true
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e61",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "host",
+                    "stage": 7,
+                    "event_ref": "p6-p6-pair-01r3-xg-0061",
+                    "event_seq": 61,
+                    "action": "P6_FINAL_TESTS",
+                    "event_type": "P6_FINAL_TESTS",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Final tests",
+                    "sub": "both suites",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "pass": true,
+                        "results": {
+                            "tests/orders_v1.php": {
+                                "exit_code": 0,
+                                "output": "PASS orders v1",
+                                "command": "php tests/orders_v1.php",
+                                "timestamp": "2026-11-15T06:03:13+00:00"
+                            },
+                            "tests/refund_summary.php": {
+                                "exit_code": 0,
+                                "output": "PASS refund summary",
+                                "command": "php tests/refund_summary.php",
+                                "timestamp": "2026-11-15T06:03:13+00:00"
+                            }
+                        }
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e62",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "host",
+                    "stage": 7,
+                    "event_ref": "p6-p6-pair-01r3-xg-0062",
+                    "event_seq": 62,
+                    "action": "P6_ORACLE_RESULT",
+                    "event_type": "P6_ORACLE_RESULT",
+                    "actor": "oracle",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "HOST ORACLE PASS",
+                    "sub": "failures 0",
+                    "state": "done",
+                    "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "exit_code": 0,
+                        "work_completed": true,
+                        "failures": [],
+                        "option": "VERSIONED_API"
+                    }
+                },
+                {
+                    "node_id": "p6-pair-01r3-xg:e63",
+                    "run_id": "p6-pair-01r3-xg",
+                    "lane": "host",
+                    "stage": 7,
+                    "event_ref": "p6-p6-pair-01r3-xg-0063",
+                    "event_seq": 63,
+                    "action": "P6_RUN_FINISHED",
+                    "event_type": "P6_RUN_FINISHED",
+                    "actor": "host",
+                    "scope": [
+                        "W1",
+                        "W2",
+                        "W3"
+                    ],
+                    "title": "Run finished",
+                    "sub": "pass",
+                    "state": "normal",
+                    "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "raw": {
+                        "chosen_option": "VERSIONED_API",
+                        "oracle_pass": true
+                    }
+                }
+            ],
+            "edges": [
+                {
+                    "from": "p6-pair-01r3-xg:e24",
+                    "to": "p6-pair-01r3-xg:e30",
+                    "kind": "change",
+                    "label": "next round"
+                },
+                {
+                    "from": "p6-pair-01r3-xg:e30",
+                    "to": "p6-pair-01r3-xg:e31",
+                    "kind": "change",
+                    "label": "bounded out"
+                },
+                {
+                    "from": "p6-pair-01r3-xg:e31",
+                    "to": "p6-pair-01r3-xg:e32",
+                    "kind": "change",
+                    "label": "decision"
+                },
+                {
+                    "from": "p6-pair-01r3-xg:e32",
+                    "to": "p6-pair-01r3-xg:e33",
+                    "kind": "change",
+                    "label": "scoped"
+                },
+                {
+                    "from": "p6-pair-01r3-xg:e33",
+                    "to": "p6-pair-01r3-xg:e36",
+                    "kind": "change",
+                    "label": "exact ACK"
+                },
+                {
+                    "from": "p6-pair-01r3-xg:e33",
+                    "to": "p6-pair-01r3-xg:e39",
+                    "kind": "change",
+                    "label": "exact ACK"
+                },
+                {
+                    "from": "p6-pair-01r3-xg:e62",
+                    "to": "p6-pair-01r3-xg:e63",
+                    "kind": "done",
+                    "label": "close"
+                }
+            ],
+            "metrics": [
+                {
+                    "label": "MODEL CALLS",
+                    "value": "20",
+                    "note": "usage.json"
+                },
+                {
+                    "label": "TOTAL TOKENS",
+                    "value": "87,098",
+                    "note": "usage.json"
+                },
+                {
+                    "label": "EST. COST",
+                    "value": "$0.037740",
+                    "note": "recorded estimate"
+                },
+                {
+                    "label": "EXECUTION AGENTS",
+                    "value": "3",
+                    "note": "api-agent / compatibility-agent / independent-agent"
+                }
+            ],
+            "director": {
+                "label": "有界协商耗尽后才升级；Patch 只作用于 W1/W2",
+                "plan_id": "strategic-conflict-v1-plan",
+                "chips": [
+                    "P-CONFLICT",
+                    "P-ESCALATE",
+                    "P-REVIEW"
+                ],
+                "works": []
+            },
+            "facts": [
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "Bounded negotiation",
+                    "value": "2 rounds / 1 escalation",
+                    "detail": "Negotiation stops at the configured limit; one structured request goes to the Director.",
+                    "event_seqs": [
+                        24,
+                        30,
+                        31
+                    ]
+                },
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "Scoped patch",
+                    "value": "W1=2 W2=2 W3=1",
+                    "detail": "2 evidence item(s) marked STALE; W3 evidence stays CURRENT.",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/host/state-after-patch.json",
+                    "event_seqs": [
+                        36,
+                        39
+                    ]
+                },
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "W3 completion",
+                    "value": "e9 + e18",
+                    "detail": "W3 was outside the patch scope; revision 1 only means it was not invalidated. Completion is evidenced separately by FILE_WRITTEN + AGENT_FINISHED.",
+                    "event_seqs": [
+                        9,
+                        18
+                    ]
+                },
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "Agent finish receipts",
+                    "value": "1 / 3",
+                    "detail": "Only agents with an AGENT_FINISHED receipt count as finished; e60 is a host implementation phase check, not an agent finish.",
+                    "event_seqs": [
+                        18
+                    ]
+                },
+                {
+                    "kind": "EVIDENCE_FACT",
+                    "label": "Host oracle",
+                    "value": "PASS",
+                    "detail": "failures: []",
+                    "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/oracle.json",
+                    "event_seqs": []
+                }
+            ],
+            "not_evidenced": [],
+            "boundary": [
+                "协商与实现过程中的 5 条 MODEL_ERROR / PROTOCOL_ERROR 保留在时间线上，未删除。",
+                "e33 的 ProtocolPatch 记录 publication_committed=false；这是协调状态，不是已提交的代码补丁。",
+                "只有 independent-agent 有 AGENT_FINISHED；api-agent 与 compatibility-agent 没有完成回执；e60 是宿主实现阶段检查，e61/e62 是最终测试与 Host Oracle。",
+                "Patch 后 W1=2、W2=2、W3=1；W3 未被失效只说明证据仍 CURRENT，完成由独立的 FILE_WRITTEN 与 AGENT_FINISHED 事件单独举证。"
+            ],
+            "sources": [
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "sha256": "ff356daa40e199679bb24cf33dd06fe4a699cedc0e67300b355032002f8b71c1"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/summary.json",
+                    "sha256": "c7e5897c23c035f87841ead17af4cb6f2808f19cfb17d340d23a2401b6a5d798"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/usage.json",
+                    "sha256": "fec7fc3f203d156c392ce5dbd448c76258b68d57babf921446945ab8447230e5"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/oracle.json",
+                    "sha256": "38565f4ab70bac6558aed6931b4f977c8546873c755b8f2330912756327ee265"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/host/protocol-patch.json",
+                    "sha256": "f8d6cb61f9087bee33d9013fbdbb594781ef278feb385f7a5a3e73ffd97e65b6"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/host/state-after-patch.json",
+                    "sha256": "12e9697f30278064cfd74ef6fffc845a18529029461203021bb0f5abe0286ce8"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/host/director-decision.json",
+                    "sha256": "b8af7c7e81270c2a92bc985052c0d36cbe62fd2c85d4e8a687979e51ee92e2b3"
+                }
+            ]
+        }
+    ],
+    "compare": null,
+    "compare_extra": [],
+    "semantic_sha256": "9a28b343cd6cb25a38504a2ffaaf3ab526d177221b399c9ecfece00b91c72c75"
+}

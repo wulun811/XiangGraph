@@ -1,0 +1,760 @@
+{
+    "schema": "xg-showcase-evidence-manifest/v0.1",
+    "generated_at_utc": "2026-11-18T02:00:32Z",
+    "source_commit": null,
+    "semantic_sha256": "9a28b343cd6cb25a38504a2ffaaf3ab526d177221b399c9ecfece00b91c72c75",
+    "runs": {
+        "p3-real-03": {
+            "chain_status": "MATCH",
+            "head_hash": "467b86edd99658e1123ca35683a981c6bb751b12ef07b02abddcb5e0c06f363b",
+            "event_count": 94,
+            "claim_level": "SELF_CHECKED",
+            "sources": [
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/events.json",
+                    "sha256": "75788eab4a85fc4e0dbdd3dad441fe8ebbfe13d1914d0028648b10bb02d9f54b"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/summary.json",
+                    "sha256": "1e9d89a1d8a0a52e6eb6cb6322f43af17680c4fc720ccb58591b00240753bca9"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/usage.json",
+                    "sha256": "b75039eaf4f632033550f5bcc901cd45455288f331d386f071bf07e6ffec883d"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/oracle.json",
+                    "sha256": "3170168cb8e641429207a5a8829ea6bbbcff1300afe1c34c840c21756fbad4cb"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/change-packets.json",
+                    "sha256": "007fc7262290fbbd3e31f6f6eb226eee553dbd6b3277d853fd5c76332aa24d17"
+                },
+                {
+                    "path": "experiments/demo01/runs/p3-real-03/resource-receipts.json",
+                    "sha256": "3f481bfc7f4c23568af2aaffe0163aba0bf2b767f99d546d77fa7c0421736c5c"
+                }
+            ],
+            "not_evidenced": []
+        },
+        "p4-real-01": {
+            "chain_status": "MATCH",
+            "head_hash": "cb3e4dc6e4433308c10bbc5c00abe51f634c84b641e020d15b1a2a3c7b124ce0",
+            "event_count": 31,
+            "claim_level": "SELF_CHECKED",
+            "sources": [
+                {
+                    "path": "experiments/demo01/runs/p4-real-01/events.json",
+                    "sha256": "8d79903f0c2fb985858a3e1230c18b192f3cf1ff4f3caeee1f3b0b96d5fe10ff"
+                },
+                {
+                    "path": "experiments/demo01/runs/p4-real-01/summary.json",
+                    "sha256": "5b79a2e95572994782f88d2df33f7b60525f0a617a1fb8ab7f10a7956316e2b8"
+                },
+                {
+                    "path": "experiments/demo01/runs/p4-real-01/usage.json",
+                    "sha256": "f1e014d9d5a9125895cb7b00bed49b6f1531d98097d7e31339abec9a56753383"
+                },
+                {
+                    "path": "experiments/demo01/runs/p4-real-01/oracle.json",
+                    "sha256": "b0590ad6ca2bc6ba914b3b4dfd16baea326e05970a4b8a34bb91e15b35c0854f"
+                }
+            ],
+            "not_evidenced": [
+                {
+                    "id": "verify-agent",
+                    "label": "VERIFY AGENT · NOT RUN",
+                    "detail": "No verify-agent event in this run. The oracle below is a host check, not a verifier execution."
+                }
+            ]
+        },
+        "p6-pair-01r3-xg": {
+            "chain_status": "MATCH",
+            "head_hash": "8bba1715aad47ae0614149c1222db84acb3e353bf60a7e841cac703d1df03c26",
+            "event_count": 63,
+            "claim_level": "SELF_CHECKED",
+            "sources": [
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/events.json",
+                    "sha256": "ff356daa40e199679bb24cf33dd06fe4a699cedc0e67300b355032002f8b71c1"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/summary.json",
+                    "sha256": "c7e5897c23c035f87841ead17af4cb6f2808f19cfb17d340d23a2401b6a5d798"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/usage.json",
+                    "sha256": "fec7fc3f203d156c392ce5dbd448c76258b68d57babf921446945ab8447230e5"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/oracle.json",
+                    "sha256": "38565f4ab70bac6558aed6931b4f977c8546873c755b8f2330912756327ee265"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/host/protocol-patch.json",
+                    "sha256": "f8d6cb61f9087bee33d9013fbdbb594781ef278feb385f7a5a3e73ffd97e65b6"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/host/state-after-patch.json",
+                    "sha256": "12e9697f30278064cfd74ef6fffc845a18529029461203021bb0f5abe0286ce8"
+                },
+                {
+                    "path": "experiments/demo01/runs/p6-pair-01r3-xg/host/director-decision.json",
+                    "sha256": "b8af7c7e81270c2a92bc985052c0d36cbe62fd2c85d4e8a687979e51ee92e2b3"
+                }
+            ],
+            "not_evidenced": []
+        }
+    },
+    "nodes": [
+        {
+            "node_id": "p3-real-03:e1",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0001",
+            "event_seq": 1,
+            "action": "RUN_STARTED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e6",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0006",
+            "event_seq": 6,
+            "action": "DIRECTOR_PLAN_LOADED",
+            "actor": "director",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e8",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0008",
+            "event_seq": 8,
+            "action": "AGENT_ACTION",
+            "actor": "policy-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e13",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0013",
+            "event_seq": 13,
+            "action": "RESOURCE_ACQUIRED",
+            "actor": "policy-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e15",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0015",
+            "event_seq": 15,
+            "action": "AGENT_ACTION",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e20",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0020",
+            "event_seq": 20,
+            "action": "FILE_WRITTEN",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e23-g",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0023",
+            "event_seq": 23,
+            "action": "RESOURCE_BUSY",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e29",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0029",
+            "event_seq": 29,
+            "action": "RESOURCE_APPLIED",
+            "actor": "policy-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e32",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0032",
+            "event_seq": 32,
+            "action": "RESOURCE_RELEASED",
+            "actor": "policy-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e35",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0035",
+            "event_seq": 35,
+            "action": "AGENT_FINISHED",
+            "actor": "policy-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e36",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0036",
+            "event_seq": 36,
+            "action": "CHANGE_DISPATCHED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e39",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0039",
+            "event_seq": 39,
+            "action": "PACKET_ACKED",
+            "actor": "verify-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e41",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0041",
+            "event_seq": 41,
+            "action": "AGENT_ACTION",
+            "actor": "verify-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e44-g",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0044",
+            "event_seq": 44,
+            "action": "TEST_RUN",
+            "actor": "verify-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e47",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0047",
+            "event_seq": 47,
+            "action": "AGENT_FINISHED",
+            "actor": "verify-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e50",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0050",
+            "event_seq": 50,
+            "action": "PACKET_ACKED",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e55",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0055",
+            "event_seq": 55,
+            "action": "RESOURCE_ACQUIRED",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e58",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0058",
+            "event_seq": 58,
+            "action": "RESOURCE_APPLIED",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e61",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0061",
+            "event_seq": 61,
+            "action": "RESOURCE_RELEASED",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e66-g",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0066",
+            "event_seq": 66,
+            "action": "TEST_RUN",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e72",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0072",
+            "event_seq": 72,
+            "action": "AGENT_MESSAGE",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e77",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0077",
+            "event_seq": 77,
+            "action": "AGENT_FINISHED",
+            "actor": "feature-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e78",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0078",
+            "event_seq": 78,
+            "action": "SERVICE_CHANGE_DISPATCHED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e81",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0081",
+            "event_seq": 81,
+            "action": "PACKET_ACKED",
+            "actor": "verify-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e91",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0091",
+            "event_seq": 91,
+            "action": "AGENT_FINISHED",
+            "actor": "verify-agent",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e92",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0092",
+            "event_seq": 92,
+            "action": "FINAL_TEST_RUN",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e93",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0093",
+            "event_seq": 93,
+            "action": "ORACLE_RESULT",
+            "actor": "oracle",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p3-real-03:e94",
+            "run_id": "p3-real-03",
+            "event_ref": "demo01-p3-real-03-0094",
+            "event_seq": 94,
+            "action": "RUN_FINISHED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p3-real-03/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e1",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0001",
+            "event_seq": 1,
+            "action": "P4_RUN_STARTED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e2",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0002",
+            "event_seq": 2,
+            "action": "DIRECTOR_PLAN_RECORDED",
+            "actor": "director",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e3",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0003",
+            "event_seq": 3,
+            "action": "CONTRACT_CHANGE_REQUESTED",
+            "actor": "human:owner",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e5",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0005",
+            "event_seq": 5,
+            "action": "AGENT_ACTION",
+            "actor": "contract-agent",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e8",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0008",
+            "event_seq": 8,
+            "action": "FILE_WRITTEN",
+            "actor": "contract-agent",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e11",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0011",
+            "event_seq": 11,
+            "action": "AGENT_FINISHED",
+            "actor": "contract-agent",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e12",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0012",
+            "event_seq": 12,
+            "action": "CONTRACT_CHANGE_APPLIED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e13",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0013",
+            "event_seq": 13,
+            "action": "PACKET_DELIVERED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e16",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0016",
+            "event_seq": 16,
+            "action": "PACKET_ACKED",
+            "actor": "client-agent",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e18",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0018",
+            "event_seq": 18,
+            "action": "AGENT_ACTION",
+            "actor": "client-agent",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e23",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0023",
+            "event_seq": 23,
+            "action": "FILE_WRITTEN",
+            "actor": "client-agent",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e26",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0026",
+            "event_seq": 26,
+            "action": "TEST_RUN",
+            "actor": "client-agent",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e29",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0029",
+            "event_seq": 29,
+            "action": "AGENT_FINISHED",
+            "actor": "client-agent",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e30",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0030",
+            "event_seq": 30,
+            "action": "ORACLE_RESULT",
+            "actor": "oracle",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:e31",
+            "run_id": "p4-real-01",
+            "event_ref": "ev-0031",
+            "event_seq": 31,
+            "action": "KERNEL_DIFF_CHECK",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p4-real-01/events.json"
+        },
+        {
+            "node_id": "p4-real-01:missing:verify-agent",
+            "run_id": "p4-real-01",
+            "event_ref": null,
+            "event_seq": 0,
+            "action": "NOT_RUN",
+            "actor": "verify-agent",
+            "source_file": null
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e1",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0001",
+            "event_seq": 1,
+            "action": "P6_RUN_STARTED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e2",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0002",
+            "event_seq": 2,
+            "action": "DIRECTOR_PLAN_LOADED",
+            "actor": "director",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e4",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0004",
+            "event_seq": 4,
+            "action": "AGENT_PROTOCOL_ERROR",
+            "actor": "api-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e6",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0006",
+            "event_seq": 6,
+            "action": "AGENT_PROTOCOL_ERROR",
+            "actor": "compatibility-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e9",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0009",
+            "event_seq": 9,
+            "action": "FILE_WRITTEN",
+            "actor": "independent-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e12",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0012",
+            "event_seq": 12,
+            "action": "FILE_WRITTEN",
+            "actor": "api-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e15",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0015",
+            "event_seq": 15,
+            "action": "FILE_WRITTEN",
+            "actor": "compatibility-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e18",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0018",
+            "event_seq": 18,
+            "action": "AGENT_FINISHED",
+            "actor": "independent-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e19",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0019",
+            "event_seq": 19,
+            "action": "MODEL_ERROR",
+            "actor": "api-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e24",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0024",
+            "event_seq": 24,
+            "action": "P6_NEGOTIATION_ROUND",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e25",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0025",
+            "event_seq": 25,
+            "action": "MODEL_ERROR",
+            "actor": "api-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e30",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0030",
+            "event_seq": 30,
+            "action": "P6_NEGOTIATION_ROUND",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e31",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0031",
+            "event_seq": 31,
+            "action": "P6_ESCALATION_REQUESTED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e32",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0032",
+            "event_seq": 32,
+            "action": "P6_DIRECTOR_DECISION",
+            "actor": "director",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e33",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0033",
+            "event_seq": 33,
+            "action": "P6_PATCH_APPLIED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e36",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0036",
+            "event_seq": 36,
+            "action": "P6_PATCH_ACKED",
+            "actor": "api-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e39",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0039",
+            "event_seq": 39,
+            "action": "P6_PATCH_ACKED",
+            "actor": "compatibility-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e42",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0042",
+            "event_seq": 42,
+            "action": "FILE_WRITTEN",
+            "actor": "api-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e44",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0044",
+            "event_seq": 44,
+            "action": "AGENT_PROTOCOL_ERROR",
+            "actor": "compatibility-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e47-g",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0047",
+            "event_seq": 47,
+            "action": "TEST_RUN",
+            "actor": "api-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e50",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0050",
+            "event_seq": 50,
+            "action": "FILE_WRITTEN",
+            "actor": "compatibility-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e52",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0052",
+            "event_seq": 52,
+            "action": "AGENT_ACTION",
+            "actor": "api-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e55",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0055",
+            "event_seq": 55,
+            "action": "FILE_WRITTEN",
+            "actor": "api-agent",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e59",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0059",
+            "event_seq": 59,
+            "action": "P6_IMPLEMENTATION_REPAIR",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e60",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0060",
+            "event_seq": 60,
+            "action": "P6_IMPLEMENTATION_PHASE_DONE",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e61",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0061",
+            "event_seq": 61,
+            "action": "P6_FINAL_TESTS",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e62",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0062",
+            "event_seq": 62,
+            "action": "P6_ORACLE_RESULT",
+            "actor": "oracle",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        },
+        {
+            "node_id": "p6-pair-01r3-xg:e63",
+            "run_id": "p6-pair-01r3-xg",
+            "event_ref": "p6-p6-pair-01r3-xg-0063",
+            "event_seq": 63,
+            "action": "P6_RUN_FINISHED",
+            "actor": "host",
+            "source_file": "experiments/demo01/runs/p6-pair-01r3-xg/events.json"
+        }
+    ],
+    "compare": null
+}

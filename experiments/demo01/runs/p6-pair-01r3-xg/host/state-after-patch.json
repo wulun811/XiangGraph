@@ -1,0 +1,51 @@
+{
+    "policy_revision": 2,
+    "slices": {
+        "W1": 2,
+        "W2": 2,
+        "W3": 1
+    },
+    "evidence": {
+        "ev-proposal-a": {
+            "evidence_id": "ev-proposal-a",
+            "scope": [
+                "W1"
+            ],
+            "scope_revision": 1,
+            "result": "pass",
+            "status": "STALE",
+            "source": "agent",
+            "policy_revision": 1,
+            "recorded_at_revision": 1,
+            "stale_reason": "DIRECTOR_PATCH",
+            "stale_source": "P6"
+        },
+        "ev-proposal-b": {
+            "evidence_id": "ev-proposal-b",
+            "scope": [
+                "W2"
+            ],
+            "scope_revision": 1,
+            "result": "pass",
+            "status": "STALE",
+            "source": "agent",
+            "policy_revision": 1,
+            "recorded_at_revision": 1,
+            "stale_reason": "DIRECTOR_PATCH",
+            "stale_source": "P6"
+        },
+        "ev-w3": {
+            "evidence_id": "ev-w3",
+            "scope": [
+                "W3"
+            ],
+            "scope_revision": 1,
+            "result": "pass",
+            "status": "CURRENT",
+            "source": "host",
+            "policy_revision": 1,
+            "recorded_at_revision": 1
+        }
+    },
+    "request_status": "ANSWERED"
+}

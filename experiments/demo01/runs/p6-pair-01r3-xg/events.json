@@ -1,0 +1,1390 @@
+{
+    "run_id": "p6-pair-01r3-xg",
+    "real_run": true,
+    "head_hash": "8bba1715aad47ae0614149c1222db84acb3e353bf60a7e841cac703d1df03c26",
+    "events": [
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0001",
+            "seq": 1,
+            "type": "P6_RUN_STARTED",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T05:59:44+00:00",
+            "payload": {
+                "mode": "real",
+                "coordination_mode": "xg",
+                "run_id": "p6-pair-01r3-xg",
+                "plan_hash": "sha256:6db70df714ce4e801b7f2a648b0ca5f199bc41c8cc4b35ad9a43b8a23262d263",
+                "model": "deepseek-v4.1-flash"
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "",
+            "event_hash": "5b8662e05de39f5aeb4e9f6f4ad8299b239ccb4924e604b948962c0ec1d289ec"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0002",
+            "seq": 2,
+            "type": "DIRECTOR_PLAN_LOADED",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T05:59:44+00:00",
+            "payload": {
+                "plan_id": "strategic-conflict-v1-plan",
+                "protocols": [
+                    {
+                        "protocol": "P-CONFLICT",
+                        "version": "v0.1",
+                        "scope": [
+                            "W1",
+                            "W2"
+                        ],
+                        "max_rounds": 2
+                    },
+                    {
+                        "protocol": "P-ESCALATE",
+                        "version": "v0.1",
+                        "scope": [
+                            "W1",
+                            "W2"
+                        ]
+                    },
+                    {
+                        "protocol": "P-REVIEW",
+                        "version": "v0.1",
+                        "scope": [
+                            "W1",
+                            "W2"
+                        ]
+                    }
+                ],
+                "source": "STRUCTURED_PLAN"
+            },
+            "principal": "director",
+            "source": "DIRECTOR",
+            "previous_hash": "5b8662e05de39f5aeb4e9f6f4ad8299b239ccb4924e604b948962c0ec1d289ec",
+            "event_hash": "a9d7a19bdd03f8dccb5450c85edf9514820b54b52190df6027f8c190c165eb20"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0003",
+            "seq": 3,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T05:59:57+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1487,
+                    "completion_tokens": 940,
+                    "total_tokens": 2427,
+                    "cost_usd_estimate": 0.001574,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "a9d7a19bdd03f8dccb5450c85edf9514820b54b52190df6027f8c190c165eb20",
+            "event_hash": "4fb6452389765daab92938fbe608a5ec88f4c320825ee220cb279e6d5a4ddbee"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0004",
+            "seq": 4,
+            "type": "AGENT_PROTOCOL_ERROR",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T05:59:57+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "raw_hash": "fbefe167a78c717d8d0d80970316a460951e75bbc5f4ee7e2f678a4a6efa24a1"
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "4fb6452389765daab92938fbe608a5ec88f4c320825ee220cb279e6d5a4ddbee",
+            "event_hash": "74b8ca2eed70a9e89c688c8c709c21f5a2f91d2bb37324a0532a9341a33d486b"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0005",
+            "seq": 5,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:15+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "session_id": "sess-p6-pair-01r3-xg-compat",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1493,
+                    "completion_tokens": 1041,
+                    "total_tokens": 2534,
+                    "cost_usd_estimate": 0.001697,
+                    "estimated": false
+                }
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "74b8ca2eed70a9e89c688c8c709c21f5a2f91d2bb37324a0532a9341a33d486b",
+            "event_hash": "b6d11ae5efe0a07fd79fdbf965ed807aabf6a929c4b3b815328b4d9e98bb71dd"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0006",
+            "seq": 6,
+            "type": "AGENT_PROTOCOL_ERROR",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:15+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "raw_hash": "b080c3650b3333ed3bee09c7ce66680da65de0ac9f3d46c4c344c2aabd9c421f"
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "b6d11ae5efe0a07fd79fdbf965ed807aabf6a929c4b3b815328b4d9e98bb71dd",
+            "event_hash": "0d418b16c7b53e329f6bfd8f2c7bb5c7264f5d9a9f63fcb11fb21cafed234688"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0007",
+            "seq": 7,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:31+00:00",
+            "payload": {
+                "agent": "independent-agent",
+                "session_id": "sess-p6-pair-01r3-xg-independent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1430,
+                    "completion_tokens": 1271,
+                    "total_tokens": 2701,
+                    "cost_usd_estimate": 0.001954,
+                    "estimated": false
+                }
+            },
+            "principal": "independent-agent",
+            "source": "AGENT",
+            "previous_hash": "0d418b16c7b53e329f6bfd8f2c7bb5c7264f5d9a9f63fcb11fb21cafed234688",
+            "event_hash": "4260156edd67ebd115d2b011e79d1851a35d03ffe68618ac208e90ecd928b969"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0008",
+            "seq": 8,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:31+00:00",
+            "payload": {
+                "agent": "independent-agent",
+                "action": "write_file",
+                "path": "docs/refund-api-integration.md",
+                "to": null
+            },
+            "principal": "independent-agent",
+            "source": "AGENT",
+            "previous_hash": "4260156edd67ebd115d2b011e79d1851a35d03ffe68618ac208e90ecd928b969",
+            "event_hash": "15ffb2d6ef2668c7b55481306196db770f1e16479a6b33afe8e83b96720db609"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0009",
+            "seq": 9,
+            "type": "FILE_WRITTEN",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:31+00:00",
+            "payload": {
+                "agent": "independent-agent",
+                "path": "docs/refund-api-integration.md",
+                "bytes": 4629,
+                "sha256": "2004d3438c4b641912b071541007fe59abd774d70b4019f74b372a46e8a1f26d"
+            },
+            "principal": "independent-agent",
+            "source": "AGENT",
+            "previous_hash": "15ffb2d6ef2668c7b55481306196db770f1e16479a6b33afe8e83b96720db609",
+            "event_hash": "81e748d700981204202756b8273537720afae677905c536bdecf59294375b60b"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0010",
+            "seq": 10,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:42+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2409,
+                    "completion_tokens": 833,
+                    "total_tokens": 3242,
+                    "cost_usd_estimate": 0.001722,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "81e748d700981204202756b8273537720afae677905c536bdecf59294375b60b",
+            "event_hash": "791aa593b79685d0cbfa5da2016c971e8371a98e420c8e87f44dc62377abbd8e"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0011",
+            "seq": 11,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:42+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "action": "write_file",
+                "path": "proposals/api-agent.md",
+                "to": null
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "791aa593b79685d0cbfa5da2016c971e8371a98e420c8e87f44dc62377abbd8e",
+            "event_hash": "4779514431f9374dcabfa62a1adf5d3cdff6185c3d8a6ec3f0486625558e3253"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0012",
+            "seq": 12,
+            "type": "FILE_WRITTEN",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:42+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "path": "proposals/api-agent.md",
+                "bytes": 2962,
+                "sha256": "4fb1ec42b51be470438d263f1983d97b8dc2d1635f8a8542d2309dedce52d8ce"
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "4779514431f9374dcabfa62a1adf5d3cdff6185c3d8a6ec3f0486625558e3253",
+            "event_hash": "a191b3300a874bd954708fa7ecb71b54f916a76dd56acb7a70f39de4941997a6"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0013",
+            "seq": 13,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:54+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "session_id": "sess-p6-pair-01r3-xg-compat",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2515,
+                    "completion_tokens": 1122,
+                    "total_tokens": 3637,
+                    "cost_usd_estimate": 0.002101,
+                    "estimated": false
+                }
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "a191b3300a874bd954708fa7ecb71b54f916a76dd56acb7a70f39de4941997a6",
+            "event_hash": "de7a1981785b29eafc01b0d601ba5851256516fff0e9a11f80d65aa21693131a"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0014",
+            "seq": 14,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:54+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "action": "write_file",
+                "path": "proposals/compatibility-agent.md",
+                "to": null
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "de7a1981785b29eafc01b0d601ba5851256516fff0e9a11f80d65aa21693131a",
+            "event_hash": "517c55589c8e4d77c643950cbb9ed5c9ba0c08145b744e7e7bc8f20dca4b1f0e"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0015",
+            "seq": 15,
+            "type": "FILE_WRITTEN",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:54+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "path": "proposals/compatibility-agent.md",
+                "bytes": 3786,
+                "sha256": "72077dff145c55c79488cba20f82e566388cdf1f270737f7ddb5e63925800f90"
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "517c55589c8e4d77c643950cbb9ed5c9ba0c08145b744e7e7bc8f20dca4b1f0e",
+            "event_hash": "d84d4be79f13de9697a9881219bf555f159bb7510e7f4dcba5cad7733d95343b"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0016",
+            "seq": 16,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:58+00:00",
+            "payload": {
+                "agent": "independent-agent",
+                "session_id": "sess-p6-pair-01r3-xg-independent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2677,
+                    "completion_tokens": 59,
+                    "total_tokens": 2736,
+                    "cost_usd_estimate": 0.000874,
+                    "estimated": false
+                }
+            },
+            "principal": "independent-agent",
+            "source": "AGENT",
+            "previous_hash": "d84d4be79f13de9697a9881219bf555f159bb7510e7f4dcba5cad7733d95343b",
+            "event_hash": "e83e9e281ad910f22042d41cb37d961ce7ce997a7208ad12818db9b160072bef"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0017",
+            "seq": 17,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:58+00:00",
+            "payload": {
+                "agent": "independent-agent",
+                "action": "finish",
+                "path": null,
+                "to": null
+            },
+            "principal": "independent-agent",
+            "source": "AGENT",
+            "previous_hash": "e83e9e281ad910f22042d41cb37d961ce7ce997a7208ad12818db9b160072bef",
+            "event_hash": "2a6a1f6c36173bdb74bc832ee5fef28b549d50f1e4db79b863ae2a5784e7bdff"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0018",
+            "seq": 18,
+            "type": "AGENT_FINISHED",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:58+00:00",
+            "payload": {
+                "agent": "independent-agent",
+                "summary": "docs/refund-api-integration.md complete with ## Compatibility, ## Migration and ## Verification; covers v1 frozen boundary, A/B migration differences, and verification via repo tests plus hidden oracle, without editing A/B or host-owned files."
+            },
+            "principal": "independent-agent",
+            "source": "AGENT",
+            "previous_hash": "2a6a1f6c36173bdb74bc832ee5fef28b549d50f1e4db79b863ae2a5784e7bdff",
+            "event_hash": "3a9e71fa5464f724497154f66b60004339df2208b7568bf6a28968f126f998b8"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0019",
+            "seq": 19,
+            "type": "MODEL_ERROR",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:00:58+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "message": "model request failed: HTTP 400 {\"message\":\"body must be a JSON object with a string model field\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request\"}"
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "3a9e71fa5464f724497154f66b60004339df2208b7568bf6a28968f126f998b8",
+            "event_hash": "5b691901acf56eb30d09a94eb6afb0bad3b286b149af5ca2cff05a8b74e7bd77"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0020",
+            "seq": 20,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:04+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3255,
+                    "completion_tokens": 195,
+                    "total_tokens": 3450,
+                    "cost_usd_estimate": 0.001211,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "5b691901acf56eb30d09a94eb6afb0bad3b286b149af5ca2cff05a8b74e7bd77",
+            "event_hash": "e9233f57a4c28c9c6f8866a57d10b28265af043fe6082015ce1bcabbff33c5d1"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0021",
+            "seq": 21,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:04+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "action": "negotiate",
+                "path": null,
+                "to": null
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "e9233f57a4c28c9c6f8866a57d10b28265af043fe6082015ce1bcabbff33c5d1",
+            "event_hash": "a8923096519fe8e2423c0120b0d2b52e89852c3a376c6dcdc89854ab6ce43e3b"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0022",
+            "seq": 22,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:15+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "session_id": "sess-p6-pair-01r3-xg-compat",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 4119,
+                    "completion_tokens": 482,
+                    "total_tokens": 4601,
+                    "cost_usd_estimate": 0.001814,
+                    "estimated": false
+                }
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "a8923096519fe8e2423c0120b0d2b52e89852c3a376c6dcdc89854ab6ce43e3b",
+            "event_hash": "5f49eb5ea00b6f2a7d1260ff0859b60846114a2ae2d243a6d6749bbf63233e58"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0023",
+            "seq": 23,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:15+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "action": "negotiate",
+                "path": null,
+                "to": null
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "5f49eb5ea00b6f2a7d1260ff0859b60846114a2ae2d243a6d6749bbf63233e58",
+            "event_hash": "e886c5828b473cad8e9c976125ef95b3cde5491b7b56947b5c2b5cf0c5d7dc01"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0024",
+            "seq": 24,
+            "type": "P6_NEGOTIATION_ROUND",
+            "scope": [
+                "W1",
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:15+00:00",
+            "payload": {
+                "round": 1,
+                "api_choice": "HOLD",
+                "compatibility_choice": "HOLD"
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "e886c5828b473cad8e9c976125ef95b3cde5491b7b56947b5c2b5cf0c5d7dc01",
+            "event_hash": "79f2f82df9c3ea6c765a794fa6e48ad0c81d97a508ba84ff748d5e3c2ae74edc"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0025",
+            "seq": 25,
+            "type": "MODEL_ERROR",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:15+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "message": "model request failed: HTTP 400 {\"message\":\"body must be a JSON object with a string model field\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request\"}"
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "79f2f82df9c3ea6c765a794fa6e48ad0c81d97a508ba84ff748d5e3c2ae74edc",
+            "event_hash": "6400dc8dd6a7f28198faeb162a1f8b2f97e42f27e694424546d51d6c54af9a65"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0026",
+            "seq": 26,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:24+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3554,
+                    "completion_tokens": 486,
+                    "total_tokens": 4040,
+                    "cost_usd_estimate": 0.001649,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "6400dc8dd6a7f28198faeb162a1f8b2f97e42f27e694424546d51d6c54af9a65",
+            "event_hash": "596debec9541b22d01a0c0f2eccb95278a0cfb810e293ad8446b21c2efdc2f81"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0027",
+            "seq": 27,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:24+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "action": "negotiate",
+                "path": null,
+                "to": null
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "596debec9541b22d01a0c0f2eccb95278a0cfb810e293ad8446b21c2efdc2f81",
+            "event_hash": "4d3605ad049f6adb9b540028a8ba7acd5f4a9fbf32301ede4968e5ed7024df74"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0028",
+            "seq": 28,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:34+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "session_id": "sess-p6-pair-01r3-xg-compat",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 4902,
+                    "completion_tokens": 426,
+                    "total_tokens": 5328,
+                    "cost_usd_estimate": 0.001982,
+                    "estimated": false
+                }
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "4d3605ad049f6adb9b540028a8ba7acd5f4a9fbf32301ede4968e5ed7024df74",
+            "event_hash": "7d1cb72470fd9bc38149a1a4e34465edd75ad344cbae7d91434bed8420f3c185"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0029",
+            "seq": 29,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:34+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "action": "negotiate",
+                "path": null,
+                "to": null
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "7d1cb72470fd9bc38149a1a4e34465edd75ad344cbae7d91434bed8420f3c185",
+            "event_hash": "e3cb8339722161692059186ec65363fe0954ec7cb8a5edeffde3038945f70827"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0030",
+            "seq": 30,
+            "type": "P6_NEGOTIATION_ROUND",
+            "scope": [
+                "W1",
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:34+00:00",
+            "payload": {
+                "round": 2,
+                "api_choice": "HOLD",
+                "compatibility_choice": "HOLD"
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "e3cb8339722161692059186ec65363fe0954ec7cb8a5edeffde3038945f70827",
+            "event_hash": "4f68da24c2060534dbc574dac28814cb5e49a8927938b8e0b96ad1e0f49d8837"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0031",
+            "seq": 31,
+            "type": "P6_ESCALATION_REQUESTED",
+            "scope": [
+                "W1",
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:34+00:00",
+            "payload": {
+                "status": "CREATED",
+                "request_id": "dirreq-ff88290f218c"
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "4f68da24c2060534dbc574dac28814cb5e49a8927938b8e0b96ad1e0f49d8837",
+            "event_hash": "30cae52eca29e29255d969edcb72e221495daba951c4c855ebfc8ca510aab1bf"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0032",
+            "seq": 32,
+            "type": "P6_DIRECTOR_DECISION",
+            "scope": [
+                "W1",
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:39+00:00",
+            "payload": {
+                "request_id": "dirreq-ff88290f218c",
+                "chosen_option": "VERSIONED_API",
+                "patch_id": "patch-6e9e45bba8d5",
+                "scope": [
+                    "W1",
+                    "W2"
+                ]
+            },
+            "principal": "director",
+            "source": "DIRECTOR",
+            "previous_hash": "30cae52eca29e29255d969edcb72e221495daba951c4c855ebfc8ca510aab1bf",
+            "event_hash": "96a512f4124513e754da67859afb6f4006e636c0ee40f485745e0225598b89d2"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0033",
+            "seq": 33,
+            "type": "P6_PATCH_APPLIED",
+            "scope": [
+                "W1",
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:39+00:00",
+            "payload": {
+                "patch": {
+                    "patch_id": "patch-6e9e45bba8d5",
+                    "request_id": "dirreq-ff88290f218c",
+                    "option": "VERSIONED_API",
+                    "base_policy_revision": 1,
+                    "new_policy_revision": 2,
+                    "affected_scope": [
+                        "W1",
+                        "W2"
+                    ],
+                    "scope_revisions_before": {
+                        "W1": 1,
+                        "W2": 1
+                    },
+                    "slice_updates": {
+                        "W1": 2,
+                        "W2": 2
+                    },
+                    "changes": [
+                        {
+                            "op": "CONTINUE_SCOPE",
+                            "scope": [
+                                "W1",
+                                "W2"
+                            ]
+                        },
+                        {
+                            "op": "REBASE_SCOPE",
+                            "scope": [
+                                "W2"
+                            ]
+                        }
+                    ],
+                    "source": "director_response",
+                    "validated_by": "ProtocolPatchValidator",
+                    "publication_committed": false
+                },
+                "invalidated": [
+                    "ev-proposal-a",
+                    "ev-proposal-b"
+                ]
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "96a512f4124513e754da67859afb6f4006e636c0ee40f485745e0225598b89d2",
+            "event_hash": "9fa567934e290ff9c5dcf508459b766b472dd2b365b9c32dd6114e3d7afecb72"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0034",
+            "seq": 34,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:45+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3935,
+                    "completion_tokens": 24,
+                    "total_tokens": 3959,
+                    "cost_usd_estimate": 0.001209,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "9fa567934e290ff9c5dcf508459b766b472dd2b365b9c32dd6114e3d7afecb72",
+            "event_hash": "fbc17e12057b61dae07b17e63f82b7c11e42c6e986ff1917c970581f60cc1866"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0035",
+            "seq": 35,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:45+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "action": "ack_patch",
+                "path": null,
+                "to": null
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "fbc17e12057b61dae07b17e63f82b7c11e42c6e986ff1917c970581f60cc1866",
+            "event_hash": "8c321032fecdd0d3afbc39658e6a8fcb3f38b587a48f98934b96b16ca7d47668"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0036",
+            "seq": 36,
+            "type": "P6_PATCH_ACKED",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:45+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "patch_id": "patch-6e9e45bba8d5"
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "8c321032fecdd0d3afbc39658e6a8fcb3f38b587a48f98934b96b16ca7d47668",
+            "event_hash": "fea7cf5fc2032456184e71cdaacc7f5417cd8bf5d83ef8aef06aaa92cd5b1ed9"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0037",
+            "seq": 37,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:50+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "session_id": "sess-p6-pair-01r3-xg-compat",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 5145,
+                    "completion_tokens": 24,
+                    "total_tokens": 5169,
+                    "cost_usd_estimate": 0.001572,
+                    "estimated": false
+                }
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "fea7cf5fc2032456184e71cdaacc7f5417cd8bf5d83ef8aef06aaa92cd5b1ed9",
+            "event_hash": "71018f50ec93c5c0e4e16139a7832f21c8335075347cb35f47f0d0c972e49d69"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0038",
+            "seq": 38,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:50+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "action": "ack_patch",
+                "path": null,
+                "to": null
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "71018f50ec93c5c0e4e16139a7832f21c8335075347cb35f47f0d0c972e49d69",
+            "event_hash": "048126879f13da2a662805269fb9fcd7047b247bae50761d7713a13f55faff43"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0039",
+            "seq": 39,
+            "type": "P6_PATCH_ACKED",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:01:50+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "patch_id": "patch-6e9e45bba8d5"
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "048126879f13da2a662805269fb9fcd7047b247bae50761d7713a13f55faff43",
+            "event_hash": "07fe1e773082b2cca30e3cbc354ad9c2ed802ef3e06c73440f8563729e0ce4f3"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0040",
+            "seq": 40,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:10+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3972,
+                    "completion_tokens": 1355,
+                    "total_tokens": 5327,
+                    "cost_usd_estimate": 0.002818,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "07fe1e773082b2cca30e3cbc354ad9c2ed802ef3e06c73440f8563729e0ce4f3",
+            "event_hash": "b1ef2adbc5fe2080d983d95ec88f78f9edcfca219c806041f5e29479eb10847b"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0041",
+            "seq": 41,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:10+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "action": "write_file",
+                "path": "src/OrderApiV2.php",
+                "to": null
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "b1ef2adbc5fe2080d983d95ec88f78f9edcfca219c806041f5e29479eb10847b",
+            "event_hash": "eb0f41b35e40da8e0a0ca4189788890effe2db24a30c0ec6828b22794b5826b4"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0042",
+            "seq": 42,
+            "type": "FILE_WRITTEN",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:10+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "path": "src/OrderApiV2.php",
+                "bytes": 3636,
+                "sha256": "17d52954cc633124e676295e866a90c628657489e81bf15c880dcbcb3d2d792a"
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "eb0f41b35e40da8e0a0ca4189788890effe2db24a30c0ec6828b22794b5826b4",
+            "event_hash": "d1109713e64bb86d35eb0858190a1c9b9db0d1aae95d9d083d3dece338bdcec1"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0043",
+            "seq": 43,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:29+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "session_id": "sess-p6-pair-01r3-xg-compat",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 5187,
+                    "completion_tokens": 1454,
+                    "total_tokens": 6641,
+                    "cost_usd_estimate": 0.003301,
+                    "estimated": false
+                }
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "d1109713e64bb86d35eb0858190a1c9b9db0d1aae95d9d083d3dece338bdcec1",
+            "event_hash": "e8e4c0c3d092b314f01b69b573824657d31abc1f49f8e0d9f9ec6a82b9cfae91"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0044",
+            "seq": 44,
+            "type": "AGENT_PROTOCOL_ERROR",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:29+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "raw_hash": "110501948aee78680790e50b44c8bec874018653ab568a1e3deb2f1179a53a5d"
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "e8e4c0c3d092b314f01b69b573824657d31abc1f49f8e0d9f9ec6a82b9cfae91",
+            "event_hash": "ecd074207752b09171e4c28db590699bf4ecd7e5946c929cd174a9af216baa08"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0045",
+            "seq": 45,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:36+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 5151,
+                    "completion_tokens": 267,
+                    "total_tokens": 5418,
+                    "cost_usd_estimate": 0.001866,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "ecd074207752b09171e4c28db590699bf4ecd7e5946c929cd174a9af216baa08",
+            "event_hash": "e9637d6f7d4a6656606fcd6606bb3b88a88485aa0688eb0e42a7b7b0b4cff1cb"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0046",
+            "seq": 46,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:36+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "action": "run_tests",
+                "path": "tests/refund_summary.php",
+                "to": null
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "e9637d6f7d4a6656606fcd6606bb3b88a88485aa0688eb0e42a7b7b0b4cff1cb",
+            "event_hash": "34d5e6093f3725ccb778c56742f7ced0d20ef6c8375462eb50a770652d27a427"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0047",
+            "seq": 47,
+            "type": "TEST_RUN",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:37+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "path": "tests/refund_summary.php",
+                "exit_code": 255,
+                "output_tail": "PHP Fatal error:  Uncaught Error: Non-static method OrderApiV2::summary() cannot be called statically in [redacted-host]/xianggraph/experiments/demo01/runs/p6-pair-01r3-xg/workspace/src/RefundApi.php:19\nStack trace:\n#0 [redacted-host]/xianggraph/experiments/demo01/runs/p6-pair-01r3-xg/workspace/tests/refund_summary.php(15): RefundApi::summary()\n#1 {main}\n  thrown in [redacted-host]/xianggraph/experiments/demo01/runs/p6-pair-01r3-xg/workspace/src/RefundApi.php on line 19"
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "34d5e6093f3725ccb778c56742f7ced0d20ef6c8375462eb50a770652d27a427",
+            "event_hash": "42ddae2bf18bf1d3a5da0f3fe519da728f3ecb3897e8c7dca3c483ba4a358798"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0048",
+            "seq": 48,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:49+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "session_id": "sess-p6-pair-01r3-xg-compat",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 6461,
+                    "completion_tokens": 1344,
+                    "total_tokens": 7805,
+                    "cost_usd_estimate": 0.003551,
+                    "estimated": false
+                }
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "42ddae2bf18bf1d3a5da0f3fe519da728f3ecb3897e8c7dca3c483ba4a358798",
+            "event_hash": "c1680477d09a76ba86e768a55338b301b3772a109e7245bcf9fb4efa14bbf919"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0049",
+            "seq": 49,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:49+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "action": "write_file",
+                "path": "reviews/compatibility-review.md",
+                "to": null
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "c1680477d09a76ba86e768a55338b301b3772a109e7245bcf9fb4efa14bbf919",
+            "event_hash": "bc592fb1d1d62c6002a394ce837ed23305691fbc9e4ba51186f95c9632bd8035"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0050",
+            "seq": 50,
+            "type": "FILE_WRITTEN",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:49+00:00",
+            "payload": {
+                "agent": "compatibility-agent",
+                "path": "reviews/compatibility-review.md",
+                "bytes": 4327,
+                "sha256": "c4a6976717b44648f43c9aad80d8235ff6dac4d942bec926ac88ea853d66e247"
+            },
+            "principal": "compatibility-agent",
+            "source": "AGENT",
+            "previous_hash": "bc592fb1d1d62c6002a394ce837ed23305691fbc9e4ba51186f95c9632bd8035",
+            "event_hash": "d067989761059b7e409acac6f0db038b9e48b30de75abb778ec846ecb124dd9f"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0051",
+            "seq": 51,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:54+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 5600,
+                    "completion_tokens": 59,
+                    "total_tokens": 5659,
+                    "cost_usd_estimate": 0.001751,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "d067989761059b7e409acac6f0db038b9e48b30de75abb778ec846ecb124dd9f",
+            "event_hash": "1c3f9f78405b7ac55f94febb45539d88cc731726083a58f502b11c551e13be95"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0052",
+            "seq": 52,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:02:54+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "action": "read_file",
+                "path": "src/RefundApi.php",
+                "to": null
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "1c3f9f78405b7ac55f94febb45539d88cc731726083a58f502b11c551e13be95",
+            "event_hash": "89c997a85b989de80763e11416990f8b77d9af4e1f2289e90e21b7d7be9627cd"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0053",
+            "seq": 53,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:08+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 4853,
+                    "completion_tokens": 1305,
+                    "total_tokens": 6158,
+                    "cost_usd_estimate": 0.003022,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "89c997a85b989de80763e11416990f8b77d9af4e1f2289e90e21b7d7be9627cd",
+            "event_hash": "4a918bf0098b496f45cbbdeef0bb7637f16e61c0b5346650d4dea0505f8577c2"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0054",
+            "seq": 54,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:08+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "action": "write_file",
+                "path": "src/OrderApiV2.php",
+                "to": null
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "4a918bf0098b496f45cbbdeef0bb7637f16e61c0b5346650d4dea0505f8577c2",
+            "event_hash": "1ac45f39b10ba504f350d82507d4a3d0e1bc2df6646b71f785da6d10e727b52a"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0055",
+            "seq": 55,
+            "type": "FILE_WRITTEN",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:08+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "path": "src/OrderApiV2.php",
+                "bytes": 3662,
+                "sha256": "73c1ad2094227ff5a25523278f26dde488437837960e30ef65205ebb71ef4872"
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "1ac45f39b10ba504f350d82507d4a3d0e1bc2df6646b71f785da6d10e727b52a",
+            "event_hash": "277983f4d58d78c3fa78c3e7b35d5dd61cea0b796c621cfcb567ac62be055492"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0056",
+            "seq": 56,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:12+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "session_id": "sess-p6-pair-01r3-xg-api",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 5255,
+                    "completion_tokens": 73,
+                    "total_tokens": 5328,
+                    "cost_usd_estimate": 0.001664,
+                    "estimated": false
+                }
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "277983f4d58d78c3fa78c3e7b35d5dd61cea0b796c621cfcb567ac62be055492",
+            "event_hash": "3b7bf3cde2d99b700f3428a712ae9c4d7350ae42c115eee08b1095d12a465fd5"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0057",
+            "seq": 57,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:12+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "action": "run_tests",
+                "path": "tests/refund_summary.php",
+                "to": null
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "3b7bf3cde2d99b700f3428a712ae9c4d7350ae42c115eee08b1095d12a465fd5",
+            "event_hash": "63d928de60141b1e7e2adeb1382ef51fe9e3d67cd14c39cad7fdf1bf77eb6203"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0058",
+            "seq": 58,
+            "type": "TEST_RUN",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+            "payload": {
+                "agent": "api-agent",
+                "path": "tests/refund_summary.php",
+                "exit_code": 0,
+                "output_tail": "PASS refund summary"
+            },
+            "principal": "api-agent",
+            "source": "AGENT",
+            "previous_hash": "63d928de60141b1e7e2adeb1382ef51fe9e3d67cd14c39cad7fdf1bf77eb6203",
+            "event_hash": "f360266999987d5775b605caf6a9b7e85264f9510f0c193abf0a0db00cd20406"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0059",
+            "seq": 59,
+            "type": "P6_IMPLEMENTATION_REPAIR",
+            "scope": [
+                "W1",
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+            "payload": {
+                "repair": 1,
+                "exit_code": 0,
+                "output_tail": "PASS refund summary"
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "f360266999987d5775b605caf6a9b7e85264f9510f0c193abf0a0db00cd20406",
+            "event_hash": "b1c89f11553350a13aee619f53f734429d66c5014e9bcf083a841bb9f29c58e2"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0060",
+            "seq": 60,
+            "type": "P6_IMPLEMENTATION_PHASE_DONE",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+            "payload": {
+                "chosen_option": "VERSIONED_API",
+                "implementation": true,
+                "review": true,
+                "c_doc": true
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "b1c89f11553350a13aee619f53f734429d66c5014e9bcf083a841bb9f29c58e2",
+            "event_hash": "8713ce1ff5a255fd56c17163260b2d1089a2210185826196941d1c55e0cd0c23"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0061",
+            "seq": 61,
+            "type": "P6_FINAL_TESTS",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+            "payload": {
+                "pass": true,
+                "results": {
+                    "tests/orders_v1.php": {
+                        "exit_code": 0,
+                        "output": "PASS orders v1",
+                        "command": "php tests/orders_v1.php",
+                        "timestamp": "2026-11-15T06:03:13+00:00"
+                    },
+                    "tests/refund_summary.php": {
+                        "exit_code": 0,
+                        "output": "PASS refund summary",
+                        "command": "php tests/refund_summary.php",
+                        "timestamp": "2026-11-15T06:03:13+00:00"
+                    }
+                }
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "8713ce1ff5a255fd56c17163260b2d1089a2210185826196941d1c55e0cd0c23",
+            "event_hash": "f9298de1deb94f3507da2c39e7b2b647f79ce2f72ffe110a4be45878816d6bb2"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0062",
+            "seq": 62,
+            "type": "P6_ORACLE_RESULT",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+            "payload": {
+                "exit_code": 0,
+                "work_completed": true,
+                "failures": [],
+                "option": "VERSIONED_API"
+            },
+            "principal": "oracle",
+            "source": "ORACLE",
+            "previous_hash": "f9298de1deb94f3507da2c39e7b2b647f79ce2f72ffe110a4be45878816d6bb2",
+            "event_hash": "2ad49ec84db1c24546736dbb4a41b48b65c661ca702c20869919a173d8ddd2a3"
+        },
+        {
+            "event_id": "p6-p6-pair-01r3-xg-0063",
+            "seq": 63,
+            "type": "P6_RUN_FINISHED",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-15T06:03:13+00:00",
+            "payload": {
+                "chosen_option": "VERSIONED_API",
+                "oracle_pass": true
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "2ad49ec84db1c24546736dbb4a41b48b65c661ca702c20869919a173d8ddd2a3",
+            "event_hash": "8bba1715aad47ae0614149c1222db84acb3e353bf60a7e841cac703d1df03c26"
+        }
+    ]
+}

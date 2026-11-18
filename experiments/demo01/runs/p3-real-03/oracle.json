@@ -1,0 +1,107 @@
+{
+    "work_completed": true,
+    "failures": [],
+    "checks": {
+        "config_exists": {
+            "pass": true,
+            "detail": null
+        },
+        "service_exists": {
+            "pass": true,
+            "detail": null
+        },
+        "config_loads": {
+            "pass": true,
+            "detail": null
+        },
+        "schema_version": {
+            "pass": true,
+            "detail": null
+        },
+        "max_refund_percent": {
+            "pass": true,
+            "detail": null
+        },
+        "manual_review_above": {
+            "pass": true,
+            "detail": null
+        },
+        "partial_refund_enabled": {
+            "pass": true,
+            "detail": null
+        },
+        "partial_refund_block": {
+            "pass": true,
+            "detail": null
+        },
+        "three_tiers": {
+            "pass": true,
+            "detail": null
+        },
+        "tier_bounds": {
+            "pass": true,
+            "detail": null
+        },
+        "service_loads": {
+            "pass": true,
+            "detail": null
+        },
+        "full_refund": {
+            "pass": true,
+            "detail": null
+        },
+        "partial_low_tier_10": {
+            "pass": true,
+            "detail": null
+        },
+        "partial_mid_tier_15": {
+            "pass": true,
+            "detail": null
+        },
+        "partial_high_tier_20": {
+            "pass": true,
+            "detail": null
+        },
+        "reject_partial_above_20": {
+            "pass": true,
+            "detail": null
+        },
+        "reject_mid_tier_cap": {
+            "pass": true,
+            "detail": null
+        },
+        "reject_low_tier_cap": {
+            "pass": true,
+            "detail": null
+        },
+        "reject_below_min_amount": {
+            "pass": true,
+            "detail": null
+        },
+        "reject_negative_amount": {
+            "pass": true,
+            "detail": null
+        },
+        "reject_zero_percent": {
+            "pass": true,
+            "detail": null
+        },
+        "reject_above_100_percent": {
+            "pass": true,
+            "detail": null
+        },
+        "runtime_policy_dependency": {
+            "pass": true,
+            "detail": null
+        }
+    },
+    "runtime_dependency": {
+        "pass": true,
+        "detail": {
+            "rejected": true,
+            "class": "InvalidArgumentException",
+            "message": "requested percent exceeds the tier maximum"
+        }
+    },
+    "oracle": "DEMO01-REFUND-ORACLE-V1"
+}

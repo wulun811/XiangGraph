@@ -1,0 +1,2375 @@
+{
+    "run_id": "p3-real-03",
+    "real_run": true,
+    "head_hash": "467b86edd99658e1123ca35683a981c6bb751b12ef07b02abddcb5e0c06f363b",
+    "events": [
+        {
+            "event_id": "demo01-p3-real-03-0001",
+            "seq": 1,
+            "type": "RUN_STARTED",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:22+00:00",
+            "payload": {
+                "mode": "real",
+                "run_id": "p3-real-03",
+                "plan_source": "LIVE_DIRECTOR_P2:director-real-02",
+                "model": "deepseek-v4.1-flash",
+                "plan_hash": "sha256:3e3a26188dfc4bab8d8c24cc1ce00df0f91713e1d9e4504739312f5a6a0843a4"
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "",
+            "event_hash": "dceae44663851eb66012032c85ec5d6f3441b64331c26706914f87fb5121019a"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0002",
+            "seq": 2,
+            "type": "BASELINE_EVIDENCE",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:22+00:00",
+            "payload": {
+                "ev:refund-boundary-v1": {
+                    "test": "tests/refund_boundary.php",
+                    "exit_code": 1,
+                    "status": "FAIL",
+                    "output_tail": "FAIL refund boundary: max_refund_percent, manual_review_above, partial_refund_enabled, high_tier",
+                    "recorded_at": "2026-11-14T23:11:22+00:00"
+                },
+                "ev:refund-service-v1": {
+                    "test": "tests/refund_service.php",
+                    "exit_code": 0,
+                    "status": "PASS",
+                    "output_tail": "PASS refund service",
+                    "recorded_at": "2026-11-14T23:11:22+00:00"
+                }
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "dceae44663851eb66012032c85ec5d6f3441b64331c26706914f87fb5121019a",
+            "event_hash": "2347f7aa64da0a97e61707de7bda01298bd4544f5da509ba586745d9fabad089"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0003",
+            "seq": 3,
+            "type": "SESSION_BOUND",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:22+00:00",
+            "payload": {
+                "session_id": "sess-p3-real-03-policy",
+                "principal": "policy-agent",
+                "allowed_writes": []
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "2347f7aa64da0a97e61707de7bda01298bd4544f5da509ba586745d9fabad089",
+            "event_hash": "838b3a199a05f4061f4b744c1558011d75bc2fedafbfdeff0fa63bec9ff19bf3"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0004",
+            "seq": 4,
+            "type": "SESSION_BOUND",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:22+00:00",
+            "payload": {
+                "session_id": "sess-p3-real-03-feature",
+                "principal": "feature-agent",
+                "allowed_writes": [
+                    "src/RefundService.php"
+                ]
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "838b3a199a05f4061f4b744c1558011d75bc2fedafbfdeff0fa63bec9ff19bf3",
+            "event_hash": "22c80503b5164a337c995e6af8ba133ac48873cf9fd50458b565bb9bf8cc4d66"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0005",
+            "seq": 5,
+            "type": "SESSION_BOUND",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:22+00:00",
+            "payload": {
+                "session_id": "sess-p3-real-03-verify",
+                "principal": "verify-agent",
+                "allowed_writes": []
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "22c80503b5164a337c995e6af8ba133ac48873cf9fd50458b565bb9bf8cc4d66",
+            "event_hash": "d5c98008317b64347cf72a7abab776967ab89ad11b84d86a6014e15750f7f5d7"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0006",
+            "seq": 6,
+            "type": "DIRECTOR_PLAN_LOADED",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:22+00:00",
+            "payload": {
+                "source": "LIVE_DIRECTOR_P2:director-real-02",
+                "plan_id": "demo01-refund-policy-v1-plan",
+                "works": [
+                    {
+                        "id": "W1",
+                        "title": "Update refund policy globals, tiers, and partial_refund_enabled",
+                        "owners": [
+                            "policy-agent"
+                        ],
+                        "depends_on": [],
+                        "resources": [
+                            "config/refund-policy.php"
+                        ],
+                        "outputs": [
+                            "config/refund-policy.php"
+                        ]
+                    },
+                    {
+                        "id": "W2",
+                        "title": "Implement tiered partial refund quote and append partial_refund config segment",
+                        "owners": [
+                            "feature-agent"
+                        ],
+                        "depends_on": [
+                            "W1"
+                        ],
+                        "resources": [
+                            "config/refund-policy.php",
+                            "src/RefundService.php"
+                        ],
+                        "outputs": [
+                            "src/RefundService.php",
+                            "config/refund-policy.php"
+                        ]
+                    },
+                    {
+                        "id": "W3",
+                        "title": "Run boundary and service tests and submit verification evidence",
+                        "owners": [
+                            "verify-agent"
+                        ],
+                        "depends_on": [
+                            "W1",
+                            "W2"
+                        ],
+                        "resources": [
+                            "config/refund-policy.php",
+                            "src/RefundService.php",
+                            "tests/refund_boundary.php",
+                            "tests/refund_service.php",
+                            "evidence/refund-verification.json"
+                        ],
+                        "outputs": [
+                            "evidence/refund-verification.json",
+                            "ev:refund-boundary-v1"
+                        ]
+                    }
+                ],
+                "protocols": [
+                    {
+                        "protocol": "P-DEP",
+                        "version": "v0.1",
+                        "scope": [
+                            "W2",
+                            "W3"
+                        ]
+                    },
+                    {
+                        "protocol": "P-CONFLICT",
+                        "version": "v0.1",
+                        "scope": [
+                            "W1",
+                            "W2",
+                            "W3"
+                        ],
+                        "max_rounds": 2
+                    },
+                    {
+                        "protocol": "P-REVIEW",
+                        "version": "v0.1",
+                        "scope": [
+                            "W3"
+                        ]
+                    },
+                    {
+                        "protocol": "P-ESCALATE",
+                        "version": "v0.1",
+                        "scope": [
+                            "W1",
+                            "W2",
+                            "W3"
+                        ]
+                    }
+                ]
+            },
+            "principal": "director",
+            "source": "DIRECTOR",
+            "previous_hash": "d5c98008317b64347cf72a7abab776967ab89ad11b84d86a6014e15750f7f5d7",
+            "event_hash": "555d88c7bec8660586e61616a02e7db52002ece4c01e95d44cbf83407044866c"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0007",
+            "seq": 7,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:25+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "session_id": "sess-p3-real-03-policy",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1775,
+                    "completion_tokens": 26,
+                    "total_tokens": 1801,
+                    "cost_usd_estimate": 0.000564,
+                    "estimated": false
+                }
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "555d88c7bec8660586e61616a02e7db52002ece4c01e95d44cbf83407044866c",
+            "event_hash": "946e1f2ac7461720904074c66c071dda5af39c1ca019def9256f48fb7256e2cc"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0008",
+            "seq": 8,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:25+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "action": "file_status",
+                "path": null,
+                "resource": "config/refund-policy.php",
+                "to": null
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "946e1f2ac7461720904074c66c071dda5af39c1ca019def9256f48fb7256e2cc",
+            "event_hash": "61cf55f73754ab22d512b8ab2ca261fee340eaa29da814fad406404465929121"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0009",
+            "seq": 9,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:27+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "session_id": "sess-p3-real-03-policy",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1670,
+                    "completion_tokens": 28,
+                    "total_tokens": 1698,
+                    "cost_usd_estimate": 0.000535,
+                    "estimated": false
+                }
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "61cf55f73754ab22d512b8ab2ca261fee340eaa29da814fad406404465929121",
+            "event_hash": "1c7c954b7c75e4ce9865b7624db969854f07b214547d1073458c7d38474e3dca"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0010",
+            "seq": 10,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:27+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "action": "read_file",
+                "path": "config/refund-policy.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "1c7c954b7c75e4ce9865b7624db969854f07b214547d1073458c7d38474e3dca",
+            "event_hash": "ce9f2a2b4f23524291171068ca5ab08901180b7d33f4dd8a4a01af3e21ecee01"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0011",
+            "seq": 11,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:30+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "session_id": "sess-p3-real-03-policy",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1919,
+                    "completion_tokens": 119,
+                    "total_tokens": 2038,
+                    "cost_usd_estimate": 0.000719,
+                    "estimated": false
+                }
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "ce9f2a2b4f23524291171068ca5ab08901180b7d33f4dd8a4a01af3e21ecee01",
+            "event_hash": "3e0769a17a48cc4ef1a69712a5bdae772a163bd60e15434b623fbaa506fccb16"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0012",
+            "seq": 12,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:30+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "action": "acquire_resource",
+                "path": null,
+                "resource": "config/refund-policy.php",
+                "to": null
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "3e0769a17a48cc4ef1a69712a5bdae772a163bd60e15434b623fbaa506fccb16",
+            "event_hash": "f34a68de800351b6ae4da245eb1196274bcd2b9152472d48b1671210573499c2"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0013",
+            "seq": 13,
+            "type": "RESOURCE_RECEIPT",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:30+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "receipt": {
+                    "receipt_id": "rcpt-1",
+                    "action": "RESOURCE_ACQUIRED",
+                    "resource": "config/refund-policy.php",
+                    "principal": "policy-agent",
+                    "lease_id": "lease-0f7ca44c1a14de3a",
+                    "epoch": 1,
+                    "at": "2026-11-14T23:11:30+00:00",
+                    "ok": true,
+                    "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                    "path": "[redacted-host]/xianggraph/experiments/demo01/runs/p3-real-03/workspace/config/refund-policy.php"
+                }
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "f34a68de800351b6ae4da245eb1196274bcd2b9152472d48b1671210573499c2",
+            "event_hash": "84d9309c673a6be4312cb8007a95222c3d7936e5d5ddab228ef72c3cd7cba7a9"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0014",
+            "seq": 14,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:34+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1779,
+                    "completion_tokens": 73,
+                    "total_tokens": 1852,
+                    "cost_usd_estimate": 0.000621,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "84d9309c673a6be4312cb8007a95222c3d7936e5d5ddab228ef72c3cd7cba7a9",
+            "event_hash": "d2436583d2e89b5ac5393de54448a32d53a6b2ef23b2d68b75cad91a670792c4"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0015",
+            "seq": 15,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:34+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "read_file",
+                "path": "config/refund-policy.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "d2436583d2e89b5ac5393de54448a32d53a6b2ef23b2d68b75cad91a670792c4",
+            "event_hash": "7c84d10d8c2d09323e2c920c09ab3d52ff690b93e6f9b5d8db7c3b59fe69759e"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0016",
+            "seq": 16,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:37+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1808,
+                    "completion_tokens": 84,
+                    "total_tokens": 1892,
+                    "cost_usd_estimate": 0.000643,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "7c84d10d8c2d09323e2c920c09ab3d52ff690b93e6f9b5d8db7c3b59fe69759e",
+            "event_hash": "62a0359cb1b6a709663b9d6082ae2b78129405e95fabfe572750710e746ce74d"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0017",
+            "seq": 17,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:37+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "read_file",
+                "path": "src/RefundService.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "62a0359cb1b6a709663b9d6082ae2b78129405e95fabfe572750710e746ce74d",
+            "event_hash": "b0192f0203bf43a5ef628bc6f6dc96dc1d1f5592bae127706c4a5a387486d318"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0018",
+            "seq": 18,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:49+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2214,
+                    "completion_tokens": 1291,
+                    "total_tokens": 3505,
+                    "cost_usd_estimate": 0.002213,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "b0192f0203bf43a5ef628bc6f6dc96dc1d1f5592bae127706c4a5a387486d318",
+            "event_hash": "c5867aa14818c60585128035e7f92cdd096e72b0f5fcbf39a05e88ddd1602d8b"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0019",
+            "seq": 19,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:49+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "write_file",
+                "path": "src/RefundService.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "c5867aa14818c60585128035e7f92cdd096e72b0f5fcbf39a05e88ddd1602d8b",
+            "event_hash": "aa4299106a2600bcd96e31de6217048ee28724d7bc561dff81efff3ba1d51428"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0020",
+            "seq": 20,
+            "type": "FILE_WRITTEN",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:49+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "path": "src/RefundService.php",
+                "bytes": 3224,
+                "sha256": "62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b"
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "aa4299106a2600bcd96e31de6217048ee28724d7bc561dff81efff3ba1d51428",
+            "event_hash": "c5293f4ee0a98c61e3d6d685f6bf4fdcd3a12d05ffc5dc2d333f03296a328cbd"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0021",
+            "seq": 21,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:54+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3247,
+                    "completion_tokens": 157,
+                    "total_tokens": 3404,
+                    "cost_usd_estimate": 0.001163,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "c5293f4ee0a98c61e3d6d685f6bf4fdcd3a12d05ffc5dc2d333f03296a328cbd",
+            "event_hash": "8696c56cfe70ac2927ea83592cb9a28f62c80fe6d8b6079c0956c6f61499d248"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0022",
+            "seq": 22,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:54+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "acquire_resource",
+                "path": null,
+                "resource": "config/refund-policy.php",
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "8696c56cfe70ac2927ea83592cb9a28f62c80fe6d8b6079c0956c6f61499d248",
+            "event_hash": "b8cf0bdf2fa9a1fd196b900a4a44eb1462857f8b62e557a12e8e09f3e4c2ee2e"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0023",
+            "seq": 23,
+            "type": "RESOURCE_RECEIPT",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:11:54+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "receipt": {
+                    "receipt_id": "rcpt-2",
+                    "action": "RESOURCE_BUSY",
+                    "ok": false,
+                    "resource": "config/refund-policy.php",
+                    "lease_id": "lease-0f7ca44c1a14de3a",
+                    "reason": "another principal holds the resource",
+                    "at": "2026-11-14T23:11:54+00:00",
+                    "holder": "policy-agent",
+                    "epoch": 1,
+                    "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de"
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "b8cf0bdf2fa9a1fd196b900a4a44eb1462857f8b62e557a12e8e09f3e4c2ee2e",
+            "event_hash": "37737fe426ef222a91c713d5cc28fc31ef2ba426ad03349e8547c4bf1dd2197a"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0024",
+            "seq": 24,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:01+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3385,
+                    "completion_tokens": 92,
+                    "total_tokens": 3477,
+                    "cost_usd_estimate": 0.001126,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "37737fe426ef222a91c713d5cc28fc31ef2ba426ad03349e8547c4bf1dd2197a",
+            "event_hash": "22ae199d992c4f2254d72534b221d66ebdd3fecbfd4bb6cddfa2e0105b0aef1a"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0025",
+            "seq": 25,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:01+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "acquire_resource",
+                "path": null,
+                "resource": "config/refund-policy.php",
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "22ae199d992c4f2254d72534b221d66ebdd3fecbfd4bb6cddfa2e0105b0aef1a",
+            "event_hash": "27f6a6d562dda99874e2877b109a935606215254a43a85cf35fa7b2fb035f4ac"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0026",
+            "seq": 26,
+            "type": "RESOURCE_RECEIPT",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:01+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "receipt": {
+                    "receipt_id": "rcpt-3",
+                    "action": "RESOURCE_BUSY",
+                    "ok": false,
+                    "resource": "config/refund-policy.php",
+                    "lease_id": "lease-0f7ca44c1a14de3a",
+                    "reason": "another principal holds the resource",
+                    "at": "2026-11-14T23:12:01+00:00",
+                    "holder": "policy-agent",
+                    "epoch": 1,
+                    "current_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de"
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "27f6a6d562dda99874e2877b109a935606215254a43a85cf35fa7b2fb035f4ac",
+            "event_hash": "101e654ce26827756b4a1e6174d14c00469a8d8581d9a32e702a44e71fa0cd7f"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0027",
+            "seq": 27,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:07+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "session_id": "sess-p3-real-03-policy",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2132,
+                    "completion_tokens": 293,
+                    "total_tokens": 2425,
+                    "cost_usd_estimate": 0.000991,
+                    "estimated": false
+                }
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "101e654ce26827756b4a1e6174d14c00469a8d8581d9a32e702a44e71fa0cd7f",
+            "event_hash": "a910442675a19b40f499a96c7dc05f7c1780d924c8439b897b9871cd90542383"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0028",
+            "seq": 28,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:07+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "action": "apply_patch",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "a910442675a19b40f499a96c7dc05f7c1780d924c8439b897b9871cd90542383",
+            "event_hash": "9b9f050e4d1fb58cd936be1ad0453fe7fe89846a7376e88a089520c82641755a"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0029",
+            "seq": 29,
+            "type": "RESOURCE_RECEIPT",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:07+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "receipt": {
+                    "receipt_id": "rcpt-4",
+                    "action": "RESOURCE_APPLIED",
+                    "resource": "config/refund-policy.php",
+                    "principal": "policy-agent",
+                    "lease_id": "lease-0f7ca44c1a14de3a",
+                    "epoch": 1,
+                    "at": "2026-11-14T23:12:07+00:00",
+                    "ok": true,
+                    "old_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                    "new_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                    "bytes": 418,
+                    "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];"
+                }
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "9b9f050e4d1fb58cd936be1ad0453fe7fe89846a7376e88a089520c82641755a",
+            "event_hash": "c2fa612774e64b03fc8ed46f2dd88f9ab0a65db469c5fe1a22b9f8f460f4a2af"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0030",
+            "seq": 30,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:12+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "session_id": "sess-p3-real-03-policy",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2791,
+                    "completion_tokens": 157,
+                    "total_tokens": 2948,
+                    "cost_usd_estimate": 0.001026,
+                    "estimated": false
+                }
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "c2fa612774e64b03fc8ed46f2dd88f9ab0a65db469c5fe1a22b9f8f460f4a2af",
+            "event_hash": "5c1135d2f5f5d8c04c38c65768250d6e3a4a2f7f9c384e6e53a47625fffd283a"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0031",
+            "seq": 31,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:12+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "action": "release_resource",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "5c1135d2f5f5d8c04c38c65768250d6e3a4a2f7f9c384e6e53a47625fffd283a",
+            "event_hash": "24d82b99bbf22512206aa48cfaec7f3a8351afe7fdbb7a6e4b04dd47773cd76c"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0032",
+            "seq": 32,
+            "type": "RESOURCE_RECEIPT",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:12+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "receipt": {
+                    "receipt_id": "rcpt-5",
+                    "action": "RESOURCE_RELEASED",
+                    "resource": "config/refund-policy.php",
+                    "principal": "policy-agent",
+                    "lease_id": "lease-0f7ca44c1a14de3a",
+                    "epoch": 1,
+                    "at": "2026-11-14T23:12:12+00:00",
+                    "ok": true,
+                    "resulting_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa"
+                }
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "24d82b99bbf22512206aa48cfaec7f3a8351afe7fdbb7a6e4b04dd47773cd76c",
+            "event_hash": "7133c7ba8c22dabd822323a334c73b7baf60ecf9ee1284809d5a2f6275f47362"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0033",
+            "seq": 33,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:17+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "session_id": "sess-p3-real-03-policy",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3008,
+                    "completion_tokens": 210,
+                    "total_tokens": 3218,
+                    "cost_usd_estimate": 0.001154,
+                    "estimated": false
+                }
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "7133c7ba8c22dabd822323a334c73b7baf60ecf9ee1284809d5a2f6275f47362",
+            "event_hash": "e7167d94a88151ccbc1b9f9f89e7f1bed7970802e70f72bccf98e5cb669dce7d"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0034",
+            "seq": 34,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:17+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "action": "finish",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "e7167d94a88151ccbc1b9f9f89e7f1bed7970802e70f72bccf98e5cb669dce7d",
+            "event_hash": "c548223b36a5fb5be54cd303be70523a28eed7f4b1fc0a27b4a4a920fc746be6"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0035",
+            "seq": 35,
+            "type": "AGENT_FINISHED",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:17+00:00",
+            "payload": {
+                "agent": "policy-agent",
+                "summary": "policy-agent: updated config/refund-policy.php globals/tiers (max_refund_percent=20, manual_review_above=20, partial_refund_enabled=true, top tier max_refund_percent=20; schema_version and three-tier structure preserved in ascending min_amount_cents). Did not add the partial_refund segment (feature-agent's W2) and did not touch src/RefundService.php. Lease acquired, patch applied, lease released; file hash now 8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa. W1 complete; W2 can proceed."
+            },
+            "principal": "policy-agent",
+            "source": "AGENT",
+            "previous_hash": "c548223b36a5fb5be54cd303be70523a28eed7f4b1fc0a27b4a4a920fc746be6",
+            "event_hash": "ffc4aeea1f4efc5e3464684db9fc6c787114d962de5419c7b08055a781dc9be3"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0036",
+            "seq": 36,
+            "type": "CHANGE_DISPATCHED",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:17+00:00",
+            "payload": {
+                "change": {
+                    "resource": "config/refund-policy.php",
+                    "base_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                    "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                    "epoch": 1,
+                    "diff_ref": "sha256:9745ffa0fc3a25ceab6e73eab26af48d6043f29cc7df0dff3a8dd8deeb0482dc",
+                    "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];"
+                },
+                "packets": [
+                    {
+                        "packet_id": "cp-a42e1e0742873bb7",
+                        "kind": "RESUME_CANDIDATE",
+                        "change_id": "chg-34e707dce8b43f12",
+                        "principal": "feature-agent",
+                        "resource": "config/refund-policy.php",
+                        "scope": [
+                            "W2"
+                        ],
+                        "base_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                        "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                        "epoch": 1,
+                        "diff_ref": "sha256:9745ffa0fc3a25ceab6e73eab26af48d6043f29cc7df0dff3a8dd8deeb0482dc",
+                        "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -4,12 +4,12 @@\n\n return [\n     'schema_version' => 'xg-refund-policy/v0.1',\n-    'max_refund_percent' => 18,\n-    'manual_review_above' => 18,\n-    'partial_refund_enabled' => false,\n+    'max_refund_percent' => 20,\n+    'manual_review_above' => 20,\n+    'partial_refund_enabled' => true,\n     'tiers' => [\n         ['min_amount_cents' => 0, 'max_refund_percent' => 10],\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n-        ['min_amount_cents' => 20000, 'max_refund_percent' => 18],\n+        ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n ];",
+                        "must_reread": true,
+                        "write_authority": "NONE_UNTIL_NEW_LEASE",
+                        "allowed_actions": [
+                            "read_file",
+                            "acquire_resource",
+                            "apply_patch",
+                            "release_resource"
+                        ],
+                        "forbidden_actions": [
+                            "write_file_without_lease",
+                            "reuse_previous_lease"
+                        ],
+                        "hint": "Re-read the current policy, then add the partial_refund block and adapt the service to the new values.",
+                        "hint_authority": "UNVERIFIED_HINT"
+                    },
+                    {
+                        "packet_id": "cp-f60e38f497f76c40",
+                        "kind": "REVALIDATION_REQUIRED",
+                        "change_id": "chg-34e707dce8b43f12",
+                        "principal": "verify-agent",
+                        "resource": "config/refund-policy.php",
+                        "scope": [
+                            "W3"
+                        ],
+                        "base_hash": "21e69f85dcaa8ca17907988d6e704af746a43134724fc6dec084e588b147f0de",
+                        "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                        "epoch": 1,
+                        "diff_ref": "sha256:9745ffa0fc3a25ceab6e73eab26af48d6043f29cc7df0dff3a8dd8deeb0482dc",
+                        "evidence_id": "ev:refund-boundary-v1",
+                        "affected_tests": [
+                            "tests/refund_boundary.php"
+                        ],
+                        "unaffected_tests": [
+                            "tests/refund_service.php"
+                        ],
+                        "must_reread": true,
+                        "write_authority": "NOT_APPLICABLE",
+                        "revalidation_only": true,
+                        "allowed_actions": [
+                            "read_file",
+                            "run_affected_tests"
+                        ],
+                        "forbidden_actions": [
+                            "invalidate_unaffected_tests"
+                        ]
+                    }
+                ],
+                "delivery": {
+                    "delivered": [
+                        {
+                            "packet_id": "cp-a42e1e0742873bb7",
+                            "principal": "feature-agent",
+                            "kind": "RESUME_CANDIDATE"
+                        },
+                        {
+                            "packet_id": "cp-f60e38f497f76c40",
+                            "principal": "verify-agent",
+                            "kind": "REVALIDATION_REQUIRED"
+                        }
+                    ],
+                    "duplicates": [],
+                    "queues": {
+                        "policy-agent": 0,
+                        "feature-agent": 1,
+                        "verify-agent": 1
+                    }
+                }
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "ffc4aeea1f4efc5e3464684db9fc6c787114d962de5419c7b08055a781dc9be3",
+            "event_hash": "970ebf486429912d49c8ed2dcc272d66eef141e08bb93bb3341208520dd3f523"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0037",
+            "seq": 37,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:20+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "session_id": "sess-p3-real-03-verify",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1973,
+                    "completion_tokens": 53,
+                    "total_tokens": 2026,
+                    "cost_usd_estimate": 0.000655,
+                    "estimated": false
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "970ebf486429912d49c8ed2dcc272d66eef141e08bb93bb3341208520dd3f523",
+            "event_hash": "eded20aa321c49adf441e06325682b24b7bba0c06bb9710762b36814a6d43f5c"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0038",
+            "seq": 38,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:20+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "action": "ack_change",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "eded20aa321c49adf441e06325682b24b7bba0c06bb9710762b36814a6d43f5c",
+            "event_hash": "bf1d469625ad4a6d39dd5f56c69599e6a7bdeabee7fd5c981450c1d9eabf5caa"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0039",
+            "seq": 39,
+            "type": "PACKET_ACKED",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:20+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "packet_id": "cp-f60e38f497f76c40",
+                "ack": {
+                    "ok": true,
+                    "duplicate": false,
+                    "ack": {
+                        "packet_id": "cp-f60e38f497f76c40",
+                        "principal": "verify-agent",
+                        "status": "ACKED",
+                        "at": "2026-11-14T23:12:20+00:00"
+                    }
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "bf1d469625ad4a6d39dd5f56c69599e6a7bdeabee7fd5c981450c1d9eabf5caa",
+            "event_hash": "88a87fdbc515960c8c52b001364aa0d47dd0501d44ee48493db5e589996e7427"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0040",
+            "seq": 40,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:24+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "session_id": "sess-p3-real-03-verify",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1642,
+                    "completion_tokens": 120,
+                    "total_tokens": 1762,
+                    "cost_usd_estimate": 0.000637,
+                    "estimated": false
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "88a87fdbc515960c8c52b001364aa0d47dd0501d44ee48493db5e589996e7427",
+            "event_hash": "1565964e9a7820a9b224364dabbc530afb3b897f0b7e3aaabe634ecbf6b5583c"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0041",
+            "seq": 41,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:24+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "action": "read_file",
+                "path": "config/refund-policy.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "1565964e9a7820a9b224364dabbc530afb3b897f0b7e3aaabe634ecbf6b5583c",
+            "event_hash": "892c8655bd3edb573f68712fc5865294941296169e0afe2fb0efc122467094d9"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0042",
+            "seq": 42,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:27+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "session_id": "sess-p3-real-03-verify",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1934,
+                    "completion_tokens": 83,
+                    "total_tokens": 2017,
+                    "cost_usd_estimate": 0.00068,
+                    "estimated": false
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "892c8655bd3edb573f68712fc5865294941296169e0afe2fb0efc122467094d9",
+            "event_hash": "c320df3b373e5a964436fecd322bb695e602ac8e53f702f87469e3e87e37aa0f"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0043",
+            "seq": 43,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:27+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "action": "run_tests",
+                "path": "tests/refund_boundary.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "c320df3b373e5a964436fecd322bb695e602ac8e53f702f87469e3e87e37aa0f",
+            "event_hash": "763b3646563706129bf4bfbd166803f7c54b7685520ae0c5887ee98cd6798ee4"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0044",
+            "seq": 44,
+            "type": "TEST_RUN",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:27+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "path": "tests/refund_boundary.php",
+                "exit_code": 0,
+                "output_tail": "PASS refund boundary"
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "763b3646563706129bf4bfbd166803f7c54b7685520ae0c5887ee98cd6798ee4",
+            "event_hash": "be84d6bbd619d99e79c5c676864bf459f09e0a1ecee3ef4ec1ca8c355a4ea8cc"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0045",
+            "seq": 45,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:36+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "session_id": "sess-p3-real-03-verify",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1979,
+                    "completion_tokens": 617,
+                    "total_tokens": 2596,
+                    "cost_usd_estimate": 0.001334,
+                    "estimated": false
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "be84d6bbd619d99e79c5c676864bf459f09e0a1ecee3ef4ec1ca8c355a4ea8cc",
+            "event_hash": "fc3cf132a00761ca7100a3534408eb55518ae5df4187b749c5918d6f6afa70e6"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0046",
+            "seq": 46,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:36+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "action": "finish",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "fc3cf132a00761ca7100a3534408eb55518ae5df4187b749c5918d6f6afa70e6",
+            "event_hash": "305f588dc6c27eabbaf14e6fc613326cfa18d6f01f5568e335bfe7e84c6b3060"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0047",
+            "seq": 47,
+            "type": "AGENT_FINISHED",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:36+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "summary": "Verification evidence (W3, partial): read config/refund-policy.php at sha256 8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa — verified 'schema_version' => 'xg-refund-policy/v0.1' preserved, max_refund_percent=20, manual_review_above=20, partial_refund_enabled=true, and the three tiers in ascending min_amount_cents order (0/10%, 10000/15%, 20000/20%). Ran php tests/refund_boundary.php: exit code 0, output 'PASS refund boundary'. I did not write or modify any file (verify-agent is read-only). Remaining gap: php tests/refund_service.php has NOT been run yet, and the current policy snapshot does not yet contain the partial_refund segment (min_amount_cents 5000, max_percent 20) that feature-agent must append, so full 'completion definition' items 1-4 are not yet evidenced end-to-end. Awaiting a change packet for the service/partial_refund update before running tests/refund_service.php."
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "305f588dc6c27eabbaf14e6fc613326cfa18d6f01f5568e335bfe7e84c6b3060",
+            "event_hash": "69ef3809d237c991f735bdb37e7bbef6528e59d7bcb5b825d8df7bdd0fb958f7"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0048",
+            "seq": 48,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:40+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 4198,
+                    "completion_tokens": 24,
+                    "total_tokens": 4222,
+                    "cost_usd_estimate": 0.001288,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "69ef3809d237c991f735bdb37e7bbef6528e59d7bcb5b825d8df7bdd0fb958f7",
+            "event_hash": "45bac445c492bbeca940834ba824842779f117e8613c3d70e41a801b0c5aea3a"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0049",
+            "seq": 49,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:40+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "ack_change",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "45bac445c492bbeca940834ba824842779f117e8613c3d70e41a801b0c5aea3a",
+            "event_hash": "564cc6004f3c1ed6eeae3f9b04a7083c6f92ee99eb65f09bd8e1f4314f5f85e9"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0050",
+            "seq": 50,
+            "type": "PACKET_ACKED",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:40+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "packet_id": "cp-a42e1e0742873bb7",
+                "ack": {
+                    "ok": true,
+                    "duplicate": false,
+                    "ack": {
+                        "packet_id": "cp-a42e1e0742873bb7",
+                        "principal": "feature-agent",
+                        "status": "ACKED",
+                        "at": "2026-11-14T23:12:40+00:00"
+                    }
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "564cc6004f3c1ed6eeae3f9b04a7083c6f92ee99eb65f09bd8e1f4314f5f85e9",
+            "event_hash": "3b907ba01eeb1a7870112d61821b031fa49a23523531cb9f99711e401498dfca"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0051",
+            "seq": 51,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:44+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3678,
+                    "completion_tokens": 46,
+                    "total_tokens": 3724,
+                    "cost_usd_estimate": 0.001159,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "3b907ba01eeb1a7870112d61821b031fa49a23523531cb9f99711e401498dfca",
+            "event_hash": "5e884687464fa1c9ecab762add2fe4fcc79e4457cb47a45990724722cf52788d"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0052",
+            "seq": 52,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:44+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "read_file",
+                "path": "config/refund-policy.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "5e884687464fa1c9ecab762add2fe4fcc79e4457cb47a45990724722cf52788d",
+            "event_hash": "5af70a702633f89dfc361fcf69d4adde2e7bab2aae4c69c5130133446e4801e7"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0053",
+            "seq": 53,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:48+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3932,
+                    "completion_tokens": 96,
+                    "total_tokens": 4028,
+                    "cost_usd_estimate": 0.001295,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "5af70a702633f89dfc361fcf69d4adde2e7bab2aae4c69c5130133446e4801e7",
+            "event_hash": "7606391bb8b9b53bc530555a5af844b78f9a14fb60d36ca4c4e25be632fe4fee"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0054",
+            "seq": 54,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:48+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "acquire_resource",
+                "path": null,
+                "resource": "config/refund-policy.php",
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "7606391bb8b9b53bc530555a5af844b78f9a14fb60d36ca4c4e25be632fe4fee",
+            "event_hash": "da69324426f93ac07f8578e89db357fa026af3251331782400010fcc411e89d9"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0055",
+            "seq": 55,
+            "type": "RESOURCE_RECEIPT",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:48+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "receipt": {
+                    "receipt_id": "rcpt-6",
+                    "action": "RESOURCE_ACQUIRED",
+                    "resource": "config/refund-policy.php",
+                    "principal": "feature-agent",
+                    "lease_id": "lease-28449cbec7686149",
+                    "epoch": 2,
+                    "at": "2026-11-14T23:12:48+00:00",
+                    "ok": true,
+                    "current_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                    "path": "[redacted-host]/xianggraph/experiments/demo01/runs/p3-real-03/workspace/config/refund-policy.php"
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "da69324426f93ac07f8578e89db357fa026af3251331782400010fcc411e89d9",
+            "event_hash": "9fd2df219461fcc1b76be78771b78e0a1260bd2b5f8dca0c257c10d5eaaa3d1b"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0056",
+            "seq": 56,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:54+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3902,
+                    "completion_tokens": 288,
+                    "total_tokens": 4190,
+                    "cost_usd_estimate": 0.001516,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "9fd2df219461fcc1b76be78771b78e0a1260bd2b5f8dca0c257c10d5eaaa3d1b",
+            "event_hash": "b406d7a0192597715bb5874a1a4dce06acbb18f265983459a123e27e6d2ef7b4"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0057",
+            "seq": 57,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:54+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "apply_patch",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "b406d7a0192597715bb5874a1a4dce06acbb18f265983459a123e27e6d2ef7b4",
+            "event_hash": "42d1fb67c2516123a00aacce784ddd59b4be2aad846a2e402ff50a01a66f72ee"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0058",
+            "seq": 58,
+            "type": "RESOURCE_RECEIPT",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:54+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "receipt": {
+                    "receipt_id": "rcpt-7",
+                    "action": "RESOURCE_APPLIED",
+                    "resource": "config/refund-policy.php",
+                    "principal": "feature-agent",
+                    "lease_id": "lease-28449cbec7686149",
+                    "epoch": 2,
+                    "at": "2026-11-14T23:12:54+00:00",
+                    "ok": true,
+                    "old_hash": "8ae13b36fb31f4baa15e18917c8c3965ec6b3a14fe5486c9361ef2a4472278fa",
+                    "new_hash": "1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c",
+                    "bytes": 516,
+                    "diff": "--- config/refund-policy.php:base\n+++ config/refund-policy.php:current\n@@ -12,4 +12,8 @@\n         ['min_amount_cents' => 10000, 'max_refund_percent' => 15],\n         ['min_amount_cents' => 20000, 'max_refund_percent' => 20],\n     ],\n+    'partial_refund' => [\n+        'min_amount_cents' => 5000,\n+        'max_percent' => 20,\n+    ],\n ];"
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "42d1fb67c2516123a00aacce784ddd59b4be2aad846a2e402ff50a01a66f72ee",
+            "event_hash": "c0e5781edec67227d3857e017f79f03c514131b2c973ee9f87fe3b820cfeae5e"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0059",
+            "seq": 59,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:59+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 4071,
+                    "completion_tokens": 75,
+                    "total_tokens": 4146,
+                    "cost_usd_estimate": 0.001311,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "c0e5781edec67227d3857e017f79f03c514131b2c973ee9f87fe3b820cfeae5e",
+            "event_hash": "ff3acf1fcc1ab5d451ab5c6ee989e72794d8daa4f746ba54ebc3cd807acd1d70"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0060",
+            "seq": 60,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:59+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "release_resource",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "ff3acf1fcc1ab5d451ab5c6ee989e72794d8daa4f746ba54ebc3cd807acd1d70",
+            "event_hash": "15cba6bfb7836d1688a44d71431f57e29265fc600cc2e3cc3b15711c2895e7f0"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0061",
+            "seq": 61,
+            "type": "RESOURCE_RECEIPT",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:12:59+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "receipt": {
+                    "receipt_id": "rcpt-8",
+                    "action": "RESOURCE_RELEASED",
+                    "resource": "config/refund-policy.php",
+                    "principal": "feature-agent",
+                    "lease_id": "lease-28449cbec7686149",
+                    "epoch": 2,
+                    "at": "2026-11-14T23:12:59+00:00",
+                    "ok": true,
+                    "resulting_hash": "1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c"
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "15cba6bfb7836d1688a44d71431f57e29265fc600cc2e3cc3b15711c2895e7f0",
+            "event_hash": "7fab7bca2834584da49a51c626a64df50d657a5bccec10fcb0fade9ab90cee73"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0062",
+            "seq": 62,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:03+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3272,
+                    "completion_tokens": 39,
+                    "total_tokens": 3311,
+                    "cost_usd_estimate": 0.001028,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "7fab7bca2834584da49a51c626a64df50d657a5bccec10fcb0fade9ab90cee73",
+            "event_hash": "b89aa8bb79ddc62b52802140696b682188ff6c78c0c2ebf73593d7cc19989d8d"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0063",
+            "seq": 63,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:03+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "read_file",
+                "path": "src/RefundService.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "b89aa8bb79ddc62b52802140696b682188ff6c78c0c2ebf73593d7cc19989d8d",
+            "event_hash": "f11623168f1f8c81b0892dd8238a731850db6d5eafa3c4203caff9aa18bf0a05"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0064",
+            "seq": 64,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:10+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 4072,
+                    "completion_tokens": 263,
+                    "total_tokens": 4335,
+                    "cost_usd_estimate": 0.001537,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "f11623168f1f8c81b0892dd8238a731850db6d5eafa3c4203caff9aa18bf0a05",
+            "event_hash": "e9e384cdd96dc3345835c58fd9e09d3473c3e8fc8ed13553583232face431b0c"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0065",
+            "seq": 65,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:10+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "run_tests",
+                "path": "tests/refund_boundary.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "e9e384cdd96dc3345835c58fd9e09d3473c3e8fc8ed13553583232face431b0c",
+            "event_hash": "a57a1eabf2423b8a08c94b7430ab294cb2b6a4662c7bb6f7672c4072556ac2f0"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0066",
+            "seq": 66,
+            "type": "TEST_RUN",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:10+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "path": "tests/refund_boundary.php",
+                "exit_code": 0,
+                "output_tail": "PASS refund boundary"
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "a57a1eabf2423b8a08c94b7430ab294cb2b6a4662c7bb6f7672c4072556ac2f0",
+            "event_hash": "e58178cfcbf4e9b7cbcd1a08247dd64791f8058e611f3724575ab335e66c079d"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0067",
+            "seq": 67,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:14+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3943,
+                    "completion_tokens": 28,
+                    "total_tokens": 3971,
+                    "cost_usd_estimate": 0.001217,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "e58178cfcbf4e9b7cbcd1a08247dd64791f8058e611f3724575ab335e66c079d",
+            "event_hash": "231a24b3a9be7fa01473bcc39234016e93d7643b0b4985d2c0ebd59a8db867be"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0068",
+            "seq": 68,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:14+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "run_tests",
+                "path": "tests/refund_service.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "231a24b3a9be7fa01473bcc39234016e93d7643b0b4985d2c0ebd59a8db867be",
+            "event_hash": "a408679c29a768b41ae34f68b625f634dd012d58db49d99dc323e5f4160b2b75"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0069",
+            "seq": 69,
+            "type": "TEST_RUN",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:14+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "path": "tests/refund_service.php",
+                "exit_code": 0,
+                "output_tail": "PASS refund service"
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "a408679c29a768b41ae34f68b625f634dd012d58db49d99dc323e5f4160b2b75",
+            "event_hash": "5377b0a8c3d22e547e0a7bf41c9ac2971a0db9dcdbfb69fe98646759c2aefdbe"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0070",
+            "seq": 70,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:21+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3884,
+                    "completion_tokens": 234,
+                    "total_tokens": 4118,
+                    "cost_usd_estimate": 0.001446,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "5377b0a8c3d22e547e0a7bf41c9ac2971a0db9dcdbfb69fe98646759c2aefdbe",
+            "event_hash": "5dd6281cd13e62ad7b73af9870ad7a1d109a3941566092cd30e17eee3aae006b"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0071",
+            "seq": 71,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:21+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "message",
+                "path": null,
+                "resource": null,
+                "to": "verify-agent"
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "5dd6281cd13e62ad7b73af9870ad7a1d109a3941566092cd30e17eee3aae006b",
+            "event_hash": "bbd7d507bc07c7d001a3ee0836def94c99712cf26513e42c2737d02fe87ddb82"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0072",
+            "seq": 72,
+            "type": "AGENT_MESSAGE",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:21+00:00",
+            "payload": {
+                "from": "feature-agent",
+                "to": "verify-agent",
+                "body": "W2 complete: src/RefundService.php implements tiered partial refund quote reading config at runtime; config/refund-policy.php now has partial_refund => {min_amount_cents: 5000, max_percent: 20} (hash 1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c). Both `php tests/refund_boundary.php` and `php tests/refund_service.php` exit 0 in my run. Please run W3 verification and submit evidence."
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "bbd7d507bc07c7d001a3ee0836def94c99712cf26513e42c2737d02fe87ddb82",
+            "event_hash": "1c85a205f38370b6fe17c3dd3fae804471432a122c792876fa84c654b5b7ffac"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0073",
+            "seq": 73,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:25+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3799,
+                    "completion_tokens": 51,
+                    "total_tokens": 3850,
+                    "cost_usd_estimate": 0.001201,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "1c85a205f38370b6fe17c3dd3fae804471432a122c792876fa84c654b5b7ffac",
+            "event_hash": "4a90fefba30612b52d31e39d52ed4668f514b9956389a916ef7670e0603e88ec"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0074",
+            "seq": 74,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:25+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "file_status",
+                "path": null,
+                "resource": "config/refund-policy.php",
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "4a90fefba30612b52d31e39d52ed4668f514b9956389a916ef7670e0603e88ec",
+            "event_hash": "75e5dd3c43b6e3f3de09316e300a8f58ee3909967599450b649f1c2bb58edbf6"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0075",
+            "seq": 75,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:31+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "session_id": "sess-p3-real-03-feature",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3698,
+                    "completion_tokens": 240,
+                    "total_tokens": 3938,
+                    "cost_usd_estimate": 0.001397,
+                    "estimated": false
+                }
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "75e5dd3c43b6e3f3de09316e300a8f58ee3909967599450b649f1c2bb58edbf6",
+            "event_hash": "06717c4e7e674feefbeab50c9e6230c2f62fd20a3b6bbca54b4867bf885ee05c"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0076",
+            "seq": 76,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:31+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "action": "finish",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "06717c4e7e674feefbeab50c9e6230c2f62fd20a3b6bbca54b4867bf885ee05c",
+            "event_hash": "003a4a4b933783225449c8c0924befd85c17ab8838d808b7f88d798dd48801cd"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0077",
+            "seq": 77,
+            "type": "AGENT_FINISHED",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:31+00:00",
+            "payload": {
+                "agent": "feature-agent",
+                "summary": "W2 complete. src/RefundService.php implements quote(): reads config/refund-policy.php at runtime (no hardcoded tier caps), handles full refund at 100%, tiered partial refunds with partial_refund_enabled / min_amount_cents / max_percent / tier checks, rounding, and InvalidArgumentException for invalid input; policy() helper preserved. config/refund-policy.php: obtained lease, appended partial_refund => {min_amount_cents: 5000, max_percent: 20} without touching policy-agent's globals/tiers, released lease; current hash 1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c. tests/ untouched. Local runs: tests/refund_boundary.php exit 0, tests/refund_service.php exit 0. Notified verify-agent for W3 evidence."
+            },
+            "principal": "feature-agent",
+            "source": "AGENT",
+            "previous_hash": "003a4a4b933783225449c8c0924befd85c17ab8838d808b7f88d798dd48801cd",
+            "event_hash": "9dcab7cc09cece44c534c79e6fb0281e70abaf6ad14958ffccda8c2af04a5809"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0078",
+            "seq": 78,
+            "type": "SERVICE_CHANGE_DISPATCHED",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:31+00:00",
+            "payload": {
+                "change": {
+                    "resource": "src/RefundService.php",
+                    "base_hash": "4693f7279acf8a93bd3dc6bcf65ee7a2812879a9363b0b0d4b017efb35d5c45f",
+                    "current_hash": "62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b",
+                    "epoch": 1,
+                    "diff_ref": "sha256:7f80e76d2f461b71ae0cdf620e658b06b2f85a33d26ec916afe1b31b10ae204b",
+                    "diff": "--- src/RefundService.php:base\n+++ src/RefundService.php:current\n@@ -4,7 +4,7 @@\n\n final class RefundService\n {\n-    public const VERSION = 'v1';\n+    public const VERSION = 'v2';\n\n     /**\n      * @return array<string, mixed>\n@@ -25,15 +25,75 @@\n         if ($requestedPercent < 1 || $requestedPercent > 100) {\n             throw new \\InvalidArgumentException('requested percent must be between 1 and 100');\n         }\n-        if ($requestedPercent !== 100) {\n+\n+        if ($requestedPercent === 100) {\n+            return [\n+                'amount_cents' => $amountCents,\n+                'refund_percent' => 100,\n+                'refund_cents' => $amountCents,\n+                'mode' => 'full',\n+            ];\n+        }\n+\n+        $policy = self::policy();\n+\n+        if (($policy['partial_refund_enabled'] ?? false) !== true) {\n             throw new \\InvalidArgumentException('partial refunds are not enabled');\n         }\n\n+        $partialPolicy = $policy['partial_refund'] ?? null;\n+        if (!is_array($partialPolicy)) {\n+            throw new \\InvalidArgumentException('partial refund policy is missing');\n+        }\n+\n+        $minAmountCents = (int) ($partialPolicy['min_amount_cents'] ?? 0);\n+        $partialMaxPercent = (int) ($partialPolicy['max_percent'] ?? 0);\n+\n+        if ($amountCents < $minAmountCents) {\n+            throw new \\InvalidArgumentException('amount is below the partial refund minimum');\n+        }\n+        if ($requestedPercent > $partialMaxPercent) {\n+            throw new \\InvalidArgumentException('requested percent exceeds the partial refund maximum');\n+        }\n+\n+        $tierMaxPercent = self::tierMaxPercent($policy['tiers'] ?? [], $amountCents);\n+        if ($tierMaxPercent === null) {\n+            throw new \\InvalidArgumentException('no refund tier covers this amount');\n+        }\n+        if ($requestedPercent > $tierMaxPercent) {\n+            throw new \\InvalidArgumentException('requested percent exceeds the tier maximum');\n+        }\n+\n         return [\n             'amount_cents' => $amountCents,\n-            'refund_percent' => 100,\n-            'refund_cents' => $amountCents,\n-            'mode' => 'full',\n+            'refund_percent' => $requestedPercent,\n+            'refund_cents' => (int) round($amountCents * $requestedPercent / 100),\n+            'mode' => 'partial',\n         ];\n     }\n+\n+    /**\n+     * @param array<int, array<string, mixed>> $tiers\n+     */\n+    private static function tierMaxPercent(array $tiers, int $amountCents): ?int\n+    {\n+        $selected = null;\n+        $selectedMin = null;\n+\n+        foreach ($tiers as $tier) {\n+            if (!is_array($tier)) {\n+                continue;\n+            }\n+            $tierMin = (int) ($tier['min_amount_cents'] ?? 0);\n+            if ($tierMin > $amountCents) {\n+                continue;\n+            }\n+            if ($selectedMin === null || $tierMin >= $selectedMin) {\n+                $selectedMin = $tierMin;\n+                $selected = (int) ($tier['max_refund_percent'] ?? 0);\n+            }\n+        }\n+\n+        return $selected;\n+    }\n }"
+                },
+                "packets": [
+                    {
+                        "packet_id": "cp-5d1992e0fdfa42a4",
+                        "kind": "REVALIDATION_REQUIRED",
+                        "change_id": "chg-94504546020307ad",
+                        "principal": "verify-agent",
+                        "resource": "src/RefundService.php",
+                        "scope": [
+                            "W3"
+                        ],
+                        "base_hash": "4693f7279acf8a93bd3dc6bcf65ee7a2812879a9363b0b0d4b017efb35d5c45f",
+                        "current_hash": "62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b",
+                        "epoch": 1,
+                        "diff_ref": "sha256:7f80e76d2f461b71ae0cdf620e658b06b2f85a33d26ec916afe1b31b10ae204b",
+                        "evidence_id": "ev:refund-service-v1",
+                        "affected_tests": [
+                            "tests/refund_service.php"
+                        ],
+                        "unaffected_tests": [
+                            "tests/refund_boundary.php"
+                        ],
+                        "must_reread": true,
+                        "write_authority": "NOT_APPLICABLE",
+                        "revalidation_only": true,
+                        "allowed_actions": [
+                            "read_file",
+                            "run_affected_tests"
+                        ],
+                        "forbidden_actions": [
+                            "invalidate_unaffected_tests"
+                        ]
+                    }
+                ],
+                "delivery": {
+                    "delivered": [
+                        {
+                            "packet_id": "cp-5d1992e0fdfa42a4",
+                            "principal": "verify-agent",
+                            "kind": "REVALIDATION_REQUIRED"
+                        }
+                    ],
+                    "duplicates": [],
+                    "queues": {
+                        "policy-agent": 0,
+                        "feature-agent": 0,
+                        "verify-agent": 1
+                    }
+                }
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "9dcab7cc09cece44c534c79e6fb0281e70abaf6ad14958ffccda8c2af04a5809",
+            "event_hash": "3c2147d1d7ff30ae40ea0d483f9796032d6173a025e5e05540ab8a9b6e76971e"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0079",
+            "seq": 79,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:35+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "session_id": "sess-p3-real-03-verify",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2767,
+                    "completion_tokens": 63,
+                    "total_tokens": 2830,
+                    "cost_usd_estimate": 0.000906,
+                    "estimated": false
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "3c2147d1d7ff30ae40ea0d483f9796032d6173a025e5e05540ab8a9b6e76971e",
+            "event_hash": "572f4bae822091cae53368c235bf202b12d3b52324388a8e6bc307c6ee5d281a"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0080",
+            "seq": 80,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:35+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "action": "ack_change",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "572f4bae822091cae53368c235bf202b12d3b52324388a8e6bc307c6ee5d281a",
+            "event_hash": "cfbea0c7e5d49a22e3b15461aeaa7c9e7540a16c54594cbf971c0dbfd8fd4c93"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0081",
+            "seq": 81,
+            "type": "PACKET_ACKED",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:35+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "packet_id": "cp-5d1992e0fdfa42a4",
+                "ack": {
+                    "ok": true,
+                    "duplicate": false,
+                    "ack": {
+                        "packet_id": "cp-5d1992e0fdfa42a4",
+                        "principal": "verify-agent",
+                        "status": "ACKED",
+                        "at": "2026-11-14T23:13:35+00:00"
+                    }
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "cfbea0c7e5d49a22e3b15461aeaa7c9e7540a16c54594cbf971c0dbfd8fd4c93",
+            "event_hash": "802638d04129744cdd0c7677f2254f0b7edd11f2920323d41be4cb8128aadfbe"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0082",
+            "seq": 82,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:40+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "session_id": "sess-p3-real-03-verify",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2359,
+                    "completion_tokens": 80,
+                    "total_tokens": 2439,
+                    "cost_usd_estimate": 0.000804,
+                    "estimated": false
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "802638d04129744cdd0c7677f2254f0b7edd11f2920323d41be4cb8128aadfbe",
+            "event_hash": "0dd8b3216192c83df0f5ca5d6ada28e0bccc57afbd7a9eddc30e39b142fd9695"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0083",
+            "seq": 83,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:40+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "action": "read_file",
+                "path": "config/refund-policy.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "0dd8b3216192c83df0f5ca5d6ada28e0bccc57afbd7a9eddc30e39b142fd9695",
+            "event_hash": "53a22734ed4ba15d26244aafe21a3a74ccf94b28ada10f449ab678ba67b6c624"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0084",
+            "seq": 84,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:45+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "session_id": "sess-p3-real-03-verify",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2653,
+                    "completion_tokens": 43,
+                    "total_tokens": 2696,
+                    "cost_usd_estimate": 0.000848,
+                    "estimated": false
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "53a22734ed4ba15d26244aafe21a3a74ccf94b28ada10f449ab678ba67b6c624",
+            "event_hash": "be769cd33275e47452341fd833c549ebf5593c13f4402a83ccf5c054826c5456"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0085",
+            "seq": 85,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:45+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "action": "read_file",
+                "path": "src/RefundService.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "be769cd33275e47452341fd833c549ebf5593c13f4402a83ccf5c054826c5456",
+            "event_hash": "c0a7f430d61ddaf85adc1f648ddfed98cbffa66c3e7d7e65f625b4f021792212"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0086",
+            "seq": 86,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:49+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "session_id": "sess-p3-real-03-verify",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3636,
+                    "completion_tokens": 133,
+                    "total_tokens": 3769,
+                    "cost_usd_estimate": 0.00125,
+                    "estimated": false
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "c0a7f430d61ddaf85adc1f648ddfed98cbffa66c3e7d7e65f625b4f021792212",
+            "event_hash": "104d7baf214ea306b475063a1320d4d5b67f8dd8038a5026ddf7d28cabb14784"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0087",
+            "seq": 87,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:49+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "action": "run_tests",
+                "path": "tests/refund_service.php",
+                "resource": null,
+                "to": null
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "104d7baf214ea306b475063a1320d4d5b67f8dd8038a5026ddf7d28cabb14784",
+            "event_hash": "e3560ce089413c0cece2fed56d0266775b97e194df0aff5a7b29c495707efded"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0088",
+            "seq": 88,
+            "type": "TEST_RUN",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:49+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "path": "tests/refund_service.php",
+                "exit_code": 0,
+                "output_tail": "PASS refund service"
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "e3560ce089413c0cece2fed56d0266775b97e194df0aff5a7b29c495707efded",
+            "event_hash": "623eff1d78d6e53aba82502515c0d45a94070e2419ff2c6be9bc20fbc0cac672"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0089",
+            "seq": 89,
+            "type": "MODEL_CALL",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "session_id": "sess-p3-real-03-verify",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 3606,
+                    "completion_tokens": 711,
+                    "total_tokens": 4317,
+                    "cost_usd_estimate": 0.001935,
+                    "estimated": false
+                }
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "623eff1d78d6e53aba82502515c0d45a94070e2419ff2c6be9bc20fbc0cac672",
+            "event_hash": "bcdfe9b0f6241e63219f7fec1a94bd27707b6d178bf92be7ad2c564e6372d14d"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0090",
+            "seq": 90,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "action": "finish",
+                "path": null,
+                "resource": null,
+                "to": null
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "bcdfe9b0f6241e63219f7fec1a94bd27707b6d178bf92be7ad2c564e6372d14d",
+            "event_hash": "be0be1d3d016b17dd8b9becdc56ff6d6fb7b4f82bf374ed3d96fcf08faace75a"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0091",
+            "seq": 91,
+            "type": "AGENT_FINISHED",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+            "payload": {
+                "agent": "verify-agent",
+                "summary": "Verification evidence for W3 (verify-agent, read-only; no files written or modified).\n\nCurrent resource hashes observed:\n- config/refund-policy.php sha256 1b4161e281b39580c7d8c45b87005f2a7c737940f0dc0b25904c96f5d50d462c\n- src/RefundService.php sha256 62fd550c8c68e040ade883d5f2d5e5f2d3744e401c1d89cbe0bdd1cda649548b\n\nPolicy contract review (refund-policy-v2): schema_version preserved ('xg-refund-policy/v0.1'); max_refund_percent=20; manual_review_above=20; partial_refund_enabled=true; three tiers in ascending min_amount_cents order (0→10%, 10000→15%, 20000→20%); partial_refund segment present with min_amount_cents=5000 and max_percent=20. Matches the signed contract table exactly.\n\nService review (src/RefundService.php): quote() reads policy at runtime via require of config/refund-policy.php with no duplicated hardcoded tier ceilings; tierMaxPercent() selects the highest matching min_amount_cents tier from config. requestedPercent=100 → mode 'full', refund_cents=amountCents. Partial path enforces partial_refund_enabled, amount >= partial_refund.min_amount_cents, requestedPercent <= partial_refund.max_percent, and requestedPercent <= tier max, returning mode 'partial' with refund_cents=round(amount*pct/100). Negative amount, percent <1, percent >100, tier overflow and partial-cap overflow all throw InvalidArgumentException.\n\nTest results:\n- php tests/refund_boundary.php → exit code 0, 'PASS refund boundary' (run against policy sha 8ae13b36…, i.e. the validated tier/global state, which is unchanged by the later partial_refund-only append)\n- php tests/refund_service.php → exit code 0, 'PASS refund service' (run against current policy sha 1b4161e2… and current service sha 62fd550c…)\n\nTest files were never modified by me; tests/ remains host-original. Both named tests pass and the policy/service state is consistent with the completed W1+W2 work; independent oracle remains outside my workspace."
+            },
+            "principal": "verify-agent",
+            "source": "AGENT",
+            "previous_hash": "be0be1d3d016b17dd8b9becdc56ff6d6fb7b4f82bf374ed3d96fcf08faace75a",
+            "event_hash": "ca66ccd5c713fa1bd701e6368f76a47b16a6feb56159e4f9bed9db2d57645862"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0092",
+            "seq": 92,
+            "type": "FINAL_TEST_RUN",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+            "payload": {
+                "pass": true,
+                "results": {
+                    "tests/refund_boundary.php": {
+                        "exit_code": 0,
+                        "output": "PASS refund boundary",
+                        "command": "php tests/refund_boundary.php",
+                        "timestamp": "2026-11-14T23:13:59+00:00"
+                    },
+                    "tests/refund_service.php": {
+                        "exit_code": 0,
+                        "output": "PASS refund service",
+                        "command": "php tests/refund_service.php",
+                        "timestamp": "2026-11-14T23:13:59+00:00"
+                    }
+                },
+                "test_hashes": {
+                    "tests/refund_boundary.php": "b1efd3a0a80f969c341d7ef59e83fa319b7e3cdcb432ba4fe852ff2881b6489c",
+                    "tests/refund_service.php": "ea368366e8f89b9b9819f0bc273d504d44299e974046fdd3230163683492cffc"
+                }
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "ca66ccd5c713fa1bd701e6368f76a47b16a6feb56159e4f9bed9db2d57645862",
+            "event_hash": "0671fe8dd174b23b95aeba73a1eaa6cb1c307ac55caf36988733fead1304b058"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0093",
+            "seq": 93,
+            "type": "ORACLE_RESULT",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+            "payload": {
+                "exit_code": 0,
+                "work_completed": true,
+                "failures": [],
+                "runtime_dependency": {
+                    "pass": true,
+                    "detail": {
+                        "rejected": true,
+                        "class": "InvalidArgumentException",
+                        "message": "requested percent exceeds the tier maximum"
+                    }
+                }
+            },
+            "principal": "oracle",
+            "source": "ORACLE",
+            "previous_hash": "0671fe8dd174b23b95aeba73a1eaa6cb1c307ac55caf36988733fead1304b058",
+            "event_hash": "c7762b7a90b260db9f3c46b7097e3530e7266804a5a75f741370b5fdd0f73656"
+        },
+        {
+            "event_id": "demo01-p3-real-03-0094",
+            "seq": 94,
+            "type": "RUN_FINISHED",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:13:59+00:00",
+            "payload": {
+                "oracle_pass": true,
+                "tests_pass": true,
+                "contention_observed": true,
+                "director_requests": 0
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "c7762b7a90b260db9f3c46b7097e3530e7266804a5a75f741370b5fdd0f73656",
+            "event_hash": "467b86edd99658e1123ca35683a981c6bb751b12ef07b02abddcb5e0c06f363b"
+        }
+    ]
+}

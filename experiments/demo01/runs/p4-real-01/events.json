@@ -1,0 +1,657 @@
+{
+    "events": [
+        {
+            "event_id": "ev-0001",
+            "seq": 1,
+            "type": "P4_RUN_STARTED",
+            "scope": [
+                "run"
+            ],
+            "recorded_at_utc": "2026-11-14T23:24:13+00:00",
+            "payload": {
+                "run_id": "p4-real-01",
+                "task": "orders-api-v2",
+                "shared_resources": [],
+                "contract_dependencies": [
+                    {
+                        "contract": "contract/orders-api.json",
+                        "producer": "contract-agent",
+                        "consumer": "client-agent",
+                        "note": "Only contract-agent writes the contract; client-agent reads it at runtime. The dependency is the API contract, not a shared write lease."
+                    }
+                ]
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "",
+            "event_hash": "1215e9ae397c598b59d9ffeb77997dbd11f2d5bc27ad111dc550f02f455244dc"
+        },
+        {
+            "event_id": "ev-0002",
+            "seq": 2,
+            "type": "DIRECTOR_PLAN_RECORDED",
+            "scope": [
+                "W1",
+                "W2",
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:24:55+00:00",
+            "payload": {
+                "plan_hash": "sha256:e23684029d8da9f6abc2ade4eb6ad7700a72aad7c09da8090b72c2a587bdafca",
+                "protocols": [
+                    "P-DEP",
+                    "P-REVIEW",
+                    "P-ESCALATE"
+                ],
+                "works": [
+                    "W1",
+                    "W2",
+                    "W3"
+                ],
+                "usage": {
+                    "prompt_tokens": 3449,
+                    "completion_tokens": 4134,
+                    "total_tokens": 7583,
+                    "cost_usd_estimate": 0.005995,
+                    "estimated": false
+                }
+            },
+            "principal": "director",
+            "source": "DIRECTOR",
+            "previous_hash": "1215e9ae397c598b59d9ffeb77997dbd11f2d5bc27ad111dc550f02f455244dc",
+            "event_hash": "ed3c24a466908ab055c9ffcc32a7b9b4a913a741ddcc142af95faa7867f6e6bd"
+        },
+        {
+            "event_id": "ev-0003",
+            "seq": 3,
+            "type": "CONTRACT_CHANGE_REQUESTED",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:24:55+00:00",
+            "payload": {
+                "request_id": "CR-002",
+                "path": "change-requests/CR-002.json",
+                "sha256": "sha256:a99ed874871d84380a97b764e511692be68aa8e99f8998154bae237020ccaad6",
+                "signer": "human:owner",
+                "target": "contract/orders-api.json",
+                "expected_revision": 1,
+                "requires": {
+                    "revision": 2,
+                    "fields_add": [
+                        "refunded_cents"
+                    ],
+                    "pagination.max_limit": 200
+                }
+            },
+            "principal": "human:owner",
+            "source": "HOST",
+            "previous_hash": "ed3c24a466908ab055c9ffcc32a7b9b4a913a741ddcc142af95faa7867f6e6bd",
+            "event_hash": "94124afaf86000250e7809095550e512a773e4a26253f76ebcb752b61cdffe38"
+        },
+        {
+            "event_id": "ev-0004",
+            "seq": 4,
+            "type": "MODEL_CALL",
+            "scope": [
+                "contract-agent"
+            ],
+            "recorded_at_utc": "2026-11-14T23:24:59+00:00",
+            "payload": {
+                "agent": "contract-agent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1278,
+                    "completion_tokens": 37,
+                    "total_tokens": 1315,
+                    "cost_usd_estimate": 0.000428,
+                    "estimated": false
+                }
+            },
+            "principal": "contract-agent",
+            "source": "AGENT",
+            "previous_hash": "94124afaf86000250e7809095550e512a773e4a26253f76ebcb752b61cdffe38",
+            "event_hash": "491c6295a5b657f05d16d3afc2d7f2f5a6d5106f62cf36d406cb470e420c7826"
+        },
+        {
+            "event_id": "ev-0005",
+            "seq": 5,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:24:59+00:00",
+            "payload": {
+                "agent": "contract-agent",
+                "action": "read_file",
+                "path": "contract/orders-api.json"
+            },
+            "principal": "contract-agent",
+            "source": "AGENT",
+            "previous_hash": "491c6295a5b657f05d16d3afc2d7f2f5a6d5106f62cf36d406cb470e420c7826",
+            "event_hash": "0ebd0dc9f9ae8e30a23a66b567ed9e91e2c467bfe2ef4d255cf90f6e9e0f8f3c"
+        },
+        {
+            "event_id": "ev-0006",
+            "seq": 6,
+            "type": "MODEL_CALL",
+            "scope": [
+                "contract-agent"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:04+00:00",
+            "payload": {
+                "agent": "contract-agent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1468,
+                    "completion_tokens": 255,
+                    "total_tokens": 1723,
+                    "cost_usd_estimate": 0.000746,
+                    "estimated": false
+                }
+            },
+            "principal": "contract-agent",
+            "source": "AGENT",
+            "previous_hash": "0ebd0dc9f9ae8e30a23a66b567ed9e91e2c467bfe2ef4d255cf90f6e9e0f8f3c",
+            "event_hash": "c61add0f9cb8a2506affa1866053d9e9a946eb804d31157b150f64459255ec70"
+        },
+        {
+            "event_id": "ev-0007",
+            "seq": 7,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:04+00:00",
+            "payload": {
+                "agent": "contract-agent",
+                "action": "write_file",
+                "path": "contract/orders-api.json"
+            },
+            "principal": "contract-agent",
+            "source": "AGENT",
+            "previous_hash": "c61add0f9cb8a2506affa1866053d9e9a946eb804d31157b150f64459255ec70",
+            "event_hash": "def601585715a11ad274776640072d443ec5f7055bbc06e4a77fe53a20812970"
+        },
+        {
+            "event_id": "ev-0008",
+            "seq": 8,
+            "type": "FILE_WRITTEN",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:04+00:00",
+            "payload": {
+                "agent": "contract-agent",
+                "path": "contract/orders-api.json",
+                "before_hash": "dc4e58482eca454ca84948f5df6802eba2bf740beb81b012575e0a5119a99ecf",
+                "after_hash": "7258c83cef3812966e5c8b61792c287d0c0be7a1d35c08c2e60d6825b4ecf9ae",
+                "reason": "SIGNED_CHANGE_REQUEST",
+                "request_id": "CR-002"
+            },
+            "principal": "contract-agent",
+            "source": "AGENT",
+            "previous_hash": "def601585715a11ad274776640072d443ec5f7055bbc06e4a77fe53a20812970",
+            "event_hash": "2369edf497d6300cf69d9821ed4455747d23f500a2e42d51f4c91e2a36c27f3d"
+        },
+        {
+            "event_id": "ev-0009",
+            "seq": 9,
+            "type": "MODEL_CALL",
+            "scope": [
+                "contract-agent"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:09+00:00",
+            "payload": {
+                "agent": "contract-agent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1757,
+                    "completion_tokens": 144,
+                    "total_tokens": 1901,
+                    "cost_usd_estimate": 0.0007,
+                    "estimated": false
+                }
+            },
+            "principal": "contract-agent",
+            "source": "AGENT",
+            "previous_hash": "2369edf497d6300cf69d9821ed4455747d23f500a2e42d51f4c91e2a36c27f3d",
+            "event_hash": "14a635accbe886ce0178ca0c166186c757f256760f756f44a5dfa753dfefa5fd"
+        },
+        {
+            "event_id": "ev-0010",
+            "seq": 10,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:09+00:00",
+            "payload": {
+                "agent": "contract-agent",
+                "action": "finish",
+                "path": null
+            },
+            "principal": "contract-agent",
+            "source": "AGENT",
+            "previous_hash": "14a635accbe886ce0178ca0c166186c757f256760f756f44a5dfa753dfefa5fd",
+            "event_hash": "ed4cff9c021d6730091aee263f6d58f6d5d29cdad2943d96565593b6064ca900"
+        },
+        {
+            "event_id": "ev-0011",
+            "seq": 11,
+            "type": "AGENT_FINISHED",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:09+00:00",
+            "payload": {
+                "agent": "contract-agent",
+                "summary": "Read contract/orders-api.json (revision 1, hash dc4e5848...) and applied CR-002: revision bumped to 2, pagination.max_limit set to 200, fields extended in order to [\"order_id\",\"amount_cents\",\"status\",\"refunded_cents\"], preserving schema_version, contract_id, statuses, and pagination.default_limit unchanged. Write accepted with request_id CR-002, new hash 7258c83c.... Only contract/orders-api.json was modified."
+            },
+            "principal": "contract-agent",
+            "source": "AGENT",
+            "previous_hash": "ed4cff9c021d6730091aee263f6d58f6d5d29cdad2943d96565593b6064ca900",
+            "event_hash": "de54e892058b5eac1beab05cd8786541ad47d54f2c2fe869a90a76545fb347df"
+        },
+        {
+            "event_id": "ev-0012",
+            "seq": 12,
+            "type": "CONTRACT_CHANGE_APPLIED",
+            "scope": [
+                "W1"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:09+00:00",
+            "payload": {
+                "request_id": "CR-002",
+                "resource": "contract/orders-api.json",
+                "base_hash": "dc4e58482eca454ca84948f5df6802eba2bf740beb81b012575e0a5119a99ecf",
+                "current_hash": "7258c83cef3812966e5c8b61792c287d0c0be7a1d35c08c2e60d6825b4ecf9ae",
+                "diff_ref": "sha256:99bddfc46039a2260cc05146912b9345e02f3a8f84c102d71800fc7c257a44a2",
+                "applied_by": "contract-agent",
+                "writes": 1
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "de54e892058b5eac1beab05cd8786541ad47d54f2c2fe869a90a76545fb347df",
+            "event_hash": "34740520855e0c6efeba7fe6b1aec81021e83b0feae08e2980d47062ce6eba91"
+        },
+        {
+            "event_id": "ev-0013",
+            "seq": 13,
+            "type": "PACKET_DELIVERED",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:09+00:00",
+            "payload": {
+                "packet_id": "cp-784001a7a13573f5",
+                "kind": "RESUME_CANDIDATE",
+                "principal": "client-agent",
+                "change_id": "chg-31768bb8314f5ef5",
+                "diff_ref": "sha256:99bddfc46039a2260cc05146912b9345e02f3a8f84c102d71800fc7c257a44a2"
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "34740520855e0c6efeba7fe6b1aec81021e83b0feae08e2980d47062ce6eba91",
+            "event_hash": "12b9f9c982e65c884b64fdd9329724425337a8aee135ecd061148702c79b35a8"
+        },
+        {
+            "event_id": "ev-0014",
+            "seq": 14,
+            "type": "MODEL_CALL",
+            "scope": [
+                "client-agent"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:12+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1747,
+                    "completion_tokens": 24,
+                    "total_tokens": 1771,
+                    "cost_usd_estimate": 0.000553,
+                    "estimated": false
+                }
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "12b9f9c982e65c884b64fdd9329724425337a8aee135ecd061148702c79b35a8",
+            "event_hash": "a4fedbb2d2cef3cbfbd2d44eab19324d38eeafd2391daa4bae866589ce967eef"
+        },
+        {
+            "event_id": "ev-0015",
+            "seq": 15,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:12+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "action": "ack_change",
+                "path": null
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "a4fedbb2d2cef3cbfbd2d44eab19324d38eeafd2391daa4bae866589ce967eef",
+            "event_hash": "062393c01f53c3d8591412432449e5dcf7768dbc12515562d5f5569a731053fa"
+        },
+        {
+            "event_id": "ev-0016",
+            "seq": 16,
+            "type": "PACKET_ACKED",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:12+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "packet_id": "cp-784001a7a13573f5"
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "062393c01f53c3d8591412432449e5dcf7768dbc12515562d5f5569a731053fa",
+            "event_hash": "63ad993849552e37ad18dc381a9b317f6f901e7f005c6dadd6bf2f496817757b"
+        },
+        {
+            "event_id": "ev-0017",
+            "seq": 17,
+            "type": "MODEL_CALL",
+            "scope": [
+                "client-agent"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:14+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 1804,
+                    "completion_tokens": 16,
+                    "total_tokens": 1820,
+                    "cost_usd_estimate": 0.00056,
+                    "estimated": false
+                }
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "63ad993849552e37ad18dc381a9b317f6f901e7f005c6dadd6bf2f496817757b",
+            "event_hash": "528fa94a1deefc30baaa939f68d4b35034a7f88e03dc176788fd6febb9ff5173"
+        },
+        {
+            "event_id": "ev-0018",
+            "seq": 18,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:14+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "action": "read_file",
+                "path": "contract/orders-api.json"
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "528fa94a1deefc30baaa939f68d4b35034a7f88e03dc176788fd6febb9ff5173",
+            "event_hash": "2323561508d8bf96ddb72043c744e554b3ef25c7765c0f2a445ab8f3da178f51"
+        },
+        {
+            "event_id": "ev-0019",
+            "seq": 19,
+            "type": "MODEL_CALL",
+            "scope": [
+                "client-agent"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:16+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2010,
+                    "completion_tokens": 16,
+                    "total_tokens": 2026,
+                    "cost_usd_estimate": 0.000622,
+                    "estimated": false
+                }
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "2323561508d8bf96ddb72043c744e554b3ef25c7765c0f2a445ab8f3da178f51",
+            "event_hash": "e325799d055677350a5a0802ef2658224f3b28152082263f642effc2d048b941"
+        },
+        {
+            "event_id": "ev-0020",
+            "seq": 20,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:16+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "action": "read_file",
+                "path": "src/OrderQuery.php"
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "e325799d055677350a5a0802ef2658224f3b28152082263f642effc2d048b941",
+            "event_hash": "dd007edb410e48dc41e1a82e9aa0bd109e014b0c5024e11c2f1b197f3001b116"
+        },
+        {
+            "event_id": "ev-0021",
+            "seq": 21,
+            "type": "MODEL_CALL",
+            "scope": [
+                "client-agent"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:31+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 2793,
+                    "completion_tokens": 1603,
+                    "total_tokens": 4396,
+                    "cost_usd_estimate": 0.002762,
+                    "estimated": false
+                }
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "dd007edb410e48dc41e1a82e9aa0bd109e014b0c5024e11c2f1b197f3001b116",
+            "event_hash": "fd7c10dc880c69ee073c9b83e72b29d11a1f9c132382e6ff99a22cf827938a5b"
+        },
+        {
+            "event_id": "ev-0022",
+            "seq": 22,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:31+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "action": "write_file",
+                "path": "src/OrderQuery.php"
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "fd7c10dc880c69ee073c9b83e72b29d11a1f9c132382e6ff99a22cf827938a5b",
+            "event_hash": "2d116f7cd2e3974bd3b7a0e883e06e40df4f5fb455e5c5f6103c01fc59d22c16"
+        },
+        {
+            "event_id": "ev-0023",
+            "seq": 23,
+            "type": "FILE_WRITTEN",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:31+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "path": "src/OrderQuery.php",
+                "before_hash": "2b3b38d552944d119d36f973ed28487cd75592e13ade493385a1eba0d1971f9d",
+                "after_hash": "a6e95da80d5657fa17c5b08672b974b8658b3e49d8b17b0b09d9a010ed2ee11b",
+                "after_change_packet": "cp-784001a7a13573f5"
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "2d116f7cd2e3974bd3b7a0e883e06e40df4f5fb455e5c5f6103c01fc59d22c16",
+            "event_hash": "d1be75a1a10bf19637581e350b04f71b9d2ff52debeae74a3ac08966c05fab00"
+        },
+        {
+            "event_id": "ev-0024",
+            "seq": 24,
+            "type": "MODEL_CALL",
+            "scope": [
+                "client-agent"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:34+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 4162,
+                    "completion_tokens": 21,
+                    "total_tokens": 4183,
+                    "cost_usd_estimate": 0.001274,
+                    "estimated": false
+                }
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "d1be75a1a10bf19637581e350b04f71b9d2ff52debeae74a3ac08966c05fab00",
+            "event_hash": "1ade7fb3632ca69acbf2662db33902d28352d5691073f78645cef074a978126b"
+        },
+        {
+            "event_id": "ev-0025",
+            "seq": 25,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:34+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "action": "run_tests",
+                "path": "tests/orders_query.php"
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "1ade7fb3632ca69acbf2662db33902d28352d5691073f78645cef074a978126b",
+            "event_hash": "d0602dba0f764f9401fb3e99dfbbcb2caff9f7aa599fd1a95cfa5f8f6a18fbfb"
+        },
+        {
+            "event_id": "ev-0026",
+            "seq": 26,
+            "type": "TEST_RUN",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:34+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "path": "tests/orders_query.php",
+                "exit_code": 0,
+                "output_tail": "orders_query tests passed"
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "d0602dba0f764f9401fb3e99dfbbcb2caff9f7aa599fd1a95cfa5f8f6a18fbfb",
+            "event_hash": "22d03185b25d3cc783dc7915115e70ab185af3ddc376f4db7ff3cf45072efac2"
+        },
+        {
+            "event_id": "ev-0027",
+            "seq": 27,
+            "type": "MODEL_CALL",
+            "scope": [
+                "client-agent"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:39+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "model": "deepseek-v4.1-flash",
+                "usage": {
+                    "prompt_tokens": 4212,
+                    "completion_tokens": 215,
+                    "total_tokens": 4427,
+                    "cost_usd_estimate": 0.001522,
+                    "estimated": false
+                }
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "22d03185b25d3cc783dc7915115e70ab185af3ddc376f4db7ff3cf45072efac2",
+            "event_hash": "2203c20708edb8dc675c43e09272ec5973c310247b3f32dfee8aa59129e648bd"
+        },
+        {
+            "event_id": "ev-0028",
+            "seq": 28,
+            "type": "AGENT_ACTION",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:39+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "action": "finish",
+                "path": null
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "2203c20708edb8dc675c43e09272ec5973c310247b3f32dfee8aa59129e648bd",
+            "event_hash": "645e0f9666527f2776d4d7068fd62365764c5c7721d5d99faa5d966c6fbf7b9c"
+        },
+        {
+            "event_id": "ev-0029",
+            "seq": 29,
+            "type": "AGENT_FINISHED",
+            "scope": [
+                "W2"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:39+00:00",
+            "payload": {
+                "agent": "client-agent",
+                "summary": "ACKed the RESUME_CANDIDATE packet (no write authority granted), then re-read contract/orders-api.json (revision 2, fields including refunded_cents, max_limit 200) and src/OrderQuery.php. Rewrote src/OrderQuery.php so contract() parses the contract at runtime, list() enforces 1 <= limit <= pagination.max_limit and builds each row by iterating contract.fields (no hardcoded field list, key order preserved), and summary() returns orders, amount_cents and refunded_cents. No changes to data/orders.json or tests/. Ran tests/orders_query.php: exit code 0, \"orders_query tests passed\"."
+            },
+            "principal": "client-agent",
+            "source": "AGENT",
+            "previous_hash": "645e0f9666527f2776d4d7068fd62365764c5c7721d5d99faa5d966c6fbf7b9c",
+            "event_hash": "75071bb21c189c058c4f6dc02865ec23016a3d6eda62b8b5ac5954fe651865d2"
+        },
+        {
+            "event_id": "ev-0030",
+            "seq": 30,
+            "type": "ORACLE_RESULT",
+            "scope": [
+                "W3"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:40+00:00",
+            "payload": {
+                "work_completed": true,
+                "failures": []
+            },
+            "principal": "oracle",
+            "source": "ORACLE",
+            "previous_hash": "75071bb21c189c058c4f6dc02865ec23016a3d6eda62b8b5ac5954fe651865d2",
+            "event_hash": "25c7d5675d2598733d7f2489a41a7df882d80c7d64f8ff119e8a16a9d1d710ed"
+        },
+        {
+            "event_id": "ev-0031",
+            "seq": 31,
+            "type": "KERNEL_DIFF_CHECK",
+            "scope": [
+                "run"
+            ],
+            "recorded_at_utc": "2026-11-14T23:25:40+00:00",
+            "payload": {
+                "touched_files": []
+            },
+            "principal": "host",
+            "source": "HOST",
+            "previous_hash": "25c7d5675d2598733d7f2489a41a7df882d80c7d64f8ff119e8a16a9d1d710ed",
+            "event_hash": "cb3e4dc6e4433308c10bbc5c00abe51f634c84b641e020d15b1a2a3c7b124ce0"
+        }
+    ]
+}
