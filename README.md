@@ -2,6 +2,8 @@
 
 XiangGraph makes coordination rules executable where autonomous agents' work overlaps. In the refund example, a design decision changes the rules for two agents. Both have to acknowledge the change before implementation can proceed, while the third agent's finished guide stays intact.
 
+[Watch or download the 90-second hackathon video](https://github.com/wulun811/XiangGraph/releases/download/hackathon-demo-2026/XiangGraph_Symfony_Hackathon_90s_Review2.mp4) · [Release page](https://github.com/wulun811/XiangGraph/releases/tag/hackathon-demo-2026)
+
 ## Start with the replay (no API key)
 
 Open [the English replay](showcase/film-en/index.html) from your checkout in a desktop browser. Choose **Reader view**, then **Design disagreement**. Step through **Round 1**, **Round 2**, **Escalate**, **Patch**, **ACK A**, and **ACK B**. At Patch, the change covers W1 and W2. At ACK A, the second confirmation is still pending. The documentation task stays at revision 1 throughout. Open **Recorded receipt** to inspect the selected event.
