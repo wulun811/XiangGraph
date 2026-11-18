@@ -1,0 +1,76 @@
+{
+  "scenario_id": "B5-02-independent-scopes",
+  "title": "Two disjoint scopes have independent Director requests; a patch to one does not stale the other",
+  "plan": "partial-refund.v0.1.json",
+  "expected_escalations": ["goal-ab", "goal-cd"],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": ["A", "B", "C", "D"],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "GOAL_CONFLICT",
+      "scope": ["A", "B"],
+      "actor": "agent-a",
+      "root_cause": "goal-ab",
+      "facts": ["ab-scope-conflict"]
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "GOAL_CONFLICT",
+      "scope": ["C", "D"],
+      "actor": "agent-c",
+      "root_cause": "goal-cd",
+      "facts": ["cd-scope-conflict"]
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": ["A", "B"],
+      "actor": "director",
+      "response_id": "resp-ab-1",
+      "root_cause": "goal-ab",
+      "policy_revision": 1,
+      "chosen_option": "prioritize-first"
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": ["C", "D"],
+      "actor": "director",
+      "response_id": "resp-cd-1",
+      "root_cause": "goal-cd",
+      "policy_revision": 1,
+      "chosen_option": "prioritize-first"
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["A"],
+      "actor": "agent-a"
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["C"],
+      "actor": "agent-c"
+    },
+    {
+      "event_id": "e08",
+      "seq": 8,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["B"],
+      "actor": "agent-b"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "scenario_id": "K01-K02-schema-scope",
+  "title": "Schema change invalidates only dependent B/C evidence; D continues",
+  "covers": [
+    "K01",
+    "K02"
+  ],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "SCHEMA_CONTRACT_CHANGED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-a",
+      "root_cause": "schema-v2"
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "A"
+      ],
+      "actor": "agent-a",
+      "evidence_id": "ev-A-schema",
+      "result": "pass",
+      "source": "schema_contract_test",
+      "policy_revision": 1
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "B"
+      ],
+      "actor": "agent-b"
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-c",
+      "evidence_id": "ev-BC-current",
+      "result": "pass",
+      "source": "consumer_contract_test",
+      "policy_revision": 1,
+      "claims": [
+        "REVALIDATE_DEPENDENT"
+      ]
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b"
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "D"
+      ],
+      "actor": "agent-d"
+    }
+  ]
+}

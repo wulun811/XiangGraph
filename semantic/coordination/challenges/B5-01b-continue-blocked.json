@@ -1,0 +1,13 @@
+{
+  "scenario_id": "B5-01b-continue-blocked",
+  "title": "CONTINUE_SCOPE cannot clear another root cause's safety hold",
+  "plan": "partial-refund.v0.1.json",
+  "expected_escalations": ["rc-gap", "rc-goal"],
+  "events": [
+    {"event_id": "c01", "seq": 1, "type": "WORKS_ASSIGNED", "scope": ["A", "B", "C", "D"], "actor": "director"},
+    {"event_id": "c02", "seq": 2, "type": "PROTOCOL_GAP", "scope": ["A"], "actor": "agent-a", "root_cause": "rc-gap", "facts": ["gap"]},
+    {"event_id": "c03", "seq": 3, "type": "GOAL_CONFLICT", "scope": ["A", "B"], "actor": "agent-a", "root_cause": "rc-goal", "facts": ["goal"]},
+    {"event_id": "c04", "seq": 4, "type": "DIRECTOR_RESPONSE", "scope": ["A", "B"], "actor": "director", "response_id": "r-goal", "root_cause": "rc-goal", "policy_revision": 1, "chosen_option": "prioritize-first"},
+    {"event_id": "c05", "seq": 5, "type": "PUBLISH_REQUESTED", "scope": ["A"], "actor": "agent-a"}
+  ]
+}

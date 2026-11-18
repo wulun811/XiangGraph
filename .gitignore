@@ -1,0 +1,57 @@
+# dependencies
+/vendor/
+
+# local runtime state
+/var/*.sqlite
+/var/*.sqlite-*
+/var/*.db
+/var/*.db-*
+/var/log/
+/var/worktrees/
+/var/cache/
+/var/tmp/
+
+# test/coverage
+/.phpunit.cache/
+/.phpunit.result.cache
+/coverage/
+
+# IDE/OS
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
+
+# secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+!**/fixtures/**/*.key.example
+
+# evidence: keep manifests, ignore large raw captures by default
+/demo-evidence/raw/*
+!/demo-evidence/raw/.gitkeep
+/demo-evidence/clips/*
+!/demo-evidence/clips/.gitkeep
+
+# C0 real-model runs: host secrets and raw prompt logs stay local
+/experiments/c0-real-01/runs/*/host/key
+/experiments/c0-real-01/runs/*/logs/
+# intermediate debug smokes are local only; run 07 is the frozen evidence
+/experiments/c0-real-01/runs/smoke-xg-api-review-B-20261113-0[1-6]/
+
+# keep directory placeholders
+!**/.gitkeep
+
+# Demo-01: host ephemeral workspaces and gate state stay local; JSON evidence is kept
+/experiments/demo01/out/*-workspace/
+/experiments/demo01/out/*-gate-state/
+
+# local replay output from scripts/demo/run.sh (regenerate on demand)
+/experiments/demo_replay/
+
+# python caches
+__pycache__/
+*.pyc

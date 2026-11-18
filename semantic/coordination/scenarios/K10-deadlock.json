@@ -1,0 +1,101 @@
+{
+  "scenario_id": "K10-deadlock",
+  "title": "A dependency cycle is escalated once and resolved by a scoped protocol patch",
+  "covers": [
+    "K10"
+  ],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "DEADLOCK_DETECTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "runtime",
+      "root_cause": "cycle-1",
+      "cycle": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "DEADLOCK_DETECTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "runtime",
+      "root_cause": "cycle-1",
+      "cycle": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "director",
+      "response_id": "resp-cycle-1",
+      "root_cause": "cycle-1",
+      "policy_revision": 1,
+      "chosen_option": "break-cycle"
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-c",
+      "evidence_id": "ev-cycle-rebased",
+      "result": "pass",
+      "source": "cycle_break_test",
+      "policy_revision": 2,
+      "claims": [
+        "REVALIDATE_AFTER_PATCH"
+      ]
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b"
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "D"
+      ],
+      "actor": "agent-d"
+    }
+  ]
+}

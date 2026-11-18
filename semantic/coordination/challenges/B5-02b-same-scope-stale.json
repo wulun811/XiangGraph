@@ -1,0 +1,13 @@
+{
+  "scenario_id": "B5-02b-same-scope-stale",
+  "title": "A same-scope patch stales the other open request; an unrelated scope does not",
+  "plan": "partial-refund.v0.1.json",
+  "expected_escalations": ["rc-cd", "rc-c"],
+  "events": [
+    {"event_id": "s01", "seq": 1, "type": "WORKS_ASSIGNED", "scope": ["A", "B", "C", "D"], "actor": "director"},
+    {"event_id": "s02", "seq": 2, "type": "GOAL_CONFLICT", "scope": ["C", "D"], "actor": "agent-c", "root_cause": "rc-cd", "facts": ["cd"]},
+    {"event_id": "s03", "seq": 3, "type": "GOAL_CONFLICT", "scope": ["C"], "actor": "agent-c", "root_cause": "rc-c", "facts": ["c"]},
+    {"event_id": "s04", "seq": 4, "type": "DIRECTOR_RESPONSE", "scope": ["C"], "actor": "director", "response_id": "r-c", "root_cause": "rc-c", "policy_revision": 1, "chosen_option": "prioritize-first"},
+    {"event_id": "s05", "seq": 5, "type": "DIRECTOR_RESPONSE", "scope": ["C", "D"], "actor": "director", "response_id": "r-cd", "root_cause": "rc-cd", "policy_revision": 1, "chosen_option": "prioritize-first"}
+  ]
+}

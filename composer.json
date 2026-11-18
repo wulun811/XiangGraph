@@ -1,0 +1,48 @@
+{
+  "name": "xianggraph/xianggraph",
+  "description": "XiangGraph - composable coordination protocols for autonomous agents",
+  "type": "project",
+  "require": {
+    "php": ">=8.4.1",
+    "mcp/sdk": "^0.9",
+    "symfony/ai-agent": "1.0.0-BETA1",
+    "symfony/ai-generic-platform": "1.0.0-BETA1",
+    "symfony/ai-mcp-tool": "1.0.0-BETA1",
+    "symfony/ai-open-ai-platform": "1.0.0-BETA1",
+    "symfony/ai-open-responses-platform": "1.0.0-BETA1",
+    "symfony/ai-platform": "1.0.0-BETA1"
+  },
+  "autoload": {
+    "psr-4": {
+      "XiangGraph\\Domain\\": "packages/xianggraph-domain/src/",
+      "XiangGraph\\Compiler\\": "packages/xianggraph-compiler/src/",
+      "XiangGraph\\Runtime\\": "packages/xianggraph-runtime/src/",
+      "XiangGraph\\SymfonyBridge\\": "packages/xianggraph-symfony/src/",
+      "XiangGraph\\Mcp\\": "packages/xianggraph-mcp/src/",
+      "XiangGraph\\Coord\\": "semantic/coordination/src/",
+      "XiangGraph\\S1\\": "semantic/composition-engine/src/",
+      "XiangGraph\\Showcase\\": "packages/xianggraph-showcase/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "XiangGraph\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "php-http/discovery": false
+    }
+  },
+  "extra": {
+    "xianggraph": {
+      "status": "COORD_R0_STAGE_A_B_SIMULATED",
+      "source_freeze": "docs/source/SOURCE_FREEZE.md",
+      "master_plan": "docs/plans/00_MASTER_PLAN.md",
+      "expert_decision": "docs/decisions/ADR-Q001-Q019.md",
+      "s1_scope_report": "docs/review/S1_SCOPE_REPORT.md",
+      "coord_r0_report": "docs/review/XG-COORD-R0-REPORT.md"
+    }
+  }
+}

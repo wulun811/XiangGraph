@@ -1,0 +1,93 @@
+{
+  "scenario_id": "C0-PARITY-01-C2-delegated-out-of-range",
+  "title": "A value outside a registered delegation is escalated by both XG and B3",
+  "plan": "c0-parity-canary.v0.1.json",
+  "expected_escalations": [
+    "threshold-v3-out-of-band"
+  ],
+  "events": [
+    {
+      "event_id": "c201",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "c202",
+      "seq": 2,
+      "type": "CONTRACT_CHANGED",
+      "scope": [
+        "R2"
+      ],
+      "actor": "monitor-agent",
+      "root_cause": "threshold-v3-out-of-band",
+      "delegation_ref": "monitor-threshold-band",
+      "change_key": "threshold_percent",
+      "change_value": 40,
+      "facts": [
+        "outside-delegated-range"
+      ]
+    },
+    {
+      "event_id": "c203",
+      "seq": 3,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R1"
+      ],
+      "actor": "release-agent"
+    },
+    {
+      "event_id": "c204",
+      "seq": 4,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "director",
+      "response_id": "resp-threshold-v3-out-of-band",
+      "root_cause": "threshold-v3-out-of-band",
+      "policy_revision": 1,
+      "chosen_option": "rebase-contract"
+    },
+    {
+      "event_id": "c205",
+      "seq": 5,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "monitor-agent",
+      "evidence_id": "ev-threshold-v3-out-of-band",
+      "result": "pass",
+      "source": "threshold_and_rollback_check",
+      "policy_revision": 2,
+      "root_cause": "threshold-v3-out-of-band",
+      "claims": [
+        "REVALIDATE_UNDER_NEW_CONTRACT",
+        "REVALIDATE_AFTER_PATCH"
+      ]
+    },
+    {
+      "event_id": "c206",
+      "seq": 6,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "monitor-agent"
+    }
+  ]
+}

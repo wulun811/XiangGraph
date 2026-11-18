@@ -1,0 +1,75 @@
+{
+  "scenario_id": "C0-PARITY-01-C1-delegated-in-range",
+  "title": "A value inside a registered delegation is adopted locally by both XG and B3",
+  "plan": "c0-parity-canary.v0.1.json",
+  "expected_escalations": [],
+  "events": [
+    {
+      "event_id": "c101",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "c102",
+      "seq": 2,
+      "type": "CONTRACT_CHANGED",
+      "scope": [
+        "R2"
+      ],
+      "actor": "monitor-agent",
+      "root_cause": "threshold-v2-delegated",
+      "delegation_ref": "monitor-threshold-band",
+      "change_key": "threshold_percent",
+      "change_value": 25,
+      "facts": [
+        "inside-delegated-range"
+      ]
+    },
+    {
+      "event_id": "c103",
+      "seq": 3,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R1"
+      ],
+      "actor": "release-agent"
+    },
+    {
+      "event_id": "c104",
+      "seq": 4,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "monitor-agent",
+      "evidence_id": "ev-threshold-v2-delegated",
+      "result": "pass",
+      "source": "threshold_and_rollback_check",
+      "policy_revision": 2,
+      "root_cause": "threshold-v2-delegated",
+      "claims": [
+        "REVALIDATE_UNDER_NEW_CONTRACT"
+      ]
+    },
+    {
+      "event_id": "c105",
+      "seq": 5,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "monitor-agent"
+    }
+  ]
+}

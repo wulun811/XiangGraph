@@ -1,0 +1,13 @@
+{
+  "scenario_id": "K07-director-timeout",
+  "title": "No Director response: only the affected scope is held, unrelated work continues",
+  "covers": ["K07"],
+  "events": [
+    {"event_id": "e01", "seq": 1, "type": "WORKS_ASSIGNED", "scope": ["A", "B", "C", "D"], "actor": "director"},
+    {"event_id": "e02", "seq": 2, "type": "GOAL_CONFLICT", "scope": ["B", "C"], "actor": "agent-b", "root_cause": "priority-vs-review", "conflict": "ship boundary refund now vs preserve review"},
+    {"event_id": "e03", "seq": 3, "type": "DIRECTOR_TIMEOUT", "scope": ["B", "C"], "root_cause": "priority-vs-review"},
+    {"event_id": "e04", "seq": 4, "type": "ORDINARY_PROGRESS", "scope": ["D"], "actor": "agent-d"},
+    {"event_id": "e05", "seq": 5, "type": "PUBLISH_REQUESTED", "scope": ["B", "C"], "actor": "agent-b"},
+    {"event_id": "e06", "seq": 6, "type": "PUBLISH_REQUESTED", "scope": ["D"], "actor": "agent-d"}
+  ]
+}

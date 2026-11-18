@@ -1,0 +1,12 @@
+{
+  "scenario_id": "K14-over-escalation",
+  "title": "Ordinary progress is not allowed to wake the Director",
+  "covers": ["K14"],
+  "events": [
+    {"event_id": "e01", "seq": 1, "type": "WORKS_ASSIGNED", "scope": ["A", "B", "C", "D"], "actor": "director"},
+    {"event_id": "e02", "seq": 2, "type": "ORDINARY_PROGRESS", "scope": ["D"], "actor": "agent-d", "requires_director": true, "detail": "documentation draft is progressing"},
+    {"event_id": "e03", "seq": 3, "type": "ORDINARY_PROGRESS", "scope": ["A"], "actor": "agent-a", "requires_director": false, "detail": "schema draft is progressing"},
+    {"event_id": "e04", "seq": 4, "type": "PUBLISH_REQUESTED", "scope": ["D"], "actor": "agent-d"},
+    {"event_id": "e05", "seq": 5, "type": "PUBLISH_REQUESTED", "scope": ["A"], "actor": "agent-a"}
+  ]
+}

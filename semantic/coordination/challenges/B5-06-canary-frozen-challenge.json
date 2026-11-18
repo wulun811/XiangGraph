@@ -1,0 +1,217 @@
+{
+  "scenario_id": "B5-06-canary-frozen-challenge",
+  "title": "A simulated canary release composes the same five protocols: staged traffic, threshold change, local rollback conflict, human production gate",
+  "plan": "canary-release.v0.1.json",
+  "expected_escalations": [
+    "threshold-v2",
+    "full-rollout-vs-hold"
+  ],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "ORDINARY_PROGRESS",
+      "scope": [
+        "R1"
+      ],
+      "actor": "release-agent",
+      "root_cause": "stage-5",
+      "stage_percent": 5,
+      "detail": "canary traffic advanced to 5 percent"
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "ORDINARY_PROGRESS",
+      "scope": [
+        "R1"
+      ],
+      "actor": "release-agent",
+      "root_cause": "stage-25",
+      "stage_percent": 25,
+      "detail": "canary traffic advanced to 25 percent"
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "CONTRACT_CHANGED",
+      "scope": [
+        "R2"
+      ],
+      "actor": "human-owner",
+      "root_cause": "threshold-v2",
+      "facts": [
+        "error-budget-tightened"
+      ],
+      "detail": "the monitoring threshold is tightened before wider rollout"
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "R2"
+      ],
+      "actor": "director",
+      "response_id": "resp-threshold-v2",
+      "root_cause": "threshold-v2",
+      "policy_revision": 1,
+      "chosen_option": "rebase-contract"
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "monitor-agent",
+      "evidence_id": "ev-threshold-v2",
+      "result": "pass",
+      "source": "threshold_and_rollback_check",
+      "policy_revision": 2,
+      "root_cause": "threshold-v2",
+      "claims": [
+        "REVALIDATE_UNDER_NEW_CONTRACT",
+        "REVALIDATE_AFTER_PATCH"
+      ]
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "CONFLICT_REPORTED",
+      "scope": [
+        "R1",
+        "R2"
+      ],
+      "actor": "release-agent",
+      "root_cause": "rollback-vs-threshold",
+      "facts": [
+        "release-wants-50",
+        "monitor-holds-25"
+      ],
+      "conflict": "release wants 50 percent while monitoring wants to stay at 25"
+    },
+    {
+      "event_id": "e08",
+      "seq": 8,
+      "type": "NEGOTIATION_ROUND",
+      "scope": [
+        "R1",
+        "R2"
+      ],
+      "actor": "monitor-agent",
+      "root_cause": "rollback-vs-threshold",
+      "resolved": true
+    },
+    {
+      "event_id": "e09",
+      "seq": 9,
+      "type": "ORDINARY_PROGRESS",
+      "scope": [
+        "R1"
+      ],
+      "actor": "release-agent",
+      "root_cause": "stage-50",
+      "stage_percent": 50,
+      "detail": "canary traffic advanced to 50 percent after local agreement"
+    },
+    {
+      "event_id": "e10",
+      "seq": 10,
+      "type": "GOAL_CONFLICT",
+      "scope": [
+        "R1",
+        "R2"
+      ],
+      "actor": "release-agent",
+      "root_cause": "full-rollout-vs-hold",
+      "facts": [
+        "100-percent-vs-24h-hold"
+      ],
+      "conflict": "release requests full rollout; monitoring requests a 24 hour hold"
+    },
+    {
+      "event_id": "e11",
+      "seq": 11,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "R1",
+        "R2"
+      ],
+      "actor": "director",
+      "response_id": "resp-full-rollout-1",
+      "root_cause": "full-rollout-vs-hold",
+      "policy_revision": 2,
+      "chosen_option": "prioritize-first"
+    },
+    {
+      "event_id": "e12",
+      "seq": 12,
+      "type": "HUMAN_GRANT",
+      "scope": [
+        "R1",
+        "R2"
+      ],
+      "actor": "human-owner",
+      "grant_id": "grant-canary-production-1",
+      "option": "prioritize-first",
+      "epoch": 2
+    },
+    {
+      "event_id": "e13",
+      "seq": 13,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "R1",
+        "R2"
+      ],
+      "actor": "director",
+      "response_id": "resp-full-rollout-2",
+      "root_cause": "full-rollout-vs-hold",
+      "policy_revision": 2,
+      "chosen_option": "prioritize-first"
+    },
+    {
+      "event_id": "e14",
+      "seq": 14,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R1"
+      ],
+      "actor": "release-agent"
+    },
+    {
+      "event_id": "e15",
+      "seq": 15,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R2"
+      ],
+      "actor": "monitor-agent"
+    },
+    {
+      "event_id": "e16",
+      "seq": 16,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R4"
+      ],
+      "actor": "comms-agent"
+    }
+  ]
+}

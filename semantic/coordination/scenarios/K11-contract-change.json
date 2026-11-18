@@ -1,0 +1,89 @@
+{
+  "scenario_id": "K11-contract-change",
+  "title": "A changed review contract invalidates only C evidence and is revised by a scoped patch",
+  "covers": [
+    "K11"
+  ],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "CONTRACT_CHANGED",
+      "scope": [
+        "C"
+      ],
+      "actor": "human-owner",
+      "root_cause": "review-contract-v3",
+      "detail": "the acceptance contract changed"
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "C"
+      ],
+      "actor": "agent-c"
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "C"
+      ],
+      "actor": "director",
+      "response_id": "resp-contract-v3",
+      "root_cause": "review-contract-v3",
+      "policy_revision": 1,
+      "chosen_option": "rebase-contract"
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "C"
+      ],
+      "actor": "agent-c",
+      "evidence_id": "ev-contract-v3",
+      "result": "pass",
+      "source": "review_contract_v3_test",
+      "policy_revision": 2,
+      "claims": [
+        "REVALIDATE_UNDER_NEW_CONTRACT",
+        "REVALIDATE_AFTER_PATCH"
+      ]
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "C"
+      ],
+      "actor": "agent-c"
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "A"
+      ],
+      "actor": "agent-a"
+    }
+  ]
+}

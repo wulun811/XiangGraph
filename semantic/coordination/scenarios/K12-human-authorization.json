@@ -1,0 +1,122 @@
+{
+  "scenario_id": "K12-human-authorization",
+  "title": "A Director answer cannot substitute for human authorization on a risk-changing option",
+  "covers": [
+    "K12"
+  ],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "CONFLICT_REPORTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b",
+      "root_cause": "review-vs-api"
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "NEGOTIATION_ROUND",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-c",
+      "root_cause": "review-vs-api"
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "CONFLICT_REPORTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b",
+      "root_cause": "review-vs-api"
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "director",
+      "response_id": "resp-risk-1",
+      "root_cause": "review-vs-api",
+      "policy_revision": 1,
+      "chosen_option": "change-review-requirement"
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "HUMAN_GRANT",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "human-owner",
+      "grant_id": "grant-risk-1",
+      "option": "change-review-requirement",
+      "epoch": 1
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "director",
+      "response_id": "resp-risk-2",
+      "root_cause": "review-vs-api",
+      "policy_revision": 1,
+      "chosen_option": "change-review-requirement"
+    },
+    {
+      "event_id": "e08",
+      "seq": 8,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-c",
+      "evidence_id": "ev-risk-after-grant",
+      "result": "pass",
+      "source": "risk_review_test",
+      "policy_revision": 2,
+      "claims": [
+        "REVALIDATE_UNDER_NEW_REVIEW"
+      ]
+    },
+    {
+      "event_id": "e09",
+      "seq": 9,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b"
+    }
+  ]
+}

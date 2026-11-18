@@ -1,0 +1,107 @@
+{
+  "scenario_id": "HOLD-K15-permutation",
+  "title": "AUTHOR_HELD_OUT: conflict before schema change, duplicate event, D continues",
+  "covers": [
+    "K01",
+    "K02",
+    "K03",
+    "K05"
+  ],
+  "held_out": true,
+  "note": "This permutation is kept out of the main comparison and is not used to tune the core reducer. It is a one-shot mechanism check, not a blind holdout.",
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "CONFLICT_REPORTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b",
+      "root_cause": "review-vs-api"
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "SCHEMA_CONTRACT_CHANGED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-a",
+      "root_cause": "schema-v3"
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "D"
+      ],
+      "actor": "agent-d"
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "NEGOTIATION_ROUND",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-c",
+      "root_cause": "review-vs-api",
+      "resolved": true
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-c",
+      "evidence_id": "ev-BC-permuted",
+      "result": "pass",
+      "source": "permuted_consumer_test",
+      "policy_revision": 1,
+      "claims": [
+        "REVALIDATE_DEPENDENT"
+      ]
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b"
+    },
+    {
+      "event_id": "e08",
+      "seq": 8,
+      "type": "CONFLICT_REPORTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b",
+      "root_cause": "review-vs-api"
+    }
+  ]
+}

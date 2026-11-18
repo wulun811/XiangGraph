@@ -1,0 +1,107 @@
+{
+  "scenario_id": "B5-01-overlapping-holds",
+  "title": "Dependency, review and revoked-permit holds overlap; discharging one leaves the others",
+  "plan": "partial-refund.v0.1.json",
+  "expected_escalations": [],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": ["A", "B", "C", "D"],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "HUMAN_GRANT",
+      "scope": ["B"],
+      "actor": "human-owner",
+      "grant_id": "grant-b-1",
+      "option": "change-review-requirement",
+      "epoch": 1
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "DEPENDENCY_ADDED",
+      "scope": ["B"],
+      "actor": "agent-b",
+      "root_cause": "dep-x",
+      "facts": ["upstream-schema-not-frozen"]
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "REVIEW_REQUIRED",
+      "scope": ["B"],
+      "actor": "agent-c",
+      "root_cause": "review-x"
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "PERMIT_REVOKED",
+      "scope": ["B"],
+      "actor": "authority",
+      "grant_id": "grant-b-1"
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": ["B"],
+      "actor": "agent-b",
+      "evidence_id": "ev-dep-x",
+      "result": "pass",
+      "source": "dependency_check",
+      "policy_revision": 1,
+      "root_cause": "dep-x",
+      "claims": ["RESOLVE_DEPENDENCY"]
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["B"],
+      "actor": "agent-b"
+    },
+    {
+      "event_id": "e08",
+      "seq": 8,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": ["B"],
+      "actor": "agent-c",
+      "evidence_id": "ev-review-x",
+      "result": "pass",
+      "source": "review_check",
+      "policy_revision": 1,
+      "root_cause": "review-x",
+      "claims": ["REVIEW"]
+    },
+    {
+      "event_id": "e09",
+      "seq": 9,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["B"],
+      "actor": "agent-b"
+    },
+    {
+      "event_id": "e10",
+      "seq": 10,
+      "type": "HUMAN_GRANT",
+      "scope": ["B"],
+      "actor": "human-owner",
+      "grant_id": "grant-b-2",
+      "option": "change-review-requirement",
+      "epoch": 1
+    },
+    {
+      "event_id": "e11",
+      "seq": 11,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["B"],
+      "actor": "agent-b"
+    }
+  ]
+}

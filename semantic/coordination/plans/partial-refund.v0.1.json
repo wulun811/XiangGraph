@@ -1,0 +1,137 @@
+{
+  "schema_version": "xg-coordination-plan/v0.1",
+  "plan_id": "partial-refund-team-demo-01",
+  "policy_revision": 1,
+  "goal": "Implement partial-refund feature in an isolated demonstration workspace",
+  "risk_boundary": {
+    "external_money_transfer": "PROHIBITED",
+    "production_write": "PROHIBITED",
+    "unknown_effect_retry": "HOLD_UNTIL_RECONCILED",
+    "max_negotiation_rounds": 2,
+    "director_unavailable_default": "HOLD_AFFECTED_SCOPE",
+    "human_only_options": [
+      "change-review-requirement",
+      "extend-budget",
+      "production-write",
+      "external-money-transfer"
+    ]
+  },
+  "works": [
+    {
+      "id": "A",
+      "purpose": "schema and migration proposal",
+      "owners": [
+        "agent-a"
+      ]
+    },
+    {
+      "id": "B",
+      "purpose": "refund API proposal",
+      "owners": [
+        "agent-b"
+      ]
+    },
+    {
+      "id": "C",
+      "purpose": "review and consumer tests",
+      "owners": [
+        "agent-c"
+      ]
+    },
+    {
+      "id": "D",
+      "purpose": "documentation",
+      "owners": [
+        "agent-d"
+      ]
+    }
+  ],
+  "protocol_composition": [
+    {
+      "protocol": "P-DEP",
+      "version": "v0.1",
+      "scope": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "protocol": "P-REVIEW",
+      "version": "v0.1",
+      "scope": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "protocol": "P-CONFLICT",
+      "version": "v0.1",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "max_rounds": 2
+    },
+    {
+      "protocol": "P-RECOVER",
+      "version": "v0.1",
+      "scope": [
+        "B"
+      ]
+    },
+    {
+      "protocol": "P-ESCALATE",
+      "version": "v0.1",
+      "scope": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    }
+  ],
+  "escalation_policy": {
+    "director_only_when": [
+      "UNRESOLVED_GOAL_CONFLICT",
+      "PROTOCOL_GAP",
+      "NEGOTIATION_EXHAUSTED",
+      "IMPACT_UNKNOWN_MATERIAL",
+      "RECOVERY_STRATEGY_EXHAUSTED",
+      "BUDGET_OR_DEADLINE_DECISION",
+      "CONTRACT_CHANGE",
+      "DEADLOCK_OR_STARVATION"
+    ],
+    "do_not_escalate_for": [
+      "ORDINARY_PROGRESS",
+      "KNOWN_DEPENDENCY_WAIT",
+      "SCOPED_EVIDENCE_REVALIDATION",
+      "AUTHORIZED_LOCAL_RETRY",
+      "LOCAL_NEGOTIATION_WITHIN_LIMITS"
+    ],
+    "deduplicate_by": [
+      "root_cause",
+      "scope",
+      "policy_revision"
+    ],
+    "response_requires": [
+      "request_id",
+      "policy_revision",
+      "chosen_option",
+      "affected_scope"
+    ],
+    "response_must_pass": [
+      "version_check",
+      "scope_check",
+      "authority_check",
+      "invariant_check"
+    ]
+  },
+  "authority": {
+    "director": "director",
+    "human_authorizer": "human-owner"
+  }
+}

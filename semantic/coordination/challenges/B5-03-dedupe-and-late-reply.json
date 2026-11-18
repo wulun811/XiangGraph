@@ -1,0 +1,108 @@
+{
+  "scenario_id": "B5-03-dedupe-and-late-reply",
+  "title": "Root-cause dedupe distinguishes no-new-facts, new facts, new scope and late replies; event-id reuse conflicts",
+  "plan": "partial-refund.v0.1.json",
+  "expected_escalations": ["rc-1", "rc-2"],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": ["A", "B", "C", "D"],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "PROTOCOL_GAP",
+      "scope": ["B", "C"],
+      "actor": "agent-b",
+      "root_cause": "rc-1",
+      "facts": ["fact-1"]
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "PROTOCOL_GAP",
+      "scope": ["B", "C"],
+      "actor": "agent-b",
+      "root_cause": "rc-1",
+      "facts": ["fact-1"]
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "PROTOCOL_GAP",
+      "scope": ["B", "C"],
+      "actor": "agent-b",
+      "root_cause": "rc-1",
+      "facts": ["fact-1", "fact-2"]
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": ["B", "C"],
+      "actor": "director",
+      "response_id": "resp-rc-1",
+      "root_cause": "rc-1",
+      "policy_revision": 1,
+      "chosen_option": "hold-scope"
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "PROTOCOL_GAP",
+      "scope": ["B", "C"],
+      "actor": "agent-b",
+      "root_cause": "rc-1",
+      "facts": ["fact-3"]
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "PROTOCOL_GAP",
+      "scope": ["B", "D"],
+      "actor": "agent-d",
+      "root_cause": "rc-1",
+      "facts": []
+    },
+    {
+      "event_id": "e08",
+      "seq": 8,
+      "type": "PROTOCOL_GAP",
+      "scope": ["A"],
+      "actor": "agent-a",
+      "root_cause": "rc-2",
+      "facts": ["timeout-probe"]
+    },
+    {
+      "event_id": "e09",
+      "seq": 9,
+      "type": "DIRECTOR_TIMEOUT",
+      "scope": ["A"],
+      "actor": "coordinator",
+      "root_cause": "rc-2"
+    },
+    {
+      "event_id": "e10",
+      "seq": 10,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": ["A"],
+      "actor": "director",
+      "response_id": "resp-late-rc-2",
+      "root_cause": "rc-2",
+      "policy_revision": 1,
+      "chosen_option": "hold-scope"
+    },
+    {
+      "event_id": "e02",
+      "seq": 11,
+      "type": "PROTOCOL_GAP",
+      "scope": ["B", "C"],
+      "actor": "agent-b",
+      "root_cause": "rc-1",
+      "facts": ["fact-1", "fact-mutated"]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+*.sh text eol=lf
+/experiments/demo01/runs/**/events.json text eol=lf
+/experiments/demo01/runs/**/event-chain.json text eol=lf
+/experiments/demo01/runs/**/summary.json text eol=lf
+/experiments/g1/** text=auto eol=lf
+/experiments/mcp_roundtrips/** text=auto eol=lf
+/experiments/symfony_ai_bridge/** text=auto eol=lf
+/experiments/real_model_runs/** text=auto eol=lf
+/experiments/real_model_graphs/** text=auto eol=lf
+/semantic/compiler/** text=auto eol=lf

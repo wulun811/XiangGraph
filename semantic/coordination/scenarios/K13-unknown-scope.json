@@ -1,0 +1,13 @@
+{
+  "scenario_id": "K13-unknown-scope",
+  "title": "An unmapped material dependency stays UNKNOWN and cannot be published",
+  "covers": ["K13"],
+  "events": [
+    {"event_id": "e01", "seq": 1, "type": "WORKS_ASSIGNED", "scope": ["A", "B", "C", "D"], "actor": "director"},
+    {"event_id": "e02", "seq": 2, "type": "UNMAPPED_CHANGE", "scope": ["B"], "actor": "agent-b", "root_cause": "plugin-x", "material": true, "detail": "a new plugin resource is outside the registered dependency scope"},
+    {"event_id": "e03", "seq": 3, "type": "PUBLISH_REQUESTED", "scope": ["B"], "actor": "agent-b"},
+    {"event_id": "e04", "seq": 4, "type": "DIRECTOR_RESPONSE", "scope": ["B"], "actor": "director", "response_id": "resp-plugin-x", "root_cause": "plugin-x", "policy_revision": 1, "chosen_option": "investigate-scope"},
+    {"event_id": "e05", "seq": 5, "type": "PUBLISH_REQUESTED", "scope": ["B"], "actor": "agent-b"},
+    {"event_id": "e06", "seq": 6, "type": "PUBLISH_REQUESTED", "scope": ["D"], "actor": "agent-d"}
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "scenario_id": "B5-05-dependency-closure",
+  "title": "A hold on B expands to indirect dependents C and D; partial evidence cannot release the closure",
+  "plan": "b5-dependency-closure.v0.1.json",
+  "expected_escalations": [],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": ["A", "B", "C", "D"],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "DEP_CHANGED",
+      "scope": ["B"],
+      "actor": "agent-a",
+      "root_cause": "schema-x",
+      "facts": ["prerequisite-changed"]
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["D"],
+      "actor": "agent-d"
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": ["B"],
+      "actor": "agent-b",
+      "evidence_id": "ev-b-only",
+      "result": "pass",
+      "source": "consumer_check",
+      "policy_revision": 1,
+      "claims": ["REVALIDATE_DEPENDENT"]
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["D"],
+      "actor": "agent-d"
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": ["B", "C", "D"],
+      "actor": "agent-c",
+      "evidence_id": "ev-bcd",
+      "result": "pass",
+      "source": "integration_and_docs_check",
+      "policy_revision": 1,
+      "claims": ["REVALIDATE_DEPENDENT"]
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["D"],
+      "actor": "agent-d"
+    }
+  ]
+}

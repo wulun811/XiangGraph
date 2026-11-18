@@ -1,0 +1,15 @@
+{
+  "scenario_id": "K09-external-effect-reconcile",
+  "title": "Unknown external effect is held and reconciled with the original key; a new key is denied",
+  "covers": ["K09"],
+  "events": [
+    {"event_id": "e01", "seq": 1, "type": "WORKS_ASSIGNED", "scope": ["A", "B", "C", "D"], "actor": "director"},
+    {"event_id": "e02", "seq": 2, "type": "EXTERNAL_EFFECT_UNKNOWN", "scope": ["B"], "actor": "agent-b", "op_key": "pay-1", "payload_fingerprint": "amount=40;currency=EUR", "detail": "gateway timeout after submit"},
+    {"event_id": "e03", "seq": 3, "type": "RETRY_REQUESTED", "scope": ["B"], "actor": "agent-b", "op_key": "pay-1", "payload_fingerprint": "amount=40;currency=EUR", "expected_payload_fingerprint": "amount=40;currency=EUR"},
+    {"event_id": "e04", "seq": 4, "type": "RETRY_REQUESTED", "scope": ["B"], "actor": "agent-b", "op_key": "pay-2", "payload_fingerprint": "amount=40;currency=EUR", "expected_payload_fingerprint": "amount=40;currency=EUR"},
+    {"event_id": "e05", "seq": 5, "type": "PUBLISH_REQUESTED", "scope": ["B"], "actor": "agent-b"},
+    {"event_id": "e06", "seq": 6, "type": "RECONCILED", "scope": ["B"], "actor": "agent-b", "op_key": "pay-1", "evidence_id": "ev-reconcile-pay-1"},
+    {"event_id": "e07", "seq": 7, "type": "PUBLISH_REQUESTED", "scope": ["B"], "actor": "agent-b"},
+    {"event_id": "e08", "seq": 8, "type": "PUBLISH_REQUESTED", "scope": ["D"], "actor": "agent-d"}
+  ]
+}

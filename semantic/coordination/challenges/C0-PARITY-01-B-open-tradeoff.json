@@ -1,0 +1,94 @@
+{
+  "scenario_id": "C0-PARITY-01-B-open-tradeoff",
+  "title": "An open threshold tradeoff has no registered authority: XG and B3 both escalate even when the event claims a decision basis",
+  "plan": "c0-parity-canary.v0.1.json",
+  "expected_escalations": [
+    "threshold-v3-open"
+  ],
+  "events": [
+    {
+      "event_id": "b01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "b02",
+      "seq": 2,
+      "type": "CONTRACT_CHANGED",
+      "scope": [
+        "R2"
+      ],
+      "actor": "monitor-agent",
+      "root_cause": "threshold-v3-open",
+      "change_key": "threshold_percent",
+      "change_value": 40,
+      "decision_basis": "EXTERNAL_AUTHORITY_DECIDED",
+      "facts": [
+        "no-signed-contract",
+        "value-40"
+      ]
+    },
+    {
+      "event_id": "b03",
+      "seq": 3,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R1"
+      ],
+      "actor": "release-agent"
+    },
+    {
+      "event_id": "b04",
+      "seq": 4,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "director",
+      "response_id": "resp-threshold-v3-open",
+      "root_cause": "threshold-v3-open",
+      "policy_revision": 1,
+      "chosen_option": "rebase-contract"
+    },
+    {
+      "event_id": "b05",
+      "seq": 5,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "monitor-agent",
+      "evidence_id": "ev-threshold-v3-open",
+      "result": "pass",
+      "source": "threshold_and_rollback_check",
+      "policy_revision": 2,
+      "root_cause": "threshold-v3-open",
+      "claims": [
+        "REVALIDATE_UNDER_NEW_CONTRACT",
+        "REVALIDATE_AFTER_PATCH"
+      ]
+    },
+    {
+      "event_id": "b06",
+      "seq": 6,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "monitor-agent"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "scenario_id": "K04-K05-K06-director-loop",
+  "title": "Negotiation exhaustion produces one Director request; duplicate root cause is deduplicated; stale response is rejected",
+  "covers": [
+    "K04",
+    "K05",
+    "K06",
+    "K14"
+  ],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "CONFLICT_REPORTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b",
+      "root_cause": "review-vs-api",
+      "conflict": "API boundary refund vs review invariant"
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "NEGOTIATION_ROUND",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-c",
+      "root_cause": "review-vs-api"
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "CONFLICT_REPORTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b",
+      "root_cause": "review-vs-api"
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "CONFLICT_REPORTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-c",
+      "root_cause": "review-vs-api",
+      "conflict": "duplicate report of the same root cause"
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "ORDINARY_PROGRESS",
+      "scope": [
+        "D"
+      ],
+      "actor": "agent-d",
+      "requires_director": true,
+      "detail": "documentation is progressing"
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "director",
+      "response_id": "resp-valid-1",
+      "root_cause": "review-vs-api",
+      "policy_revision": 1,
+      "chosen_option": "preserve-existing-review"
+    },
+    {
+      "event_id": "e08",
+      "seq": 8,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "director",
+      "response_id": "resp-stale-1",
+      "root_cause": "review-vs-api",
+      "policy_revision": 1,
+      "chosen_option": "preserve-existing-review"
+    },
+    {
+      "event_id": "e09",
+      "seq": 9,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-c",
+      "evidence_id": "ev-BC-after-patch",
+      "result": "pass",
+      "source": "scoped_consumer_test",
+      "policy_revision": 2,
+      "claims": [
+        "REVALIDATE_AFTER_PATCH"
+      ]
+    },
+    {
+      "event_id": "e10",
+      "seq": 10,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "B",
+        "C"
+      ],
+      "actor": "agent-b"
+    },
+    {
+      "event_id": "e11",
+      "seq": 11,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "D"
+      ],
+      "actor": "agent-d"
+    }
+  ]
+}

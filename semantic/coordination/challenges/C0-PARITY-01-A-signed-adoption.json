@@ -1,0 +1,77 @@
+{
+  "scenario_id": "C0-PARITY-01-A-signed-adoption",
+  "title": "A signed external threshold contract is an adoption fact: XG and B3 adopt locally and only revalidate evidence",
+  "plan": "c0-parity-canary.v0.1.json",
+  "expected_escalations": [],
+  "events": [
+    {
+      "event_id": "a01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "director"
+    },
+    {
+      "event_id": "a02",
+      "seq": 2,
+      "type": "CONTRACT_CHANGED",
+      "scope": [
+        "R2"
+      ],
+      "actor": "human-owner",
+      "root_cause": "threshold-v2-signed",
+      "contract_ref": "threshold-v2-signed",
+      "change_key": "threshold_percent",
+      "change_value": 20,
+      "decision_basis": "EXTERNAL_AUTHORITY_DECIDED",
+      "facts": [
+        "signed-threshold-v2",
+        "error-budget-tightened"
+      ]
+    },
+    {
+      "event_id": "a03",
+      "seq": 3,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R1"
+      ],
+      "actor": "release-agent"
+    },
+    {
+      "event_id": "a04",
+      "seq": 4,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "monitor-agent",
+      "evidence_id": "ev-threshold-v2-signed",
+      "result": "pass",
+      "source": "threshold_and_rollback_check",
+      "policy_revision": 2,
+      "root_cause": "threshold-v2-signed",
+      "claims": [
+        "REVALIDATE_UNDER_NEW_CONTRACT"
+      ]
+    },
+    {
+      "event_id": "a05",
+      "seq": 5,
+      "type": "PUBLISH_REQUESTED",
+      "scope": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "actor": "monitor-agent"
+    }
+  ]
+}

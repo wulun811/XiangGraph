@@ -1,0 +1,146 @@
+{
+  "schema_version": "xg-coordination-plan/v0.1",
+  "plan_id": "canary-release-sim-01",
+  "policy_revision": 1,
+  "goal": "Coordinate a simulated canary release with staged traffic, monitoring thresholds, rollback criteria and a human production gate",
+  "risk_boundary": {
+    "external_money_transfer": "PROHIBITED",
+    "production_write": "PROHIBITED",
+    "unknown_effect_retry": "HOLD_UNTIL_RECONCILED",
+    "max_negotiation_rounds": 2,
+    "director_unavailable_default": "HOLD_AFFECTED_SCOPE",
+    "human_only_options": [
+      "prioritize-first",
+      "change-review-requirement",
+      "extend-budget"
+    ]
+  },
+  "works": [
+    {
+      "id": "R1",
+      "purpose": "staged rollout plan and traffic steps",
+      "owners": [
+        "release-agent"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "R2",
+      "purpose": "monitoring thresholds and error-budget checks",
+      "owners": [
+        "monitor-agent"
+      ],
+      "depends_on": [
+        "R1"
+      ]
+    },
+    {
+      "id": "R3",
+      "purpose": "rollback runbook and verification",
+      "owners": [
+        "rollback-agent"
+      ],
+      "depends_on": [
+        "R2"
+      ]
+    },
+    {
+      "id": "R4",
+      "purpose": "customer status note and support handoff",
+      "owners": [
+        "comms-agent"
+      ],
+      "depends_on": [
+        "R3"
+      ]
+    }
+  ],
+  "protocol_composition": [
+    {
+      "protocol": "P-DEP",
+      "version": "v0.1",
+      "scope": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    {
+      "protocol": "P-REVIEW",
+      "version": "v0.1",
+      "scope": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    {
+      "protocol": "P-CONFLICT",
+      "version": "v0.1",
+      "scope": [
+        "R1",
+        "R2"
+      ],
+      "max_rounds": 2
+    },
+    {
+      "protocol": "P-RECOVER",
+      "version": "v0.1",
+      "scope": [
+        "R1"
+      ]
+    },
+    {
+      "protocol": "P-ESCALATE",
+      "version": "v0.1",
+      "scope": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    }
+  ],
+  "escalation_policy": {
+    "director_only_when": [
+      "UNRESOLVED_GOAL_CONFLICT",
+      "PROTOCOL_GAP",
+      "NEGOTIATION_EXHAUSTED",
+      "IMPACT_UNKNOWN_MATERIAL",
+      "RECOVERY_STRATEGY_EXHAUSTED",
+      "BUDGET_OR_DEADLINE_DECISION",
+      "CONTRACT_CHANGE",
+      "DEADLOCK_OR_STARVATION"
+    ],
+    "do_not_escalate_for": [
+      "ORDINARY_PROGRESS",
+      "KNOWN_DEPENDENCY_WAIT",
+      "SCOPED_EVIDENCE_REVALIDATION",
+      "AUTHORIZED_LOCAL_RETRY",
+      "LOCAL_NEGOTIATION_WITHIN_LIMITS"
+    ],
+    "deduplicate_by": [
+      "root_cause",
+      "scope",
+      "scope_revision"
+    ],
+    "response_requires": [
+      "request_id",
+      "policy_revision",
+      "chosen_option",
+      "affected_scope"
+    ],
+    "response_must_pass": [
+      "version_check",
+      "scope_check",
+      "authority_check",
+      "invariant_check"
+    ]
+  },
+  "authority": {
+    "director": "director",
+    "human_authorizer": "human-owner"
+  }
+}

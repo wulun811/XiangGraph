@@ -1,0 +1,12 @@
+{
+  "scenario_id": "K08-revoked-permit",
+  "title": "A revoked permit lets past evidence remain visible but denies dangerous publication",
+  "covers": ["K08"],
+  "events": [
+    {"event_id": "e01", "seq": 1, "type": "WORKS_ASSIGNED", "scope": ["A", "B", "C", "D"], "actor": "director"},
+    {"event_id": "e02", "seq": 2, "type": "PERMIT_REVOKED", "scope": ["B", "C"], "actor": "authority", "grant_id": "grant-old-1", "detail": "the prior publication grant was revoked"},
+    {"event_id": "e03", "seq": 3, "type": "CURRENT_EVIDENCE_RECEIVED", "scope": ["B", "C"], "actor": "agent-c", "evidence_id": "ev-old-work", "result": "pass", "source": "old_test_run", "policy_revision": 1},
+    {"event_id": "e04", "seq": 4, "type": "PUBLISH_REQUESTED", "scope": ["B", "C"], "actor": "agent-b"},
+    {"event_id": "e05", "seq": 5, "type": "PUBLISH_REQUESTED", "scope": ["D"], "actor": "agent-d"}
+  ]
+}

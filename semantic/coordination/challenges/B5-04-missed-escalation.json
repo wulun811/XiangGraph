@@ -1,0 +1,80 @@
+{
+  "scenario_id": "B5-04-missed-escalation",
+  "title": "A strategic event mislabeled ordinary progress is held and escalated; an untrusted requires_director flag alone is not authority",
+  "plan": "partial-refund.v0.1.json",
+  "expected_escalations": ["classification:b8a3eb52f8"],
+  "events": [
+    {
+      "event_id": "e01",
+      "seq": 1,
+      "type": "WORKS_ASSIGNED",
+      "scope": ["A", "B", "C", "D"],
+      "actor": "director"
+    },
+    {
+      "event_id": "e02",
+      "seq": 2,
+      "type": "ORDINARY_PROGRESS",
+      "scope": ["B"],
+      "actor": "agent-b",
+      "root_cause": "progress-x",
+      "requires_director": true,
+      "strategic_indicators": ["acceptance-threshold-changed"],
+      "detail": "ordinary progress: API tests are green"
+    },
+    {
+      "event_id": "e03",
+      "seq": 3,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["B"],
+      "actor": "agent-b"
+    },
+    {
+      "event_id": "e04",
+      "seq": 4,
+      "type": "CURRENT_EVIDENCE_RECEIVED",
+      "scope": ["B"],
+      "actor": "agent-c",
+      "evidence_id": "ev-classification",
+      "result": "pass",
+      "source": "acceptance_review",
+      "policy_revision": 1,
+      "claims": ["VERIFY_STRATEGIC_CLASSIFICATION"]
+    },
+    {
+      "event_id": "e05",
+      "seq": 5,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["B"],
+      "actor": "agent-b"
+    },
+    {
+      "event_id": "e06",
+      "seq": 6,
+      "type": "DIRECTOR_RESPONSE",
+      "scope": ["B"],
+      "actor": "director",
+      "response_id": "resp-classification",
+      "root_cause": "classification:b8a3eb52f8",
+      "policy_revision": 1,
+      "chosen_option": "investigate-scope"
+    },
+    {
+      "event_id": "e07",
+      "seq": 7,
+      "type": "ORDINARY_PROGRESS",
+      "scope": ["A"],
+      "actor": "agent-a",
+      "root_cause": "progress-a",
+      "requires_director": true,
+      "detail": "ordinary progress with an untrusted wake flag"
+    },
+    {
+      "event_id": "e08",
+      "seq": 8,
+      "type": "PUBLISH_REQUESTED",
+      "scope": ["B"],
+      "actor": "agent-b"
+    }
+  ]
+}
