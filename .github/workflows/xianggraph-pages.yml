@@ -1,0 +1,54 @@
+name: Deploy XiangGraph Hackathon Website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "hackathon-site/**"
+      - "showcase/film-en/**"
+      - "showcase/v2/projection.js"
+      - ".github/workflows/xianggraph-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "github-pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare static site and working recorded replay
+        run: |
+          set -euo pipefail
+          test -f hackathon-site/index.html
+          test -f showcase/film-en/index.html
+          test -f showcase/v2/projection.js
+          mkdir -p _site/showcase/v2
+          cp -a hackathon-site/. _site/
+          cp -a showcase/film-en _site/showcase/film-en
+          cp showcase/v2/projection.js _site/showcase/v2/projection.js
+          touch _site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
